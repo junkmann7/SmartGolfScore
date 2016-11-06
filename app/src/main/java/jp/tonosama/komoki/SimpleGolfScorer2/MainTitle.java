@@ -108,7 +108,7 @@ public class MainTitle extends Activity {
      */
     private SaveDataList initSaveData(final ArrayList<Button> saveButton) {
 
-        SaveDataList saveDataList = new SaveDataList(this);
+        SaveDataList saveDataList = new SaveDataList();
         for (int idx = 0; idx < Util.MAX_DATA_SAVE_NUM; idx++) {
             SaveData data = Util.loadScoreDataFromPref(this, idx);
             String title = data.getHoleTitle();

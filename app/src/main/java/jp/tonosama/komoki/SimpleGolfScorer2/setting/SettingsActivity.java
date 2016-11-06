@@ -135,7 +135,7 @@ public class SettingsActivity extends Activity {
      */
     private void setupRoundConditSpinner(final int roundCondit) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         adapter.add(getResources().getString(R.string.weather_shine));
         adapter.add(getResources().getString(R.string.weather_cloudy));
@@ -198,7 +198,7 @@ public class SettingsActivity extends Activity {
             button[i].setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(final View v) {
-                    int j = 0;
+                    int j;
                     for (j = 0; j < Util.MAX_PLAYER_NUM; j++) {
                         if (v == button[j]) {
                             break;
@@ -392,9 +392,7 @@ public class SettingsActivity extends Activity {
                 tmp++;
             }
         }
-        for (int i = 0; i < Util.MAX_PLAYER_NUM; i++) {
-            personNames[i] = strTmp[i];
-        }
+        System.arraycopy(strTmp, 0, personNames, 0, Util.MAX_PLAYER_NUM);
         // SharedPreferenceへ記録
         savePreference();
 
@@ -405,7 +403,6 @@ public class SettingsActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
             finish();
         }
-        return;
     }
 
     /**
@@ -483,9 +480,7 @@ public class SettingsActivity extends Activity {
      * @return isNewCreate
      */
     private boolean getIsNewCreate() {
-        if (getIntent() == null || getIntent().getExtras() == null) {
-            return true;
-        }
-        return getIntent().getExtras().getBoolean(Util.EXTRAS_IS_NEW_CREATE, true);
+        return getIntent() == null || getIntent().getExtras() == null ||
+                getIntent().getExtras().getBoolean(Util.EXTRAS_IS_NEW_CREATE, true);
     }
 }

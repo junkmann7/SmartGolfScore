@@ -454,7 +454,7 @@ public class WheelView extends View {
         int width = widthSize;
         int maxLength = getMaxTextLength();
         if (maxLength > 0) {
-            float textWidth = FloatMath.ceil(Layout.getDesiredWidth("0", mItemsPaint));
+            float textWidth = (float) Math.ceil(Layout.getDesiredWidth("0", mItemsPaint));
             mItemsWidth = (int) (maxLength * textWidth);
         } else {
             mItemsWidth = 0;
@@ -462,7 +462,7 @@ public class WheelView extends View {
         mItemsWidth += (int) (WheelViewConfig.ADDITIONAL_ITEMS_SPACE * mDensity);
         mLabelWidth = 0;
         if (mLabel != null && mLabel.length() > 0) {
-            mLabelWidth = (int) FloatMath.ceil(Layout.getDesiredWidth(mLabel, mValuePaint));
+            mLabelWidth = (int) Math.ceil(Layout.getDesiredWidth(mLabel, mValuePaint));
         }
         boolean recalculate = false;
         if (mode == MeasureSpec.EXACTLY) {

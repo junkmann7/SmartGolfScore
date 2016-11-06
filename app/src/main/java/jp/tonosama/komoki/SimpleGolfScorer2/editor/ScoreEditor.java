@@ -77,19 +77,18 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         Button prevArrw = SERes.getPrevArrwButton(this);
         Button nextArrw = SERes.getNextArrwButton(this);
         mDragUi = new DragUi(this);
-        setupUiAction(getData(), mDragUi, prevArrw, nextArrw);
+        setupUiAction(mDragUi, prevArrw, nextArrw);
     }
 
     /**
      * setupUiAction
      * 
-     * @param saveData SaveData
      * @param dragUi DragUi
      * @param prevArrw Button
      * @param nextArrw Button
      */
-    private void setupUiAction(final SaveData saveData, final DragUi dragUi, final Button prevArrw,
-            final Button nextArrw) {
+    private void setupUiAction(final DragUi dragUi, final Button prevArrw,
+                               final Button nextArrw) {
 
         // Spinner changed listener
         setSpinnerSelectAction(SERes.getParSpinner(this));
@@ -235,12 +234,12 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         }
         // ドラムをロックする対応
         final boolean isLocked = sData.getEachHoleLocked()[newCurHole - 1];
-        for (int i = 0; i < drum.length; i++) {
-            drum[i].setIsWheelLocked(isLocked);
-            drum[i].invalidate();
+        for (WheelView aDrum : drum) {
+            aDrum.setIsWheelLocked(isLocked);
+            aDrum.invalidate();
         }
         // Rating の更新
-        refreshEditorRating(sData, holeMove);
+        refreshEditorRating(sData);
         // 
         refreshDragAndDrum(sData, drum);
         //
@@ -251,9 +250,8 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
 
     /**
      * @param sData GolfScoreData
-     * @param holeMove int
      */
-    private void refreshEditorRating(final SaveData sData, final int holeMove) {
+    private void refreshEditorRating(final SaveData sData) {
 
         RatingBar ratingBar = SERes.getRatingBar(this);
         // RatingBar のカレント数値エリアに値をセット
@@ -395,7 +393,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         onSaveResult(getData());
 
         mDragUi.setCurrentX(DragUi.DEFAULT_X);
-        view.layout(DragUi.DEFAULT_X, 0, DragUi.DEFAULT_X + view.getWidth(), 0 + view.getHeight());
+        view.layout(DragUi.DEFAULT_X, 0, DragUi.DEFAULT_X + view.getWidth(), view.getHeight());
 
         // アニメーション対応
         // (右から中心,中心から右方向,下から中心,中心から下方向)
@@ -420,7 +418,6 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         View drumPickerArea = findViewById(SERes.DRUM_PICKER_AREA_RES_ID);
         onAnimationEndMain(drumPickerArea, mDragUi.getAnimVal());
         mDragUi.setIsAnimating(false);
-        return;
     }
 
     public void onAnimationRepeat(final Animation animation) {

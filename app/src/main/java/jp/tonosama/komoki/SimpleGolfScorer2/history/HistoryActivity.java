@@ -345,7 +345,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
      */
     private SaveDataList initGolfScoreData() {
 
-        SaveDataList dataList = new SaveDataList(this);
+        SaveDataList dataList = new SaveDataList();
 
         int fixedHoleNum = 0;
         for (int idx = 0; idx < Util.MAX_DATA_SAVE_NUM; idx++) {

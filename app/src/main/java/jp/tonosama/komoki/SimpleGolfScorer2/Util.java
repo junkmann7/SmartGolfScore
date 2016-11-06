@@ -26,13 +26,11 @@ public final class Util {
     /**  */
     public static final String[] PREF_DATA_SLOT = new String[MAX_DATA_SAVE_NUM];
     /**  */
-    public static final String EXTRAS_IMAGE_URI_TABLE = "jp.tonosama.komoki.EXTRAS_IMAGE_URI_TABLE";
-    /**  */
     public static final String EXTRAS_IMAGE_URI_GRAPH = "jp.tonosama.komoki.EXTRAS_IMAGE_URI_GRAPH";
     /**  */
-    public static final String EXTRAS_FIXED_DATA_NUM = "jp.tonosama.komoki.EXTRAS_FIXED_DATA_NUM";
+    static final String EXTRAS_FIXED_DATA_NUM = "jp.tonosama.komoki.EXTRAS_FIXED_DATA_NUM";
     /**  */
-    public static final String EXTRAS_SAVED_DATA_NUM = "jp.tonosama.komoki.EXTRAS_SAVED_DATA_NUM";
+    static final String EXTRAS_SAVED_DATA_NUM = "jp.tonosama.komoki.EXTRAS_SAVED_DATA_NUM";
     /**  */
     public static final String EXTRAS_SELECTED_IDX = "jp.tonosama.komoki.EXTRAS_SELECTED_IDX";
     /**  */
@@ -43,13 +41,13 @@ public final class Util {
     public static final String EXTRAS_OUT_SAVE_DATA = "jp.tonosama.komoki.EXTRAS_OUTPUT_SAVE_DATA";
 
     /**  */
-    public static final String BACKUP_DIR_NAME = "SmartGolfScore/backup";
+    static final String BACKUP_DIR_NAME = "SmartGolfScore/backup";
     /**  */
-    public static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
+    static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
     /**  */
-    public static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
+    static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
     /**  */
-    public static final String MARKET_PACKAGE_NAME = "com.android.vending";
+    static final String MARKET_PACKAGE_NAME = "com.android.vending";
 
     /**  */
     public static final String[] PREF_DATA_KEY = { "SAVED_DATA_NUM", "HOLE_TITLE", "CUR_HOLE_NUM",
@@ -58,24 +56,13 @@ public final class Util {
             "PERSON_HANDI", "IS_18H_ROUNG", "IS_HOLE_LOCKED", "PAT_SCORE_1", "CONDITION", };
 
     /**  */
-    public static final String DEFAULT_HOLEPAR_SCORE_STR = "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,";
+    private static final String DEFAULT_HOLEPAR_SCORE_STR = "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,";
     /**  */
     public static final int[] DEFAULT_HOLEPAR_SCORE = { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
             4, 4, 4, 4 };
     /**  */
     public static final int[] DEFAULT_HOLEPAR_SHORT_SCORE = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
             3, 3, 3, 3, 3, 3 };
-    /**  */
-    public static final int[] DEFAULT_PERSON_SCORE = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0 };
-    /**  */
-    public static final boolean[] DEFAULT_IS_HOLE_LOCKED = { false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false, false, false, false,
-            false };
-    /**  */
-    public static final String DEFAULT_PERSON_SCORE_STR = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,";
-    /**  */
-    public static final String DEFAULT_IS_HOLE_LOCKED_STR = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,";
     /**  */
     public static final int MAX_PLAYER_NUM = 4;
 
@@ -88,7 +75,6 @@ public final class Util {
     /**
      * @param context context
      * @param idx idx
-     * @return
      */
     public static SaveData loadScoreDataFromPref(final Context context, final int idx) {
 
@@ -114,7 +100,7 @@ public final class Util {
      * @param data scoreData
      */
     private static void loadScoreData01to07(final SharedPreferences pref, final SaveData data) {
-        String[] str = null;
+        String[] str;
         // タイトル
         String holeTitle = //
         pref.getString(PREF_DATA_KEY[1], "");
@@ -150,7 +136,7 @@ public final class Util {
      * @param data scoreData
      */
     private static void loadScoreData08to11(final SharedPreferences pref, final SaveData data) {
-        String[] str = null;
+        String[] str;
         // 各プレイヤー１のスコア
         str = pref.getString(PREF_DATA_KEY[8], "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,").split(",");
         for (int x = 0; x < TOTAL_HOLE_COUNT; x++) {
@@ -194,7 +180,7 @@ public final class Util {
      * @param data scoreData
      */
     private static void loadScoreData12to14(final SharedPreferences pref, final SaveData data) {
-        String[] str = null;
+        String[] str;
         // メモ
         String homeMemo = pref.getString(PREF_DATA_KEY[12], "");
         data.setMemoStr(homeMemo);
@@ -221,7 +207,7 @@ public final class Util {
      * @param data scoreData
      */
     private static void loadScoreData15to17(final SharedPreferences pref, final SaveData data) {
-        String[] str = null;
+        String[] str;
         // 各ホールの確定済み判定
         str = pref.getString(PREF_DATA_KEY[15], "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,").split(",");
         for (int x = 0; x < TOTAL_HOLE_COUNT; x++) {
@@ -278,14 +264,13 @@ public final class Util {
     /**
      * @param context Context
      * @param scoreData GolfScoreData
-     * @param saveNum int
      */
     public static void saveScoreData(final Context context, final SaveData scoreData) {
         String[] scores = new String[4];
         StringBuilder strHandi = new StringBuilder();
         for (int i = 0; i < scores.length; i++) {
             scores[i] = "";
-            strHandi.append(String.valueOf(scoreData.getPlayersHandi()[i]) + ",");
+            strHandi.append(String.valueOf(scoreData.getPlayersHandi()[i])).append(",");
         }
         String isHoleLockedStr = "";
         String patScore = "";

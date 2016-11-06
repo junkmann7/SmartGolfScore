@@ -26,14 +26,10 @@ public class SaveDataComparator implements Comparator<Object>, Serializable {
     /**  */
     private int mSortType;
 
-    public SaveDataComparator() {
-        mSortType = SORT_TYPE_CREATE_DESCENDING;
-    }
-
     /**
      * @param sortType sortType
      */
-    public SaveDataComparator(final int sortType) {
+    SaveDataComparator(final int sortType) {
         mSortType = sortType;
     }
 
@@ -57,7 +53,7 @@ public class SaveDataComparator implements Comparator<Object>, Serializable {
                 compare = -1;
             }
             if (data0.getHoleTitle().compareToIgnoreCase(data1.getHoleTitle()) < 0) {
-                return 1 * compare;
+                return compare;
             } else if (data0.getHoleTitle().compareToIgnoreCase(data1.getHoleTitle()) == 0) {
                 return 0;
             } else {
@@ -71,11 +67,10 @@ public class SaveDataComparator implements Comparator<Object>, Serializable {
      * @return SortTypeStr
      */
     public static String[] getSortTypeStr(final Resources res) {
-        String[] sortNames = { //
+        return new String[]{ //
         res.getString(R.string.menu_sort_create_descending),
                 res.getString(R.string.menu_sort_create_ascending),
                 res.getString(R.string.menu_sort_name_descending),
                 res.getString(R.string.menu_sort_name_ascending) };
-        return sortNames;
     }
 }

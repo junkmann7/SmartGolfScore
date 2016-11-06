@@ -31,7 +31,7 @@ import android.widget.Toast;
 /**
  * @author Komoki
  */
-public class TitleMenuManager {
+class TitleMenuManager {
 
     /** タグ名 */
     private static final String TAG = TitleMenuManager.class.getSimpleName();
@@ -42,11 +42,7 @@ public class TitleMenuManager {
     /** メニューID */
     private static final int FIRST_ID = Menu.FIRST;
 
-    /**
-     * @param menu
-     * @param context
-     */
-    public void onCreateOptionsMenu(final Menu menu, final Context context) {
+    void onCreateOptionsMenu(final Menu menu, final Context context) {
 
         Resources res = context.getResources();
         // バックアップ
@@ -64,12 +60,7 @@ public class TitleMenuManager {
         menu4.setIcon(R.drawable.ic_menu_question);
     }
 
-    /**
-     * @param item
-     * @param context
-     * @return
-     */
-    public boolean onOptionsItemSelected(final MenuItem item, final Context context) {
+    boolean onOptionsItemSelected(final MenuItem item, final Context context) {
         if (DEBUG) {
             Log.d(TAG, "onOptionsItemSelected item:" + item.toString());
         }

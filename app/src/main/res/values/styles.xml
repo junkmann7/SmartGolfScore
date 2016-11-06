@@ -1,7 +1,7 @@
-<!DOCTYPE values>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="@android:style/Theme.NoTitleBar"></style>
+    <style name="AppTheme" parent="@android:style/Theme.NoTitleBar"/>
 
     <style name="Theme.DarkerWallpaperSettings" parent="@android:style/Theme.Translucent">
         <item name="android:windowBackground">@color/partially_translucent_black</item>

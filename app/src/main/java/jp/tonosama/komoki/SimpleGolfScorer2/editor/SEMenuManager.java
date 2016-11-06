@@ -20,7 +20,7 @@ import android.widget.Toast;
 /**
  * @author Komoki
  */
-public final class SEMenuManager {
+final class SEMenuManager {
 
     /**  */
     private static final String TAG = SEMenuManager.class.getSimpleName();
@@ -38,8 +38,8 @@ public final class SEMenuManager {
      * @param item MenuItem
      * @return true: false:
      */
-    public static boolean onOptionsItemSelected(final MenuItem item, final Activity mActivity,
-            final SaveData scoreData) {
+    static boolean onOptionsItemSelected(final MenuItem item, final Activity mActivity,
+                                         final SaveData scoreData) {
         if (DEBUG) {
             Log.d(TAG,
                     "onOptionsItemSelected item:" + item.toString() + " scoreData:"
@@ -107,7 +107,7 @@ public final class SEMenuManager {
      * @param mActivity Activity
      * @param scoreData GolfScoreData
      */
-    public static void menuRoundSetting(final Activity mActivity, final SaveData scoreData) {
+    static void menuRoundSetting(final Activity mActivity, final SaveData scoreData) {
 
         Intent intent = new Intent(mActivity, SettingsActivity.class);
         intent.putExtra(Util.EXTRAS_IS_NEW_CREATE, false); // 新規作成でない事を通知

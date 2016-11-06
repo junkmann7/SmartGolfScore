@@ -151,7 +151,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                         i.setType("message/rfc822");
                         i.putExtra(Intent.EXTRA_SUBJECT, subject);
                         i.putExtra(Intent.EXTRA_TEXT, text);
-                        ArrayList<Uri> mImageUris = new ArrayList<Uri>();
+                        ArrayList<Uri> mImageUris = new ArrayList<>();
                         mImageUris.add(imageTableUri);
                         mImageUris.add(imageGraphUri);
                         i.putExtra(Intent.EXTRA_STREAM, mImageUris);
@@ -163,9 +163,6 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         (new Thread(runnable)).start();
     }
 
-    /**
-     * @param scoreData
-     */
     public void getPlayerScoreViews(final SaveData scoreData) {
 
         SharedPreferences pref = getSharedPreferences(PREF_TABLE_SETTING, MODE_PRIVATE);
@@ -197,7 +194,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 secondHalfScore[i].setVisibility(View.GONE);
                 handiScoreTV[i].setVisibility(View.GONE);
                 totalScoreTV[i].setVisibility(View.GONE);
-                ((TextView) findViewById(SVRes.PLAYER_NAME_AREA[i])).setVisibility(View.GONE);
+                findViewById(SVRes.PLAYER_NAME_AREA[i]).setVisibility(View.GONE);
             } else {
                 ((TextView) findViewById(SVRes.PLAYER_NAME_AREA[i])).setText(personNames[i]);
             }
@@ -309,24 +306,27 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             if (0 < patScore) {
                 patStr = "  ( " + patScore + " )";
             }
+            final String scoreUnderStr = String.valueOf(perScore - parScore) + patStr;
+            final String scoreOverStr = "+" + scoreUnderStr;
+            final String scoreAbsStr = String.valueOf(perScore) + patStr;
             switch (mScoreViewerType) {
             case VIEWER_TYPE_RELATIVE:
                 if (perScore < parScore) { // アンダーパーの場合
-                    tv.setText(String.valueOf(perScore - parScore) + patStr);
+                    tv.setText(scoreUnderStr);
                     tv.setTextColor(Color.GREEN);
                 } else if (perScore == parScore) { // パーの場合
-                    tv.setText(String.valueOf(perScore - parScore) + patStr);
+                    tv.setText(scoreUnderStr);
                     tv.setTextColor(Color.BLUE);
                 } else if (perScore > parScore + 3) { // オーバーパーの場合（＋４以上
-                    tv.setText("+" + String.valueOf(perScore - parScore) + patStr);
+                    tv.setText(scoreOverStr);
                     tv.setTextColor(Color.RED);
                 } else if (perScore > parScore) { // オーバーパー）の場合
-                    tv.setText("+" + String.valueOf(perScore - parScore) + patStr);
+                    tv.setText(scoreOverStr);
                     tv.setTextColor(Color.BLACK);
                 }
                 break;
             case VIEWER_TYPE_ABSOLUTE:
-                tv.setText(String.valueOf(perScore) + patStr);
+                tv.setText(scoreAbsStr);
                 if (perScore < parScore) { // アンダーパーの場合
                     tv.setTextColor(Color.GREEN);
                 } else if (perScore == parScore) { // パーの場合
@@ -368,7 +368,8 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         String[] names = scoreData.getNames();
         for (int i = 0; i < totalHoleCount; i++) {
             if (parScore[i] != 0) {
-                parScoreTV[i].setText("Par" + String.valueOf(parScore[i]));
+                String scoreStr = "Par" + String.valueOf(parScore[i]);
+                parScoreTV[i].setText(scoreStr);
             }
             for (int j = 0; j < names.length; j++) {
                 updateScore(tvList[j][i], names[j], scores[j][i], parScore[i], patScore[j][i]);
@@ -419,7 +420,8 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 if (0 < totalPat[i]) {
                     patStr = " (" + String.valueOf(totalPat[i]) + ")";
                 }
-                totalScoreTV[i].setText(String.valueOf(totalScore[i] - playersHandi[i]) + patStr);
+                String scoreStr = String.valueOf(totalScore[i] - playersHandi[i]) + patStr;
+                totalScoreTV[i].setText(scoreStr);
                 handiScoreTV[i].setText(String.valueOf(playersHandi[i]));
             }
         }
@@ -444,13 +446,15 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 if (0 < totalFirstHalfPat[i]) {
                     patStr1st = " (" + String.valueOf(totalFirstHalfPat[i]) + ")";
                 }
-                firstHalfScore[i].setText(String.valueOf(totalFirstHalfScore[i]) + patStr1st);
+                final String score1stHalfStr = String.valueOf(totalFirstHalfScore[i]) + patStr1st;
+                firstHalfScore[i].setText(score1stHalfStr);
                 // 後半
                 String patStr2nd = "";
                 if (0 < totalSecondHalfPat[i]) {
                     patStr2nd = " (" + String.valueOf(totalSecondHalfPat[i]) + ")";
                 }
-                secondHalfScore[i].setText(String.valueOf(totalSecondHalfScore[i]) + patStr2nd);
+                final String score2ndHalfStr = String.valueOf(totalSecondHalfScore[i]) + patStr2nd;
+                secondHalfScore[i].setText(score2ndHalfStr);
             }
         }
     }
@@ -465,7 +469,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
 
             public void onFocusChange(final View v, final boolean hasFocus) {
                 if (hasFocus) {
-                    int j = 0;
+                    int j;
                     for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
                         if (v == mScoreAreaList[j]) {
                             break;
@@ -473,7 +477,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                     }
                     mScoreAreaList[j].setBackgroundColor(Color.rgb(85, 119, 255));
                 } else {
-                    int j = 0;
+                    int j;
                     for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
                         if (v == mScoreAreaList[j]) {
                             break;
@@ -498,7 +502,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         vg.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
-                int j = 0;
+                int j;
                 for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
                     if (v == mScoreAreaList[j]) {
                         break;
@@ -622,24 +626,6 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         mDialog.create().show();
     }
 
-    public Bitmap getOutputImageBitmap() {
-        int currHole = getScoreData().getCurrentHole();
-        // キャプチャするViewの指定と取得
-        mOutputBtn.setVisibility(View.GONE);
-        mSettingBtn.setVisibility(View.GONE);
-        mScoreAreaList[currHole - 1].setBackgroundColor(Color.alpha(0));
-
-        View disp = findViewById(R.id.graph_view_captured_area);
-        disp.setBackgroundResource(R.drawable.back_land);
-        disp.setDrawingCacheEnabled(true);
-        Bitmap source = disp.getDrawingCache();
-
-        mOutputBtn.setVisibility(View.VISIBLE);
-        mSettingBtn.setVisibility(View.VISIBLE);
-        mScoreAreaList[currHole - 1].setBackgroundColor(Color.alpha(255));
-        return source;
-    }
-
     public Uri getOutputImageUri() {
 
         int currHole = getScoreData().getCurrentHole();
@@ -650,16 +636,15 @@ public class ScoreViewer extends Activity implements OnTouchListener {
 
         long dateTaken = System.currentTimeMillis();
         String name = createName(dateTaken) + ".png";
-        String filename = name;
         String directory = Environment.getExternalStorageDirectory().toString() + "/"
                 + CAPTURE_IMAGE_DIR;
-        String filePath = directory + "/" + filename;
-        if (!saveImageFile(directory, filename)) {
+        String filePath = directory + "/" + name;
+        if (!saveImageFile(directory, name)) {
             return null;
         }
         ContentValues values = new ContentValues(7);
         values.put(Images.Media.TITLE, name);
-        values.put(Images.Media.DISPLAY_NAME, filename);
+        values.put(Images.Media.DISPLAY_NAME, name);
         values.put(Images.Media.DATE_TAKEN, dateTaken);
         values.put(Images.Media.MIME_TYPE, "image/png");
         values.put(Images.Media.DATA, filePath);
@@ -759,7 +744,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      * @return ホール番号
      */
     private int getViewHoleNumber(final View view) {
-        int j = 0;
+        int j;
         for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
             if (view == mScoreAreaList[j]) {
                 break;
