@@ -1,0 +1,98 @@
+<!DOCTYPE Layout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/adjusted_size_80dp"
+        android:layout_marginLeft="@dimen/adjusted_size_10dp"
+        android:layout_marginRight="@dimen/adjusted_size_10dp"
+        android:layout_marginTop="@dimen/adjusted_size_20dp"
+        android:background="@drawable/letter_back"
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/adjusted_size_80dp"
+        android:layout_marginLeft="@dimen/adjusted_size_10dp"
+        android:layout_marginRight="@dimen/adjusted_size_10dp"
+        android:layout_marginTop="@dimen/adjusted_size_20dp" >
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="9px"
+            android:layout_marginLeft="24px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="18px" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/droid_letter_body"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/adjusted_size_10dp"
+                    android:paddingLeft="@dimen/adjusted_size_10dp"
+                    android:paddingRight="@dimen/adjusted_size_10dp"
+                    android:paddingTop="@dimen/adjusted_size_15dp"
+                    android:textColor="#000"
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <!-- 次のホールへ ここから -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="-20dp"
+            android:background="@drawable/shadow_bottom_20" />
+
+        <LinearLayout
+            android:id="@+id/next_hole_area"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/adjusted_size_42dp"
+            android:background="@drawable/footer_back" >
+
+            <ImageView
+                android:layout_width="@dimen/adjusted_size_42dp"
+                android:layout_height="@dimen/adjusted_size_42dp"
+                android:padding="@dimen/adjusted_size_5dp" >
+            </ImageView>
+
+            <Button
+                android:id="@+id/send_letter_btn"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/adjusted_size_2dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/image_button_mail"
+                android:text="@string/comment_send_button"
+                android:textSize="@dimen/adjusted_text_size_12dp" />
+
+            <ImageView
+                android:id="@+id/get_result_image_btn"
+                android:layout_width="@dimen/adjusted_size_42dp"
+                android:layout_height="@dimen/adjusted_size_42dp"
+                android:padding="@dimen/adjusted_size_5dp" >
+            </ImageView>
+        </LinearLayout>
+        <!-- 次のホールへ ここまで -->
+    </LinearLayout>
+
+</RelativeLayout>

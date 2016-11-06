@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        applicationId "jp.tonosama.komoki.SimpleGolfScorer2"
+        minSdkVersion 4
+        targetSdkVersion 4
+    }
+    signingConfigs {
+        debug {
+            storeFile file("../config/debug.keystore")
+        }
+        release
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
+            ext.enableCrashlytics = false
+        }
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFile file('proguard-mlink.cfg')
+            ext.enableCrashlytics = false
+        }
+    }
+    productFlavors {
+        develop
+        production
+    }
+}
+
+dependencies {
+    compile fileTree(include: '*.jar', dir: 'libs')
+    compile 'com.android.support:support-v4:21.0.3'
+    compile group: 'org.achartengine', name: 'achartengine', version: '1.2.0'
+}
+

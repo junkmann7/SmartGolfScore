@@ -1,0 +1,320 @@
+﻿<!DOCTYPE values>
+<resources>
+
+    <string name="app_name">Smart Golf Score</string>
+    <string name="hole_title">HOLE TITLE</string>
+    <string name="new_create">New Game</string>
+    <string name="round_setting">Round Setting</string>
+    <string name="round_title">Title</string>
+    <string name="player_name">Player</string>
+    <string name="myname_hint">Your Name</string>
+    <string name="player_hint">Player</string>
+    <string name="handi_hint">handi</string>
+    <string name="round_name">Round</string>
+    <string name="round_18h">18H</string>
+    <string name="round_out_in">Out/In</string>
+    <string name="memo_name">Memo</string>
+    <string name="memo_hint">Memo</string>
+    <string name="save_setting">Save Setting</string>
+    <string name="graph_btn">Graph</string>
+    <string name="table_btn">Table</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_setting">Settings</string>
+    <string name="menu_output_score">Save Score</string>
+    <string name="menu_output_graph">Save Graph</string>
+    <string name="menu_backup">Backup</string>
+    <string name="menu_restore">Restore</string>
+    <string name="menu_chg_tble">Change Value Style</string>
+    <string name="menu_about">about</string>
+    <string name="menu_history">History</string>
+    <string name="menu_sort">Sort</string>
+    <string name="menu_sort_create_descending">Time Descending</string>
+    <string name="menu_sort_create_ascending">Time Ascending</string>
+    <string name="menu_sort_name_descending">Name Descending</string>
+    <string name="menu_sort_name_ascending">Name Ascending</string>
+    <string name="dlg_delete_title">Delete data</string>
+    <string name="dlg_delete_msg">Delete this data.OK?</string>
+    <string name="dlg_chgb_title">Select basis</string>
+    <string name="dlg_backup_title">Backup</string>
+    <string name="dlg_backup_guide_msg">Create backup data in sdcard.OK?</string>
+    <string name="dlg_backup_msg">Backup data saved.\n%1$s\n%2$s</string>
+    <string name="dlg_restore_title">Select backup data</string>
+    <string name="dlg_restore_confirm_title">Confirm backup data</string>
+    <string name="dlg_restore_confirm_msg">Found following data.\nDelete all current data and overwrite by this data.OK?\n\n%1$s</string>
+    <string name="dlg_chg_tble_title">Select Value Style</string>
+    <string name="dlg_delete_player_title">Delete player</string>
+    <string name="dlg_delete_player_msg">Delete [%1$s]. This operation is not cancelable.</string>
+    <string name="dlg_output_image_msg_score">Saved the result of score as image. Send this image by E-Mail?</string>
+    <string name="dlg_output_image_msg_graph">Saved the result of graph as image. Send this image by E-Mail?</string>
+    <string name="dlg_output_image_by_viewer">No</string>
+    <string name="dlg_output_image_by_email">Yes</string>
+    <string name="btn_change_table_basis_par">"Basis：PAR"</string>
+    <string name="btn_change_table_basis_abs">"Basis：ABS"</string>
+    <string name="btn_change_graph_basis">"Basis:%1$s"</string>
+    <string name="toast_nothing_is_selected">Nothing is Selected !</string>
+    <string name="toast_deleted_data">Deleted data.</string>
+    <string name="toast_input_title">Please input title.</string>
+    <string name="toast_input_player">Please input player.</string>
+    <string name="toast_created_new_data">Created new data.</string>
+    <string name="toast_saved_settings">Saved settings.</string>
+    <string name="toast_backup_not_found">Backup data not found.</string>
+    <string name="toast_backup_complete">Backup data restored.</string>
+    <string name="setting_short_hole">short hole setting</string>
+    <string name="etc_content_description">Content Description</string>
+    <string name="weather_shine">"Shine"</string>
+    <string name="weather_cloudy">"Cloud"</string>
+    <string name="weather_rain">"Rain "</string>
+    <string name="weather_wind">"Big Wind"</string>
+    <string name="weather_mud">"Mud"</string>
+    <string name="weather_select_title">"Select Condition"</string>
+    <!--
+     ===============================================================
+     Score Viewer
+	 ===============================================================
+    -->
+    <string name="score_viewer_handi">"Handicap"</string>
+    <string name="score_viewer_total">"Total"</string>
+
+    <!--
+     ===============================================================
+     Personal History
+	 ===============================================================
+    -->
+
+    <string name="myhist_vital_score_0">is Normal.</string>
+    <string name="myhist_vital_score_1">is a bit high.</string>
+    <string name="myhist_vital_score_2">is outclassing!</string>
+    <string name="myhist_pressure_score_0">the King of Chicken</string>
+    <string name="myhist_pressure_score_1">a General Chicken</string>
+    <string name="myhist_pressure_score_2">Normal</string>
+    <string name="myhist_pressure_score_3">a Strong man</string>
+    <string name="myhist_pressure_score_4">very high like a Viper</string>
+    <string name="myhist_attitude_score_0">Very Earnest</string>
+    <string name="myhist_attitude_score_1">Earnest</string>
+    <string name="myhist_attitude_score_2">Normal</string>
+    <string name="myhist_attitude_score_3">Excess</string>
+    <string name="hist_ret_round_title">"%1$s"</string>
+    <string name="hist_ret_my_rank">"Rank %1$d (%2$d)"</string>
+    <string name="hist_ret_my_total_score">"Out %1$d In %2$d"</string>
+    <string name="hist_ret_my_ttl_sum_score">"%1$d"</string>
+    <string name="hist_ret_my_handi">"Handi %1$d"</string>
+    <string name="hist_ret_my_score_ave">"Score Average  : %1$+.1f"</string>
+    <string name="hist_ret_my_pat_ave">"Pat Average     : %1$.1f"</string>
+    <string name="hist_ret_my_par_on_rate">"Green In Reg   : %1$.1f%%"</string>
+    <string name="hist_ret_my_bogey_on_rate">"bogey In Reg   : %1$.1f%%"</string>
+    <string name="hist_ret_my_weak_hole">"Weak Hole      : PAR%1$d (%2$+.1f)"</string>
+    <string name="hist_ret_my_attitude">"Your attitude to golf is %1$s."</string>
+    <string name="hist_ret_my_vital">"Your Charisma %1$s."</string>
+    <string name="hist_ret_my_pressure">"Your Hardness is %1$s."</string>
+    <string name="myhist_score_check_title">"&lt;Score Check>"</string>
+    <string name="hist_ret_my_pottential">"Your Pottential Capacity is %1$d."</string>
+    <string name="hist_ret_data_not_found">"No data exist"</string>
+    <string name="myhist_is_short">"Short Course"</string>
+
+    <!--
+     ===============================================================
+     Droid Comment S
+     ===============================================================
+    -->
+
+    <string name="comment_by_droid">"Droid's Comment"</string>
+
+    <!-- about round summary -->
+    <string name="comment_round_summary_subject">"[ %1$s ]"</string>
+    <string name="comment_round_summary_00">"Hi! This is Droid.\nYou've been working hard!\n"</string>
+    <string name="comment_round_summary_02">"In the game of %1$s, I saw your great play in your smart phone."</string>
+    <string name="comment_round_summary_03">"Short course is very simple and convenient isn't it ?\n"</string>
+    <string name="comment_round_summary_04">"I'm afraid I would like to comment about your round.\n\n"</string>
+    <string name="comment_round_summary_99">"I'm looking forward to play with you in your another round.\n\nBest regards. Droid."</string>
+    <string name="comment_send_button">"Send this message by E-Mail"</string>
+
+    <!-- about letter counter -->
+    <string name="comment_round_counter_00">"Hello, "</string>
+    <string name="comment_round_counter_01">"Hi, "</string>
+    <string name="comment_round_counter_02">"Thanks each time! "</string>
+    <string name="comment_round_counter_03">"Thanks for having used for a long time! "</string>
+    <string name="comment_round_counter_04">"What year is it now? I appreciate for your faivorite, please let me know your impression. "</string>
+    <string name="comment_round_counter_05">"This comment is miracle!</string>
+
+    <!-- about myself -->
+    <string name="comment_round_myself_00">"Your best patting was updated."</string>
+    <string name="comment_round_myself_01">"The best half score was updated."</string>
+    <string name="comment_round_myself_02">"The best score was updated!"</string>
+    <string name="comment_round_myself_03">"It was first %1$s！"</string>
+    <string name="comment_round_myself_04">"Your Patthing is better usual."</string>
+    <string name="comment_round_myself_05">"You're kidding! Don't excuse yourself!"</string>
+    <string name="comment_round_myself_06">"A tune is good these days.  "</string>
+    <string name="comment_round_myself_07">"You should arrange more. You can do it! "</string>
+    <string name="comment_round_myself_08">"This comment is very rarely because this trigger is updated flag volume."</string>
+    <string name="comment_round_myself_09">"You seem to be Helvella.Yee-Ha! "</string>
+    <string name="comment_round_myself_10">"Let's enjoy ourselves at this tune. "</string>
+    <string name="comment_round_myself_11">"Your pottential capacity upgraded. "</string>
+    <string name="comment_round_myself_12">"The best GIR was updated. "</string>
+    <!-- about round record -->
+    <string name="comment_round_record_00">"Rank %1$d %2$s (%3$+d)\n"</string>
+    <string name="comment_round_record_01">" - Score         : %1$d\n"</string>
+    <string name="comment_round_record_02">" - First  half    : %1$d\n"</string>
+    <string name="comment_round_record_03">" - Second half : %1$d\n"</string>
+    <string name="comment_round_record_04">" - Handicap    : %1$d\n"</string>
+
+    <!-- about rival -->
+    <string name="comment_rival_01">" and "</string>
+    <string name="comment_rival_02">"Mr.%1$s"</string>
+    <string name="comment_rival_03">" and "</string>
+    <string name="comment_rival_04">"There is not order fluctuation, and you almost run alone.\n"</string>
+    <string name="comment_rival_05">"cloth battle.\n"</string>
+    <string name="comment_rival_06">"three-way struggle.\n"</string>
+    <string name="comment_rival_07">"… all the players were fighting a close fight, and I was excited. \n"</string>
+    <string name="comment_rival_08">"Your turning point is at the %1$dth Hole where you "</string>
+    <string name="comment_rival_09">"overstrided Mr.%1$s."</string>
+    <string name="comment_rival_10">"cought up with Mr.%1$s. "</string>
+    <string name="comment_rival_11">"was cought by Mr.%1$s. "</string>
+    <string name="comment_rival_12">"was got passed by Mr.%1$s. "</string>
+    <string name="comment_rival_13">"It was the game which became white-hot to the final hole. "</string>
+    <string name="comment_rival_14">"Were you relex with your play style from the last half? "</string>
+    <string name="comment_rival_15">"Couldn't it concentrate on your golf? "</string>
+    <string name="comment_rival_16">"Your turning point was Nothing. "</string>
+    <string name="comment_rival_17">"You became "</string>
+
+    <!-- about ranking -->
+    <string name="comment_ranking_01">"Your play was fantastic!. I would like to carry out a model very much. "</string>
+    <string name="comment_ranking_02">"You're No.1! Are you professional golfer in your future? "</string>
+    <string name="comment_ranking_03">"The mistake of the first half was recovered. Thank you for the impression. "</string>
+    <string name="comment_ranking_04">"You were the top of high mountain and also the deep valley. Let's practice seriously. "</string>
+    <string name="comment_ranking_05">"All of member was too Nice. "</string>
+    <string name="comment_ranking_06">"Almost! I was surprised at the rise of Mr.%1$s. "</string>
+    <string name="comment_ranking_08">"In the fist half, you were good position, but "</string>
+    <string name="comment_ranking_09">"In the first half, you were not bad position, but "</string>
+    <string name="comment_ranking_10">"You were 2 nd, just behind the winner. "</string>
+    <string name="comment_ranking_11">"You were 3 rd. How was a practice also at a change of air? "</string>
+    <string name="comment_ranking_12">"Your score became very wrong at last half. Maybe, your golf club must be broken. </string>
+    <string name="comment_ranking_13">"You had no concentration at last half. "</string>
+    <string name="comment_ranking_14">"At fist half you had a difficult job, but at last half, you recoverd own playing style. "</string>
+    <string name="comment_ranking_15">"At last half, you play golf with goddess of victory! Your were like Tiger Charge!"</string>
+    <string name="comment_ranking_16">"I can saw your play with an easy mind. "</string>
+    <string name="comment_ranking_17">"What a pity! You couldn't have kept 1st rankg. "</string>
+    <string name="comment_ranking_18">"You managed to escape from bottom! "</string>
+
+    <!-- about patting -->
+    <string name="comment_patting_00">"The average of pat was %1$+.1f. "</string>
+    <string name="comment_patting_01">"It's excellent! Possibly, were you Pro?? "</string>
+    <string name="comment_patting_02">"Your form was very good."</string>
+    <string name="comment_patting_03">"It's not bad!"</string>
+    <string name="comment_patting_04">"You will improve it if you practice."</string>
+    <string name="comment_patting_05">"It's very difficult course…maybe."</string>
+
+    <!-- about hole -->
+    <string name="comment_hole_00">"%3$s at the %1$dth HOLE (PAR%2$d)\n"</string>
+    <string name="comment_hole_01">"Hole in One at the %1$dth HOLE (PAR%2$d)\nConguratulation!!! My dreadm come true. It's a privilege to go golf with you.\n"</string>
+    <string name="comment_hole_02">"Great Chip in %3$s  at the %1$dth HOLE (PAR%2$d)\n"</string>
+    <string name="comment_hole_03">"Nice Patting!%3$s at the %1$dth HOLE (PAR%2$d)\n"</string>
+    <string name="comment_hole_04">"Your golf style was very stable.\n"</string>
+    <string name="comment_hole_05">"is your Good HOLE, but \n"</string>
+    <string name="comment_hole_06">"Your Good HOLE was nothing."</string>
+    <string name="comment_hole_07">"Oopus! Your had some Bad Hole!\n"</string>
+    <string name="comment_hole_08">"Your Bad HOLE was Nothing!\n"</string>
+    <string name="comment_hole_09">"Let's see your each hole.\n"</string>
+    <string name="comment_hole_10">"You had gool play, but you had some bad plays. You had the clear subject, hadn't you\n"</string>
+    <string name="comment_hole_11">"It's execelent! Did you attracted lots of attention? \n"</string>
+    <string name="comment_hole_12">"It's nice! In thid game, you maybe improved.\n"</string>
+    <string name="comment_hole_13">"It's not bad! It was good in golf.\n"</string>
+    <string name="comment_hole_14">"Your practice was insufficient.\n"</string>
+    <string name="comment_hole_15">"There were many Bad Holes. You need to practice hard. \n"</string>
+    <string name="comment_hole_16">"How wonderful your play is! I couldn't believe my eyes saw the rare Albatross. I was thrilled! \n"</string>
+    <string name="comment_hole_17">"I took off my hat to your play. Just maybe I was borned for this time. Thank you!\n"</string>
+    <string name="comment_hole_18">"Nice Birdie！ Your play was cool!\n"</string>
+    <string name="comment_hole_20">"Dearie me!  Was your ball possibly brought to the crow?\n"</string>
+    <string name="comment_hole_21">"This is NOT a place which threw down your comic!\n"</string>
+
+    <!--
+     ===============================================================
+     Send by e-mail S
+     ===============================================================
+    -->
+
+    <string name="send_by_email_dlg_title">"Confirm"</string>
+    <string name="send_by_email_dlg_message">"You can attach graph and table data in E-Mail as image.\nDo you attach them ?"</string>
+    <string name="send_by_email_only_message">"Send only message"</string>
+    <string name="send_by_email_contains_img">"Attach images"</string>
+    <string name="send_by_email_output_graph">"Preparing attaching graph data with email…\nPlease wait."</string>
+    <string name="send_by_email_output_table">"Preparing attaching table data with email…\nPlease wait."</string>
+
+    <!--
+     ===============================================================
+     Send by e-mail E
+     ===============================================================
+    -->
+
+
+    <!-- about changing to hole word -->
+    <string name="comment_changing_00">"Albatross"</string>
+    <string name="comment_changing_01">"Eeagle"</string>
+    <string name="comment_changing_02">"Birdie"</string>
+    <string name="comment_changing_03">"Par"</string>
+    <string name="comment_changing_04">"Bogye"</string>
+    <string name="comment_changing_05">"Double Bogye"</string>
+    <string name="comment_changing_06">"Triple Bogye"</string>
+    <string name="comment_changing_07">"+%1$d"</string>
+    <string name="comment_changing_08">"Double Par"</string>
+    <string name="comment_changing_09">"Triple Par"</string>
+    <string name="comment_changing_10">"Hole In One"</string>
+
+    <!-- about whether -->
+    <string name="comment_weather_shine">"We take advantage of the good weather today, and you enjoy golf by itself, don't you? "</string>
+    <string name="comment_weather_cloudy">"The couldy day is good to play golf! "</string>
+    <string name="comment_weather_rain">"It's bad weather today . You have a sense of enthusiasm for golf. "</string>
+    <string name="comment_weather_wind">"The weather is big wind today, so it is difficult to play golf. "</string>
+    <string name="comment_weather_mud">"Have you became a duffer because of the mud weather? "</string>
+
+    <!--
+     ===============================================================
+     Droid Comment E
+     ===============================================================
+    -->
+
+
+    <!--
+     ===============================================================
+
+	 ===============================================================
+    -->
+    <string name="about_author">Author:</string>
+    <string name="about_author_name">Junkmann7</string>
+    <string name="about_email">Email:</string>
+    <string name="about_email_address">junkmann7@gmail.com</string>
+    <string name="about_introduction">"Smart Golf Score is the best simple App to record golf score.\n\nThis App can record four player's score, and can display result by table form or graph.\n\nMoreover,because the result can be saved as an image file, you can share the result with other players.\n\nTry for FREE!"</string>
+    <string name="about_app_detail_btn">Details</string>
+    <string name="about_app_share_btn">Share</string>
+    <string name="about_app_license">License</string>
+    <string name="about_url_market">"https://play.google.com/store/apps/details?id=jp.tonosama.komoki.SimpleGolfScorer2"</string>
+    <string name="about_function_summary">&lt; App Summary >\n
+\n
+- You can easily send the letter of the round content.\n
+\n
+- It is very easy to input the scorer by using dram roll.\n
+\n
+- The score in the round can change to the graph matched player level\n
+\n
+- This round layout can be set to Short Hole.\n
+\n
+- You can see your history of the golf scorer and your play style.\n
+\n
+- The score is lock after inputting score to guard miss input.\n
+\n
+- The hole is moved if your select the hole at the score table.\n
+\n
+- The timing of key lock is next hole after all of member input their score.\n
+\n
+- The save of score sheet and graph are displayed  if you push menu key.\n
+\n
+- The value of the score sheet is changed if you select PAR base or Score at menu.\n
+\n
+- If you select BACKUP in the top activity, the all current data is saved at /SmartGolfScore/***.txt .\n
+\n
+- Please use for reducing the risk or moving the data.\n
+\n
+- When you select RESTORE in the top activity, the data is restored if\n
+\n
+  there is /SmartGolfScore/***.txt .</string>
+
+</resources>

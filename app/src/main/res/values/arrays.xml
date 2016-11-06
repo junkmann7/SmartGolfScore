@@ -1,0 +1,9 @@
+<!DOCTYPE values>
+<resources>
+
+    <string-array name="table_dispstyle_array">
+        <item>Relative Value</item>
+        <item>Absolute Value</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,486 @@
+<!DOCTYPE Layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical" >
+
+    <!-- タイトル -->
+
+    <LinearLayout
+        android:id="@+id/prev_hole_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/adjusted_size_42dp"
+        android:background="@drawable/title_back"
+        android:gravity="center|left"
+        android:paddingTop="@dimen/adjusted_size_2dp" >
+
+        <ImageButton
+            android:id="@+id/main_exit_button"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:src="@drawable/image_button_goback" />
+
+        <TextView
+            android:id="@+id/hole_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/adjusted_size_5dp"
+            android:layout_marginRight="@dimen/adjusted_size_5dp"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/round_setting"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFF"
+            android:textSize="@dimen/adjusted_text_size_20dp" />
+
+        <Button
+            android:id="@+id/infoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:drawableLeft="@drawable/imane_button_setting"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="-20dp"
+        android:background="@drawable/shadow_top_20" />
+    <!-- タイトル -->
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/adjusted_size_10dp" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="@dimen/adjusted_size_30dp"
+                        android:layout_height="@dimen/adjusted_size_30dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/home_title_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                        android:layout_weight="1"
+                        android:text="@string/round_title"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/adjusted_text_size_18dp" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_add"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/hole_title_editor"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Title"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true"
+                        android:textColor="#000000" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/adjusted_size_5dp"
+                android:layout_marginTop="@dimen/adjusted_size_5dp"
+                android:background="#AAA" />
+
+            <!-- ※※プレイヤー※※ -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/player_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                        android:layout_weight="1"
+                        android:text="@string/player_name"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/adjusted_text_size_18dp" />
+
+                    <ImageButton
+                        android:id="@+id/player_add_button"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_add" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/per1_name_edit_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/per1_del_button"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_delete" />
+
+                    <EditText
+                        android:id="@+id/per1_name_editor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/myname_hint"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true"
+                        android:text="" />
+
+                    <EditText
+                        android:id="@+id/per1_handi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/handi_hint"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/per2_name_edit_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/per2_del_button"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_delete" />
+
+                    <EditText
+                        android:id="@+id/per2_name_editor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/player_hint"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true"
+                        android:text="" />
+
+                    <EditText
+                        android:id="@+id/per2_handi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/handi_hint"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/per3_name_edit_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/per3_del_button"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_delete" />
+
+                    <EditText
+                        android:id="@+id/per3_name_editor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/player_hint"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true"
+                        android:text="" />
+
+                    <EditText
+                        android:id="@+id/per3_handi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/handi_hint"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/per4_name_edit_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/per4_del_button"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_delete" />
+
+                    <EditText
+                        android:id="@+id/per4_name_editor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/player_hint"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true"
+                        android:text="" />
+
+                    <EditText
+                        android:id="@+id/per4_handi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/handi_hint"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:selectAllOnFocus="true" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/adjusted_size_5dp"
+                android:layout_marginTop="@dimen/adjusted_size_5dp"
+                android:background="#AAA" />
+            <!-- ※※プレイヤー※※ -->
+
+
+            <!-- ※※１８Ｈ or Out/In※※ -->
+
+            <LinearLayout
+                android:id="@+id/round_set"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/adjusted_size_10dp"
+                        android:src="@drawable/golf_hole_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                        android:layout_weight="1"
+                        android:text="@string/round_name"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/adjusted_text_size_18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <RadioGroup
+                        android:id="@+id/rg_group"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/radio_edit_18h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:text="@string/round_18h"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#333" />
+
+                        <RadioButton
+                            android:id="@+id/radio_edit_outin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:text="@string/round_out_in"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#333" />
+                    </RadioGroup>
+
+                    <CheckBox
+                        android:id="@+id/chck_short_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:text="@string/setting_short_hole"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/adjusted_text_size_18dp" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|left" >
+
+                        <Spinner
+                            android:id="@+id/round_condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="ラウンド\nコンディション"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/adjusted_text_size_18dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/adjusted_size_5dp"
+                android:layout_marginTop="@dimen/adjusted_size_5dp"
+                android:background="#AAA" />
+
+            <!-- ※※１８Ｈ or Out/In※※ -->
+
+
+            <!-- ※※メモ※※ -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/adjusted_size_10dp"
+                        android:src="@drawable/memo_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                        android:layout_weight="1"
+                        android:text="@string/memo_name"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/adjusted_text_size_18dp" />
+
+                    <ImageButton
+                        android:id="@+id/memo_toggle_button"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="@dimen/adjusted_size_42dp"
+                        android:src="@drawable/image_button_down" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/memo_editor_area"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left"
+                        android:hint="@string/memo_hint"
+                        android:lines="10"
+                        android:maxLines="10"
+                        android:padding="@dimen/adjusted_size_10dp"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- ※※メモ※※ -->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#999" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|right" >
+
+        <Button
+            android:id="@+id/exit_setting"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_setting"
+            android:textSize="@dimen/adjusted_text_size_20dp" />
+    </LinearLayout>
+
+</LinearLayout>

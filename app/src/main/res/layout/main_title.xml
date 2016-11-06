@@ -1,0 +1,110 @@
+﻿<!DOCTYPE LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical" >
+
+    <!-- ホールタイトル S -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/adjusted_size_42dp"
+        android:background="@drawable/title_back"
+        android:gravity="center|left"
+        android:paddingTop="@dimen/adjusted_size_2dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="-20dp"
+        android:background="@drawable/shadow_top_20" />
+    <!-- ホールタイトル E -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="5.5"
+        android:gravity="center"
+        android:paddingBottom="@dimen/adjusted_size_10dp"
+        android:paddingLeft="@dimen/adjusted_size_20dp"
+        android:paddingRight="@dimen/adjusted_size_20dp"
+        android:paddingTop="@dimen/adjusted_size_10dp" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/etc_content_description"
+            android:scaleType="centerInside"
+            android:src="@drawable/title_logo" >
+        </ImageView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:background="#AAA" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="6dp"
+        android:paddingTop="10dp" >
+
+        <Button
+            android:id="@+id/new_create_btn"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/image_button_add"
+            android:singleLine="true"
+            android:text="@string/new_create"
+            android:textColor="#33AAFF"
+            android:textSize="@dimen/main_title_btn_textsize"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/my_history_btn"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_menu_history"
+            android:singleLine="true"
+            android:text="@string/menu_history"
+            android:textColor="#666"
+            android:textSize="@dimen/main_title_btn_textsize"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:background="#AAA" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="10"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip" >
+
+        <LinearLayout
+            android:id="@+id/MainTitle_SaveData_ListArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

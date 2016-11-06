@@ -1,0 +1,460 @@
+<!DOCTYPE Layout>
+<!-- 縦画面用レイアウト -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/golf_score_book"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical" >
+
+    <!-- ホールタイトル -->
+
+    <LinearLayout
+        android:id="@+id/prev_hole_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/adjusted_size_42dp"
+        android:background="@drawable/title_back"
+        android:gravity="center|left"
+        android:paddingTop="@dimen/adjusted_size_2dp" >
+
+        <ImageButton
+            android:id="@+id/main_exit_button"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:src="@drawable/image_button_goback" />
+
+        <TextView
+            android:id="@+id/hole_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/adjusted_size_5dp"
+            android:layout_marginRight="@dimen/adjusted_size_5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="HOLE_TITLE"
+            android:textColor="#FFF"
+            android:textSize="@dimen/adjusted_text_size_18dp" />
+
+        <ImageButton
+            android:id="@+id/infoButton"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:src="@drawable/imane_button_setting" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="-20dp"
+        android:background="@drawable/shadow_top_20" />
+    <!-- ホールタイトル -->
+
+
+    <!-- ホール結果入力画面 ここから -->
+
+    <LinearLayout
+        android:id="@+id/main_hole_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+
+        <!-- ホール番号とパー値 S -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/adjusted_size_45dp" >
+
+            <ImageView
+                android:id="@+id/golf_hole_icon"
+                android:layout_width="@dimen/adjusted_size_40dp"
+                android:layout_height="@dimen/adjusted_size_40dp"
+                android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                android:layout_marginTop="@dimen/adjusted_size_5dp"
+                android:src="@drawable/golf_hole_icon" />
+
+            <TextView
+                android:id="@+id/curr_hole_name"
+                android:layout_width="@dimen/adjusted_size_127dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                android:background="@drawable/hole_number_01" />
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="@dimen/adjusted_size_64dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/par_graphic" />
+
+            <Spinner
+                android:id="@+id/curr_hole_par"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" >
+            </Spinner>
+        </LinearLayout>
+        <!-- ホール番号とパー値 E -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+        <!-- ホール結果記入欄 S -->
+
+        <LinearLayout
+            android:id="@+id/hole_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/adjusted_size_5dp"
+            android:layout_marginRight="@dimen/adjusted_size_5dp"
+            android:layout_weight="6"
+            android:background="@drawable/picker_back"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/adjusted_size_5dp"
+            android:paddingLeft="@dimen/adjusted_size_5dp"
+            android:paddingRight="@dimen/adjusted_size_5dp"
+            android:paddingTop="@dimen/adjusted_size_2dp" >
+
+            <!-- プレイヤー名 S -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|bottom" >
+
+                <TextView
+                    android:id="@+id/per1_name_area"
+                    android:layout_width="@dimen/adjusted_size_120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/adjusted_text_size_16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/per2_name_area"
+                    android:layout_width="@dimen/adjusted_size_120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/adjusted_text_size_16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/per3_name_area"
+                    android:layout_width="@dimen/adjusted_size_120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/adjusted_text_size_16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/per4_name_area"
+                    android:layout_width="@dimen/adjusted_size_120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/adjusted_text_size_16dp" >
+                </TextView>
+            </LinearLayout>
+            <!-- プレイヤー名 E -->
+            <!-- ドラムピッカー S -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center|center" >
+
+                <LinearLayout
+                    android:id="@+id/picker_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <jp.tonosama.komoki.wheel.widget.WheelView
+                        android:id="@+id/drumPicker1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    <jp.tonosama.komoki.wheel.widget.WheelView
+                        android:id="@+id/drumPicker2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    <jp.tonosama.komoki.wheel.widget.WheelView
+                        android:id="@+id/drumPicker3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    <jp.tonosama.komoki.wheel.widget.WheelView
+                        android:id="@+id/drumPicker4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- ドラムピッカー E -->
+
+        </LinearLayout>
+        <!-- ホール結果記入欄 E -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+        <!-- スコア結果記入欄 S -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/adjusted_size_5dp"
+            android:layout_marginRight="@dimen/adjusted_size_5dp"
+            android:paddingBottom="@dimen/adjusted_size_5dp"
+            android:paddingTop="@dimen/adjusted_size_5dp" >
+
+            <TextView
+                android:id="@+id/per1_total_score"
+                android:layout_width="@dimen/adjusted_size_120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/adjusted_size_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/picker_back"
+                android:gravity="center"
+                android:text="Score1"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/per2_total_score"
+                android:layout_width="@dimen/adjusted_size_120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/adjusted_size_2dp"
+                android:layout_marginRight="@dimen/adjusted_size_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/picker_back"
+                android:gravity="center"
+                android:text="Score2"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/per3_total_score"
+                android:layout_width="@dimen/adjusted_size_120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/adjusted_size_2dp"
+                android:layout_marginRight="@dimen/adjusted_size_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/picker_back"
+                android:gravity="center"
+                android:text="Score3"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/per4_total_score"
+                android:layout_width="@dimen/adjusted_size_120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/adjusted_size_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/picker_back"
+                android:gravity="center"
+                android:text="Score4"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" >
+            </TextView>
+        </LinearLayout>
+        <!-- スコア結果記入欄 E -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+
+        <!-- マイパット欄 S -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginBottom="@dimen/adjusted_size_4dp"
+            android:layout_marginLeft="@dimen/adjusted_size_2dp"
+            android:layout_marginRight="@dimen/adjusted_size_2dp"
+            android:gravity="top|left" >
+
+            <ImageView
+                android:id="@+id/my_pat_img"
+                android:layout_width="@dimen/adjusted_size_40dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/mypatter0" />
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|left" >
+
+                <RatingBar
+                    android:id="@+id/mypat_ratingbar"
+                    style="@style/MyRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/unlock_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_menu_unlock" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- マイパット欄 E -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+
+        <!-- Viewボタン S -->
+
+        <LinearLayout
+            android:id="@+id/view_btn_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/adjusted_size_2dp"
+            android:paddingLeft="@dimen/adjusted_size_2dp"
+            android:paddingRight="@dimen/adjusted_size_2dp" >
+
+            <Button
+                android:id="@+id/graphviewButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/image_button_graph"
+                android:paddingLeft="@dimen/adjusted_size_25dp"
+                android:paddingRight="@dimen/adjusted_size_25dp"
+                android:text="@string/graph_btn"
+                android:textSize="@dimen/adjusted_text_size_14dp" >
+            </Button>
+
+            <Button
+                android:id="@+id/viewButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/image_button_table"
+                android:paddingLeft="@dimen/adjusted_size_25dp"
+                android:paddingRight="@dimen/adjusted_size_25dp"
+                android:text="@string/table_btn"
+                android:textSize="@dimen/adjusted_text_size_14dp" >
+            </Button>
+        </LinearLayout>
+        <!-- Viewボタン E -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <!-- ホール結果入力画面 ここまで -->
+
+
+    <!-- 次のホールへ ここから -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/shadow_bottom_20" />
+
+    <LinearLayout
+        android:id="@+id/next_hole_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/adjusted_size_42dp"
+        android:background="@drawable/footer_back" >
+
+        <Button
+            android:id="@+id/arrow_upside"
+            android:layout_width="@dimen/adjusted_size_42dp"
+            android:layout_height="@dimen/adjusted_size_42dp"
+            android:focusable="true"
+            android:padding="@dimen/adjusted_size_5dp"
+            android:background="@drawable/arrow_button_prev" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/current_hole_map" />
+
+            <ImageView
+                android:id="@+id/next_hole_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/current_hole_10" />
+
+            <ImageView
+                android:id="@+id/current_player_location"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/current_player_location"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/arrow_downside"
+            android:layout_width="@dimen/adjusted_size_42dp"
+            android:layout_height="@dimen/adjusted_size_42dp"
+            android:focusable="true"
+            android:padding="@dimen/adjusted_size_5dp"
+            android:background="@drawable/arrow_button_next" />
+    </LinearLayout>
+    <!-- 次のホールへ ここまで -->
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<!DOCTYPE values>
+<resources>
+
+    <string-array name="table_dispstyle_array">
+        <item>PAR基準の値</item>
+        <item>スコア</item>
+    </string-array>
+
+</resources>

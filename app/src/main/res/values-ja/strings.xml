@@ -1,0 +1,317 @@
+﻿<!DOCTYPE values>
+<resources>
+
+    <string name="app_name">Smart Golf Score</string>
+    <string name="hole_title">HOLE TITLE</string>
+    <string name="new_create">開始する</string>
+    <string name="round_setting">ラウンド設定</string>
+    <string name="round_title">タイトル</string>
+    <string name="player_name">プレイヤー</string>
+    <string name="myname_hint">あなたの名前</string>
+    <string name="player_hint">プレイヤー名</string>
+    <string name="handi_hint">ハンデ</string>
+    <string name="round_name">ラウンド</string>
+    <string name="round_18h">18H</string>
+    <string name="round_out_in">Out/In</string>
+    <string name="memo_name">メモ</string>
+    <string name="memo_hint">メモを入力</string>
+    <string name="save_setting">設定を保存する</string>
+    <string name="graph_btn">グラフ</string>
+    <string name="table_btn">スコア表</string>
+    <string name="menu_delete">データ削除</string>
+    <string name="menu_setting">ラウンド設定</string>
+    <string name="menu_output_score">スコア表保存</string>
+    <string name="menu_output_graph">グラフ保存</string>
+    <string name="menu_backup">バックアップ</string>
+    <string name="menu_restore">リストア</string>
+    <string name="menu_chg_tble">値の表示切替</string>
+    <string name="menu_about">about</string>
+    <string name="menu_history">個人履歴</string>
+    <string name="menu_sort">並び替え</string>
+    <string name="menu_sort_create_descending">作成降順</string>
+    <string name="menu_sort_create_ascending">作成昇順</string>
+    <string name="menu_sort_name_descending">名前降順</string>
+    <string name="menu_sort_name_ascending">名前昇順</string>
+    <string name="dlg_delete_title">データ削除</string>
+    <string name="dlg_delete_msg">このデータを削除します。よろしいですか？</string>
+    <string name="dlg_chgb_title">基準を選択</string>
+    <string name="dlg_backup_title">バックアップ</string>
+    <string name="dlg_backup_guide_msg">現在保存されているデータをSDカードにバックアップします。よろしいですか？</string>
+    <string name="dlg_backup_msg">%1$s\n%2$s\nにバックアップを作成しました。</string>
+    <string name="dlg_restore_title">バックアップデータを選択</string>
+    <string name="dlg_restore_confirm_title">バックアップデータの確認</string>
+    <string name="dlg_restore_confirm_msg">以下のデータが見つかりました。\n\n現在のデータをすべて削除して、このデータを上書きします。\n\n%1$s</string>
+    <string name="dlg_chg_tble_title">値の表示方法を選択</string>
+    <string name="dlg_delete_player_title">プレイヤーの削除</string>
+    <string name="dlg_delete_player_msg">「%1$s」を削除します。この操作は取り消せません。</string>
+    <string name="dlg_output_image_msg_score">スコア表を画像として保存しました。このスコア表をメールに添付しますか？</string>
+    <string name="dlg_output_image_msg_graph">グラフを画像として保存しました。このグラフをメールに添付しますか？</string>
+    <string name="dlg_output_image_by_viewer">いいえ</string>
+    <string name="dlg_output_image_by_email">はい</string>
+    <string name="btn_change_table_basis_par">"基準：PAR" </string>
+    <string name="btn_change_table_basis_abs">"基準：ABS" </string>
+    <string name="btn_change_graph_basis">"基準:%1$s"</string>
+    <string name="toast_nothing_is_selected">選択されていません！</string>
+    <string name="toast_deleted_data">データを削除しました</string>
+    <string name="toast_input_title">タイトルを入力してください</string>
+    <string name="toast_input_player">プレイヤー名を入力してください</string>
+    <string name="toast_created_new_data">データを作成しました</string>
+    <string name="toast_saved_settings">設定を保存しました</string>
+    <string name="toast_backup_not_found">バックアップデータがありません</string>
+    <string name="toast_backup_complete">データの読み込みが完了しました</string>
+    <string name="setting_short_hole">ショートホール設定</string>
+    <string name="etc_content_description">Content Description</string>
+    <string name="weather_shine">"晴れ"</string>
+    <string name="weather_cloudy">"曇り"</string>
+    <string name="weather_rain">"雨 "</string>
+    <string name="weather_wind">"強風 "</string>
+    <string name="weather_mud">"ぬかるみ"</string>
+    <string name="weather_select_title">"コンディションを選択"</string>
+    <!--
+     ===============================================================
+     スコアビューワ用
+	 ===============================================================
+    -->
+    <string name="score_viewer_handi">"Handicap"</string>
+    <string name="score_viewer_total">"Total"</string>
+
+    <!--
+     ===============================================================
+     個人履歴用
+	 ===============================================================
+    -->
+
+    <string name="myhist_vital_score_0">普通です。</string>
+    <string name="myhist_vital_score_1">やや高めです。</string>
+    <string name="myhist_vital_score_2">抜群です。</string>
+    <string name="myhist_pressure_score_0">キングチキン</string>
+    <string name="myhist_pressure_score_1">チキン</string>
+    <string name="myhist_pressure_score_2">普通</string>
+    <string name="myhist_pressure_score_3">強く、常に冷静でいられる</string>
+    <string name="myhist_pressure_score_4">非常に強く、まさに腹黒</string>
+    <string name="myhist_attitude_score_0">あらゆるゴルファーのお手本になる</string>
+    <string name="myhist_attitude_score_1">紳士的</string>
+    <string name="myhist_attitude_score_2">普通</string>
+    <string name="myhist_attitude_score_3">よくありません。むしろ紳士に取り組むべき</string>
+    <string name="hist_ret_round_title">"%1$s"</string>
+    <string name="hist_ret_my_rank">"%1$d位 (%2$d人中)"</string>
+    <string name="hist_ret_my_total_score">"Out %1$d In %2$d"</string>
+    <string name="hist_ret_my_ttl_sum_score">"%1$d"</string>
+    <string name="hist_ret_my_handi">"ハンデ %1$d"</string>
+    <string name="hist_ret_my_score_ave">"平均スコア　 : %1$+.1f"</string>
+    <string name="hist_ret_my_pat_ave">"平均パット数 : %1$.1f"</string>
+    <string name="hist_ret_my_par_on_rate">"パーオン率　 : %1$.1f%%"</string>
+    <string name="hist_ret_my_bogey_on_rate">"ボギーオン率 : %1$.1f%%"</string>
+    <string name="hist_ret_my_weak_hole">"苦手ホール　 : PAR%1$d (%2$+.1f)"</string>
+    <string name="hist_ret_my_attitude">"あなたのゴルフに対する姿勢は\n%1$sでしょう。"</string>
+    <string name="hist_ret_my_vital">"カリスマ性は%1$s"</string>
+    <string name="hist_ret_my_pottential">"潜在能力は %1$d です。"</string>
+    <string name="hist_ret_my_pressure">"プレッシャー強度は%1$sでしょう。"</string>
+    <string name="myhist_score_check_title">"＜スコア診断＞"</string>
+    <string name="hist_ret_data_not_found">"確定したデータがありません。"</string>
+    <string name="myhist_is_short">"ショートコース"</string>
+
+    <!--
+     ===============================================================
+     ドロイドコメント用 S
+     ===============================================================
+    -->
+
+    <string name="comment_by_droid">"Droid's Comment"</string>
+
+    <!-- about round summary -->
+    <string name="comment_round_summary_subject">"「%1$s」の件"</string>
+    <string name="comment_round_summary_00">"ドロイドです。\n本日はお疲れ様でした。\n"</string>
+    <string name="comment_round_summary_02">"「%1$s」で\n皆さんのすばらしいプレイをスマートフォンから拝見させて頂きました。\n"</string>
+    <string name="comment_round_summary_03">"ショートコースは気楽に回れるのでいいですよね。\n"</string>
+    <string name="comment_round_summary_04">"恐縮ながらコメントさせて頂きます。\n\n"</string>
+    <string name="comment_round_summary_99">"また、皆さんとラウンドできる日をお待ちしております。\n\nドロイドより"</string>
+    <string name="comment_send_button">"このメッセージをメールで送信"</string>
+
+    <!-- about letter counter -->
+    <string name="comment_round_counter_00">"こんにちわ、 "</string>
+    <string name="comment_round_counter_01">"やあ、"</string>
+    <string name="comment_round_counter_02">"毎度ありがとうございます! "</string>
+    <string name="comment_round_counter_03">"長く使ってくれてありがとう! "</string>
+    <string name="comment_round_counter_04">"今は平成何年ですか？愛用してくれてありがとうございます。是非、感想が聞いてみたいです。 "</string>
+    <string name="comment_round_counter_05">"このコメントは奇跡です。</string>
+
+    <!-- about myself -->
+    <string name="comment_round_myself_00">"パットのベストを更新しました。 "</string>
+    <string name="comment_round_myself_01">"ハーフのベストを更新しました。 "</string>
+    <string name="comment_round_myself_02">"スコアのベストを更新しました。 "</string>
+    <string name="comment_round_myself_03">"やるじゃん。初%1$s！ "</string>
+    <string name="comment_round_myself_04">"パターは良かったですね。 "</string>
+    <string name="comment_round_myself_05">"パターが悪いって。言い訳したらあかんで！ "</string>
+    <string name="comment_round_myself_06">"最近調子いいですね。 "</string>
+    <string name="comment_round_myself_07">"もっといけるやろ。やればできるんやから！ "</string>
+    <string name="comment_round_myself_08">"記録更新フラグだから滅多に見れんよ。このコメントは！ "</string>
+    <string name="comment_round_myself_09">"いけいけどんどんやな。やっほーい！ "</string>
+    <string name="comment_round_myself_10">"この調子で！ "</string>
+    <string name="comment_round_myself_11">"潜在能力がアップしました。 "</string>
+    <string name="comment_round_myself_12">"パーオンキープ率のベストを更新しました。 "</string>
+
+    <!-- about round record -->
+    <string name="comment_round_record_00">"%1$d位 %2$s (%3$+d)\n"</string>
+    <string name="comment_round_record_01">" - スコア : %1$d\n"</string>
+    <string name="comment_round_record_02">" - 前　半 : %1$d\n"</string>
+    <string name="comment_round_record_03">" - 後　半 : %1$d\n"</string>
+    <string name="comment_round_record_04">" - ハンデ : %1$d\n"</string>
+
+    <!-- about rival -->
+    <string name="comment_rival_01">"、"</string>
+    <string name="comment_rival_02">"%1$sさん"</string>
+    <string name="comment_rival_03">"と"</string>
+    <string name="comment_rival_04">"ライバルはいませんでした。ほぼ独走状態でしたね。\n"</string>
+    <string name="comment_rival_05">"接戦でした。\n"</string>
+    <string name="comment_rival_06">"三つ巴の緊迫したゲームでした。\n"</string>
+    <string name="comment_rival_07">"すべてのプレイヤーが接戦となり、見ているこちらも熱くなりました。\n"</string>
+    <string name="comment_rival_08">"あなたのターニングポイントは%1$d番ホールで"</string>
+    <string name="comment_rival_09">"%1$sさんを追い抜いたときでした。"</string>
+    <string name="comment_rival_10">"%1$sさんに追いついたときでした。"</string>
+    <string name="comment_rival_11">"%1$sさんに追いつかれたときでした。"</string>
+    <string name="comment_rival_12">"%1$sさんに追い抜かれたときでした。"</string>
+    <string name="comment_rival_13">"最終ホールまで気が抜けませんでしたね。"</string>
+    <string name="comment_rival_14">"後半からは自分のプレイスタイルを維持できましたね。"</string>
+    <string name="comment_rival_15">"自分のゴルフスタイルに集中できたのではないでしょうか。 "</string>
+    <string name="comment_rival_16">"あなたのターニングポイントはありません。"</string>
+    <string name="comment_rival_17">""</string>
+
+    <!-- about ranking -->
+    <string name="comment_ranking_01">"素晴らしいプレイでした！ぜひとも見習いたいです。"</string>
+    <string name="comment_ranking_02">"覚醒しましたね。将来はプロゴルファーですか！？"</string>
+    <string name="comment_ranking_03">"堂々の1位です。感動をありがとうございます。"</string>
+    <string name="comment_ranking_04">"人生山あり谷ありです。もう少し真面目に練習しましょう。"</string>
+    <string name="comment_ranking_05">"皆さん、上手すぎましたね。練習あるのみです！"</string>
+    <string name="comment_ranking_06">"%1$sさんの追い上げには参りましたね。おしい！"</string>
+    <string name="comment_ranking_08">"前半はいい位置につけましたが、"</string>
+    <string name="comment_ranking_09">"前半は踏ん張り時でしたが、"</string>
+    <string name="comment_ranking_10">"おしかったですね。一歩及ばずの２位です。"</string>
+    <string name="comment_ranking_11">"３位です。練習あるのみ！"</string>
+    <string name="comment_ranking_12">"後半は大きく崩れてしまいましたね。クラブが折れてしまったんでしょう。"</string>
+    <string name="comment_ranking_13">"後半に集中力が切れてしまいましたね。"</string>
+    <string name="comment_ranking_14">"前半は辛い展開でしたが、後半は自分のプレイを取り戻せましたね。"</string>
+    <string name="comment_ranking_15">"後半の追い上げは神がかりでした。まさにタイガーチャージ！"</string>
+    <string name="comment_ranking_16">"見ていて安心できるゴルフでした。"</string>
+    <string name="comment_ranking_17">"残念！トップを死守することができませんでした。"</string>
+    <string name="comment_ranking_18">"なんとか最下位から脱出できました。"</string>
+
+    <!-- about patting -->
+    <string name="comment_patting_00">"平均パット数は%1$+.1fです。"</string>
+    <string name="comment_patting_01">"素晴らしいです。プロの方ですか？"</string>
+    <string name="comment_patting_02">"GOOD!キレイなフォームですね。"</string>
+    <string name="comment_patting_03">"パットはまずまずですね。"</string>
+    <string name="comment_patting_04">"改善余地がありそうですね。"</string>
+    <string name="comment_patting_05">"きっとグリーンが難しかったんでしょう！"</string>
+
+    <!-- about hole -->
+    <string name="comment_hole_00">"%1$d番ホールPAR%2$dで%3$s\n"</string>
+    <string name="comment_hole_01">"%1$d番ホールPAR%2$dでホールインワン\nおめでとうございます！あなたとラウンドできて光栄です。"</string>
+    <string name="comment_hole_02">"素晴らしい！%1$d番ホールPAR%2$dでチップイン%3$s\n"</string>
+    <string name="comment_hole_03">"ナイスパット！%1$d番ホールPAR%2$dの%3$s\n"</string>
+    <string name="comment_hole_04">"あなたのスコアは非常に安定していました。\n"</string>
+    <string name="comment_hole_05">"以上は、良かったのですが、"\n"</string>
+    <string name="comment_hole_06">"特に良かったホールは無かったですね。\n"</string>
+    <string name="comment_hole_07">"結構叩いてしまいましたね。\n"</string>
+    <string name="comment_hole_08">"特に悪いホールは無かったですね。\n"</string>
+    <string name="comment_hole_09">"今日のラウンドを振り返ってみましょう！\n"</string>
+    <string name="comment_hole_10">"冴えた部分もありますがスコアが乱れましたね。明確な課題ができたのではないでしょうか。\n"</string>
+    <string name="comment_hole_11">"非常に冴えたプレイでしたね。回りの脚光を浴びたのではないでしょうか。\n"</string>
+    <string name="comment_hole_12">"これは素晴らしい。全体的にいい感じでしたね。\n"</string>
+    <string name="comment_hole_13">"まずまずでしたね。気持ちよくラウンドできたのではないでしょうか。\n"</string>
+    <string name="comment_hole_14">"修行不足のようです。\n"</string>
+    <string name="comment_hole_15">"叩いたコースが目立ちます。猛練習あるのみ！\n"</string>
+    <string name="comment_hole_16">"ホールインワンより難しいと言われるアルバトロスが見られるなんて！感激しました。\n"</string>
+    <string name="comment_hole_17">"脱帽です。私が生まれたのはこの時のためなのかもしれません。\n"</string>
+    <string name="comment_hole_18">"ナイスバーディ！イケイケガンガンでしたね。\n"</string>
+    <string name="comment_hole_20">"おやおや。ボールをカラスに持っていかれましたか？\n"</string>
+    <string name="comment_hole_21">"ここはコントを披露する場所ではありませんよ。。\n"</string>
+
+    <!--
+     ===============================================================
+     手紙を送る用 S
+     ===============================================================
+    -->
+
+    <string name="send_by_email_dlg_title">"送信するメッセージの確認"</string>
+    <string name="send_by_email_dlg_message">"グラフとスコア表の結果を画像としてメールに添付することが出来ます。\n添付しますか？"</string>
+    <string name="send_by_email_only_message">"テキストだけ送る"</string>
+    <string name="send_by_email_contains_img">"画像を添付する"</string>
+    <string name="send_by_email_output_graph">"グラフを添付する準備をしています…\nちょっと待ってね。"</string>
+    <string name="send_by_email_output_table">"スコア表を添付する準備をしています…\nちょっと待ってね。"</string>
+
+    <!--
+     ===============================================================
+     手紙を送る用 E
+     ===============================================================
+    -->
+
+
+    <!-- about changing to hole word -->
+    <string name="comment_changing_00">"アルバトロス"</string>
+    <string name="comment_changing_01">"イーグル"</string>
+    <string name="comment_changing_02">"バーディー"</string>
+    <string name="comment_changing_03">"パー"</string>
+    <string name="comment_changing_04">"ボギー"</string>
+    <string name="comment_changing_05">"ダブルボギー"</string>
+    <string name="comment_changing_06">"トリプルボギー"</string>
+    <string name="comment_changing_07">"+%1$d"</string>
+    <string name="comment_changing_08">"ダブルパー"</string>
+    <string name="comment_changing_09">"トリプルパー"</string>
+    <string name="comment_changing_10">"ホールインワン"</string>
+
+    <!-- about whether -->
+    <string name="comment_weather_shine">"天気がいいとそれだけで楽しめますよね。"</string>
+    <string name="comment_weather_cloudy">"少し曇ったほうがゴルフはやりやすいですよね。"</string>
+    <string name="comment_weather_rain">"あいにくの雨となってなってしまいましたが、あなたたちの熱意を称えます。 "</string>
+    <string name="comment_weather_wind">"風が強いとスコアが定まりませんね。 "</string>
+    <string name="comment_weather_mud">"ぬかるむとダフりが増えますよね。相当難しかったのではないでしょうか。"</string>
+
+    <!--
+     ===============================================================
+     ドロイドコメント用 E
+     ===============================================================
+    -->
+
+
+    <!--
+     ===============================================================
+
+	 ===============================================================
+    -->
+    <string name="about_author">作者:</string>
+    <string name="about_author_name">Junkmann7</string>
+    <string name="about_email">Email:</string>
+    <string name="about_email_address">junkmann7@gmail.com</string>
+    <string name="about_introduction">"Smart Golf Score は、とてもシンプルなゴルフのスコア記録アプリケーションです。\n\n最大４人のプレイヤーのスコアを記録する事ができ、記録した結果は、表形式またはグラフで表示する事ができます。\n\nまた、結果を画像ファイルとして保存する事ができますので、他のプレイヤーと共有する事もできます。"</string>
+    <string name="about_app_detail_btn">詳細</string>
+    <string name="about_app_share_btn">共有</string>
+    <string name="about_app_license">ライセンス</string>
+    <string name="about_url_market">"https://play.google.com/store/apps/details?id=jp.tonosama.komoki.SimpleGolfScorer2"</string>
+    <string name="about_function_summary">＜機能概要＞\n
+\n
+・ラウンド内容をメールにして送ることができます\n
+\n
+・ドラムロール入力なので簡単にスコアを入力することができます\n
+\n
+・ラウンド中のスコアをグラフにすることができます。基準をＰＡＲ，ボギーなどに設定変更することで、プレイヤーのレベルに合わせた見やすいグラフになります。\n
+\n
+・かんたんにショートコース設定にすることができます。\n
+\n
+・今までのラウンド結果を履歴としてみることができます。\n
+\n
+・ホールのスコアを入力後にロックするので誤入力を防ぐことができます\n
+\n
+・スコア表からホールを選択すると、そのホールに移動します。\n
+\n
+・キーロックは全員のスコア入力後、次のホールに行くとロックされます\n
+\n
+・スコア表、グラフの画像を保存はメニュキーを押すと表示されます\n
+\n
+・スコア表からメニューキーを押すことで、PAR基準にするかどうかを変更できます。\n
+\n
+・トップ画面にあるバックアップを選択すると、microSDに /SmartGolfScore/***.txt というデータが保存されます。万一のために備えたときや、機種変更などの際にお使いください。\n
+\n
+・トップ画面にあるリストアを選択すると、/SmartGolfScore/***.txt というデータがあればデータがリストア（復帰）します。</string>
+
+</resources>

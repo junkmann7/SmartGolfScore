@@ -1,0 +1,9 @@
+<!DOCTYPE values>
+<resources>
+
+    <color name="partially_translucent_black">#E000</color>
+    <color name="transparent">#0000</color>
+
+    <drawable name="transparent_background">#00000000</drawable>
+
+</resources>

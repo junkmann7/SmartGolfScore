@@ -1,0 +1,121 @@
+<!DOCTYPE Layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical" >
+
+    <!-- ホールタイトル -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/adjusted_size_40dp"
+        android:background="@drawable/title_back"
+        android:gravity="center|left"
+        android:paddingTop="@dimen/adjusted_size_5dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginBottom="@dimen/adjusted_size_10dp"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
+            android:layout_marginRight="@dimen/adjusted_size_5dp"
+            android:layout_marginTop="@dimen/adjusted_size_10dp"
+            android:contentDescription="@string/etc_content_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_history" />
+
+        <TextView
+            android:id="@+id/history_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/adjusted_size_5dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textSize="@dimen/adjusted_text_size_20dp"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/current_history"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
+            android:gravity="center"
+            android:textColor="#FFF"
+            android:textSize="@dimen/adjusted_text_size_20dp"
+            android:textStyle="bold" >
+        </TextView>
+
+        <Button
+            android:id="@+id/historySendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:drawableLeft="@drawable/memo_icon"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="-20dp"
+        android:background="@drawable/shadow_top_20" />
+    <!-- ホールタイトル -->
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
+
+    <!-- 次のホールへ ここから -->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/shadow_bottom_20" />
+
+    <LinearLayout
+        android:id="@+id/next_hole_area"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/adjusted_size_40dp"
+        android:background="@drawable/footer_back" >
+
+        <Button
+            android:id="@+id/prev_history"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:background="@drawable/arrow_button_prev"
+            android:focusable="true"
+            android:padding="@dimen/adjusted_size_10dp" />
+
+        <Button
+            android:id="@+id/historyDetailButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/droid_mini"
+            android:paddingLeft="@dimen/adjusted_size_80dp"
+            android:paddingRight="@dimen/adjusted_size_80dp"
+            android:text="@string/comment_by_droid"
+            android:textColor="#666"
+            android:textSize="@dimen/adjusted_text_size_12dp" />
+
+        <Button
+            android:id="@+id/next_history"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:background="@drawable/arrow_button_next"
+            android:focusable="true"
+            android:padding="@dimen/adjusted_size_10dp" />
+    </LinearLayout>
+    <!-- 次のホールへ ここまで -->
+
+</LinearLayout>

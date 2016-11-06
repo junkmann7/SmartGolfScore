@@ -1,0 +1,400 @@
+<!DOCTYPE Layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <!-- GraphView Captured Area -->
+
+    <LinearLayout
+        android:id="@+id/graph_view_captured_area"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/back_land"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/adjusted_size_42dp"
+            android:gravity="center|left"
+            android:paddingTop="@dimen/adjusted_size_2dp" >
+
+            <TextView
+                android:id="@+id/score_viewer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center|center"
+                android:singleLine="true"
+                android:textColor="#333"
+                android:textSize="@dimen/adjusted_text_size_18dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <!-- ========================================================= -->
+        <!-- プレイヤー名の行 -->
+        <!-- ========================================================= -->
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:background="#333" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|center" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#333" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|center" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:id="@+id/viewer_per1_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center|center"
+                android:text="Player1"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:id="@+id/viewer_per2_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center|center"
+                android:text="Player2"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:id="@+id/viewer_per3_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center|center"
+                android:text="Player3"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:id="@+id/viewer_per4_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center|center"
+                android:text="Player4"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_14dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#CCCCCC" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC" />
+        <!-- ========================================================= -->
+        <!-- プレイヤー名の行 -->
+        <!-- ========================================================= -->
+
+
+        <!--
+	<LinearLayout
+	    android:layout_weight="20"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dip" />
+	</LinearLayout>
+    <include layout="@layout/score_viewer_table" />
+    <include layout="@layout/score_viewer_table_second" />
+    <include layout="@layout/score_viewer_table_first" />
+        -->
+
+        <include layout="@layout/score_viewer_table_old" />
+
+        <!-- ========================================================= -->
+        <!-- ハンディキャップとトータル -->
+        <!-- ========================================================= -->
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="2"
+            android:background="#333"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:text="@string/score_viewer_handi"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_10dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per1score"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per2score"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per3score"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per4score"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:paddingTop="1dp"
+                    android:text="@string/score_viewer_total"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_10dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/total_par_score"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per1total"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per2total"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per3total"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/per4total"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center|center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/adjusted_text_size_12dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:background="#CCCCCC" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC" />
+        <!-- ========================================================= -->
+        <!-- ハンディキャップとトータル -->
+        <!-- ========================================================= -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/adjusted_size_40dp"
+        android:background="@drawable/footer_back" >
+
+        <Button
+            android:id="@+id/scoreviewer_output_button"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/image_button_table"
+            android:text="@string/menu_output_score"
+            android:textSize="@dimen/adjusted_text_size_16dp" />
+
+        <Button
+            android:id="@+id/scoreviewer_setting_button"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/imane_button_setting"
+            android:drawableRight="@drawable/image_button_null"
+            android:textSize="@dimen/adjusted_text_size_16dp" />
+    </LinearLayout>
+
+</LinearLayout>
