@@ -8,12 +8,10 @@ android {
         minSdkVersion 4
         targetSdkVersion 4
     }
-    signingConfigs {
-        debug {
-            storeFile file("../config/debug.keystore")
-        }
-        release
-    }
+    // signingConfigs
+    apply from: 'signingConfigs/debug.gradle', to: android
+    apply from: 'signingConfigs/release.gradle', to: android
+
     buildTypes {
         debug {
             debuggable true
@@ -21,22 +19,16 @@ android {
             ext.enableCrashlytics = false
         }
         release {
-            signingConfig signingConfigs.debug
             minifyEnabled true
             proguardFile getDefaultProguardFile('proguard-android.txt')
             proguardFile file('proguard-mlink.cfg')
             ext.enableCrashlytics = false
+            signingConfig signingConfigs.release
         }
     }
-    productFlavors {
-        develop
-        production
-    }
 }
-
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'com.android.support:support-v4:21.0.3'
-    compile group: 'org.achartengine', name: 'achartengine', version: '1.2.0'
 }
 

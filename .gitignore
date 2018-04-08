@@ -67,3 +67,6 @@ app/src/main/obj/*
 
 # Avoid production files
 app/src/production/
+
+# Avoid release key info
+app/signingConfigs/release.gradle
