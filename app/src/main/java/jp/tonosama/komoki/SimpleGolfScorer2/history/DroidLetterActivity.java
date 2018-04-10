@@ -5,16 +5,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
 import jp.tonosama.komoki.SimpleGolfScorer2.viewer.GraphActivity;
 
 /**
@@ -35,31 +36,29 @@ public class DroidLetterActivity extends Activity {
 
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
+        DevLog.d(TAG, "onCreate -> s");
 
-        if (SaveDataList.DEBUG) {
-            Log.d(TAG, "onCreate -> s");
-        }
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.droid_letter);
 
-        int selectedIdx = getIntent().getIntExtra(Util.EXTRAS_SELECTED_IDX, -1);
+        int selectedIdx = SaveDataPref.getSelectedSaveIdx();
         if (selectedIdx < 0) {
             return;
         }
-        mScoreData = Util.loadScoreDataFromPref(this, selectedIdx);
+        mScoreData = SaveDataPref.getSaveDataMap().get(selectedIdx);
 
         Bundle extras = getIntent().getExtras();
         TextView droidCommentBodyTxtView = (TextView) findViewById(R.id.droid_letter_body);
-        mDroidCommentSubjStr = extras.getString(Intent.EXTRA_SUBJECT);
-        mDroidCommentBodyStr = extras.getString(Intent.EXTRA_TEXT);
+        if (extras != null) {
+            mDroidCommentSubjStr = extras.getString(Intent.EXTRA_SUBJECT);
+            mDroidCommentBodyStr = extras.getString(Intent.EXTRA_TEXT);
+        }
         droidCommentBodyTxtView.setText(mDroidCommentBodyStr);
 
         // ドロイドレター送信ボタン
         setSendMessageBtnAction();
 
-        if (SaveDataList.DEBUG) {
-            Log.d(TAG, "onCreate -> e");
-        }
+        DevLog.d(TAG, "onCreate -> e");
     }
 
     /**
@@ -111,18 +110,18 @@ public class DroidLetterActivity extends Activity {
      */
     private void sendMessageWidthImage() {
 
-        int[] alphaG = new int[] { 255, 255, 255, 255 };
-        if (mScoreData.getNames()[0].trim().length() == 0) {
-            alphaG[0] = 0;
+        Map<Integer, Integer> alphaG = SaveData.createInitialData(-1).getPlayersAlpha();
+        if (mScoreData.getPlayerNameList().get(0).trim().length() == 0) {
+            alphaG.put(0, 0);
         }
-        if (mScoreData.getNames()[1].trim().length() == 0) {
-            alphaG[1] = 0;
+        if (mScoreData.getPlayerNameList().get(1).trim().length() == 0) {
+            alphaG.put(1, 0);
         }
-        if (mScoreData.getNames()[2].trim().length() == 0) {
-            alphaG[2] = 0;
+        if (mScoreData.getPlayerNameList().get(2).trim().length() == 0) {
+            alphaG.put(2, 0);
         }
-        if (mScoreData.getNames()[3].trim().length() == 0) {
-            alphaG[3] = 0;
+        if (mScoreData.getPlayerNameList().get(3).trim().length() == 0) {
+            alphaG.put(3, 0);
         }
         mScoreData.setPlayersAlpha(alphaG);
         mScoreData.setOutputImageFlg(true);
@@ -131,8 +130,8 @@ public class DroidLetterActivity extends Activity {
         i.putExtra(Intent.EXTRA_SUBJECT, mDroidCommentSubjStr);
         i.putExtra(Intent.EXTRA_TEXT, mDroidCommentBodyStr);
         i.putExtra(Intent.EXTRA_TITLE, mScoreData.getHoleTitle());
-        i.putExtra(Util.EXTRAS_SELECTED_IDX, mScoreData.getSaveIdx());
-        i.putExtra(Util.EXTRAS_OUT_SAVE_DATA, mScoreData);
+        SaveDataPref.setSelectedSaveIdx(mScoreData.getSaveIdx());
+        i.putExtra(GraphActivity.EXTRAS_OUT_SAVE_DATA, mScoreData);
         startActivity(i);
     }
 }

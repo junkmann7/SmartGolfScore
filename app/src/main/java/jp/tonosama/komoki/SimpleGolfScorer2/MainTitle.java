@@ -1,31 +1,12 @@
 package jp.tonosama.komoki.SimpleGolfScorer2;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Locale;
-
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
-import jp.tonosama.komoki.SimpleGolfScorer2.editor.ScoreEditor;
-import jp.tonosama.komoki.SimpleGolfScorer2.history.HistoryActivity;
-import jp.tonosama.komoki.SimpleGolfScorer2.setting.SettingsActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.format.DateFormat;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,15 +18,20 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
+import jp.tonosama.komoki.SimpleGolfScorer2.editor.ScoreEditor;
+import jp.tonosama.komoki.SimpleGolfScorer2.history.HistoryActivity;
+import jp.tonosama.komoki.SimpleGolfScorer2.setting.SettingsActivity;
+
 /**
  * アプリトップ画面
  * 
  * @author Komoki
  */
 public class MainTitle extends Activity {
-
-    /** タグ */
-    private static final String TAG = MainTitle.class.getSimpleName();
 
     /** メニュー管理 */
     private TitleMenuManager mMenuManager;
@@ -55,6 +41,10 @@ public class MainTitle extends Activity {
 
     /** ボタンリスト */
     private ArrayList<Button> mCreateButtons = new ArrayList<>();
+    /**  */
+    public static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
+    /**  */
+    public static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
 
     @Override
     public void onResume() {
@@ -70,19 +60,8 @@ public class MainTitle extends Activity {
         mMenuManager = new TitleMenuManager();
         mSaveDataList = initSaveData(mCreateButtons);
 
-        // 新規作成ボタンクリック時の動作を設定
         Button newCreateButton = (Button) findViewById(R.id.new_create_btn);
-
-        // 保存データ限界の場合、新規作成ボタンを無効に
-        if (Util.MAX_DATA_SAVE_NUM <= mSaveDataList.size()) {
-            newCreateButton.setEnabled(false);
-        }
-        String myName = "";
-        if (mSaveDataList.size() > 0) {
-            SharedPreferences pref0 = getSharedPreferences(Util.PREF_DATA_SLOT[0], MODE_PRIVATE);
-            myName = pref0.getString(Util.PREF_DATA_KEY[4], "");
-        }
-        setNewCreateButtonAction(newCreateButton, mSaveDataList, myName);
+        setNewCreateButtonAction(newCreateButton);
 
         // 個人履歴ボタンクリック時の動作を設定
         Button myHistoryButton = (Button) findViewById(R.id.my_history_btn);
@@ -109,17 +88,16 @@ public class MainTitle extends Activity {
     private SaveDataList initSaveData(final ArrayList<Button> saveButton) {
 
         SaveDataList saveDataList = new SaveDataList();
-        for (int idx = 0; idx < Util.MAX_DATA_SAVE_NUM; idx++) {
-            SaveData data = Util.loadScoreDataFromPref(this, idx);
+        for (SaveData data : SaveDataPref.getSaveDataMap().values()) {
             String title = data.getHoleTitle();
             if (title.equals("")) {
                 break;
             }
-            saveDataList.append(idx, data);
+            saveDataList.append(data);
         }
-        SharedPreferences mSortPref = getSharedPreferences(Util.PREF_SORT_TYPE_SETTING,
-                MODE_PRIVATE);
-        int sortType = mSortPref.getInt(Util.PREF_SORT_TYPE_KEY, 0);
+        // Load settings for sorting type
+        SharedPreferences mSortPref = getSharedPreferences(PREF_SORT_TYPE_SETTING, MODE_PRIVATE);
+        int sortType = mSortPref.getInt(PREF_SORT_TYPE_KEY, 0);
         saveDataList.sort(sortType);
 
         // 保存データ用ボタンを作成
@@ -185,7 +163,7 @@ public class MainTitle extends Activity {
                     }
                     Intent intent = new Intent(getApplicationContext(), ScoreEditor.class);
                     SaveData scoreData = dataList.get(j);
-                    intent.putExtra(Util.EXTRAS_SELECTED_IDX, scoreData.getSaveIdx());
+                    SaveDataPref.setSelectedSaveIdx(scoreData.getSaveIdx());
                     startActivity(intent);
                 }
             });
@@ -196,19 +174,15 @@ public class MainTitle extends Activity {
      * 新規作成ボタンクリック時の動作を設定
      * 
      * @param button 新規作成ボタン
-     * @param dataList セーブデータリスト
-     * @param myName プレイヤー名
      */
-    private void setNewCreateButtonAction(final Button button, final SaveDataList dataList,
-            final String myName) {
+    private void setNewCreateButtonAction(final Button button) {
 
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                intent.putExtra(Util.EXTRAS_IS_NEW_CREATE, true);
-                intent.putExtra(Util.EXTRAS_SELECTED_IDX, dataList.size());
-                intent.putExtra(Util.EXTRAS_MY_NAME, myName);
+                intent.putExtra(SettingsActivity.EXTRAS_IS_NEW_CREATE, true);
+                SaveDataPref.setSelectedSaveIdx(SaveDataPref.getEmptySaveIdx());
                 startActivity(intent);
             }
         });
@@ -238,8 +212,8 @@ public class MainTitle extends Activity {
                     return;
                 }
                 Intent intent = new Intent(MainTitle.this, HistoryActivity.class);
-                intent.putExtra(Util.EXTRAS_SAVED_DATA_NUM, dataList.size());
-                intent.putExtra(Util.EXTRAS_FIXED_DATA_NUM, fixedDataNum);
+                intent.putExtra(HistoryActivity.EXTRAS_SAVED_DATA_NUM, dataList.size());
+                intent.putExtra(HistoryActivity.EXTRAS_FIXED_DATA_NUM, fixedDataNum);
                 startActivity(intent);
             }
         });
@@ -263,133 +237,37 @@ public class MainTitle extends Activity {
      */
     private void initializeAllData(final SaveDataList dataList, final ArrayList<Button> buttons) {
         for (int i = 0; i < dataList.size(); i++) {
-            SharedPreferences pref = getSharedPreferences(Util.PREF_DATA_SLOT[i], MODE_PRIVATE);
-            Editor e = pref.edit();
-            for (int x = 0; x < Util.PREF_DATA_KEY.length; x++) {
-                e.putString(Util.PREF_DATA_KEY[x], "");
-            }
-            e.commit();
+            SaveDataPref.deleteSaveData(dataList.get(i).getSaveIdx());
             buttons.get(i).setVisibility(View.GONE);
         }
         dataList.clear();
     }
 
-    /**
-     * @param context コンテキスト
-     */
-    void outputBackupData(final Context context) {
-
-        long mDateTaken = System.currentTimeMillis();
-        String mBkFileName = DateFormat.format("yyyyMMdd_kkmmss", mDateTaken).toString() + ".txt";
-        String mBkDirName = Environment.getExternalStorageDirectory() + "/" + Util.BACKUP_DIR_NAME;
-
-        StringBuilder outputStr = new StringBuilder();
-        for (int i = 0; i < mSaveDataList.size(); i++) {
-            SharedPreferences pref = getSharedPreferences(Util.PREF_DATA_SLOT[i], MODE_PRIVATE);
-            outputStr.append("<PREFERRENCE>\r\n");
-            for (int j = 1; j < Util.PREF_DATA_KEY.length; j++) {
-                outputStr.append("<KEY>").append(pref.getString(Util.PREF_DATA_KEY[j], "")).append("\r\n");
-            }
-            outputStr.append("\r\n");
-        }
-        outputFile(context, mBkDirName, mBkFileName, outputStr.toString());
-    }
-
-    /**
-     * @param context コンテキスト
-     * @param dirName ディレクトリ名
-     * @param fileName ファイル名
-     * @param outputStr 出力文字列
-     */
-    private void outputFile(final Context context, final String dirName, final String fileName,
-            final String outputStr) {
-
-        FileOutputStream fos = null;
-        try {
-            File dir = new File(dirName);
-            if (!dir.exists()) {
-                if (dir.mkdirs()) {
-                    throw new IOException();
-                }
-            }
-            File file = new File(dirName, fileName);
-            if (file.createNewFile()) {
-                fos = new FileOutputStream(file);
-                OutputStreamWriter osw = new OutputStreamWriter(fos);
-                osw.write(outputStr);
-                osw.flush();
-                osw.close();
+    void outputBackupData() {
+        SaveDataPref.backupData(new SaveDataPref.BackupCallback() {
+            @Override
+            public void onSuccess(@NonNull String bkDirName, @NonNull String bkFileName) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainTitle.this);
                 dialog.setIcon(R.drawable.ic_menu_save);
                 dialog.setTitle(getResources().getString(R.string.dlg_backup_title));
                 dialog.setMessage(String.format(getResources().getString(R.string.dlg_backup_msg),
-                        dirName, fileName));
+                        bkDirName, bkFileName));
                 dialog.setNeutralButton(android.R.string.ok, null);
                 dialog.show();
             }
-        } catch (FileNotFoundException ex) {
-            Toast.makeText(context, "Error! FileNotFoundException", Toast.LENGTH_SHORT).show();
-        } catch (IOException ex) {
-            Toast.makeText(context, "Error! Please insert SD card.", Toast.LENGTH_SHORT).show();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+            @Override
+            public void onFail() {
+                //do nothing
             }
-        }
+        });
     }
 
-    /**
-     * @param path ファイルパス
-     * @param file ファイル名
-     * @param context コンテキスト
-     */
-    void loadBackupData(final String path, final String file, final Context context) {
-        BufferedReader readLine = null;
-        StringBuilder loadedData = new StringBuilder();
-        try {
-            readLine = new BufferedReader(new FileReader(path + "/" + file));
-            while (readLine.ready()) {
-                String line = readLine.readLine();
-                loadedData.append(line).append("\n");
-            }
-        } catch (FileNotFoundException ex) {
-            Toast.makeText(context, "Error! FileNotFoundException", Toast.LENGTH_SHORT).show();
-        } catch (IOException ex) {
-            Toast.makeText(context, "Error! IOException", Toast.LENGTH_SHORT).show();
-        } finally {
-            if (readLine != null) {
-                try {
-                    readLine.close();
-                } catch (IOException ex) {
-                    Toast.makeText(context, "Error! IOException", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-        final String[] mBackupPrefData = loadedData.toString().split("<PREFERRENCE>");
-        String[] bkupTitleArray = new String[mBackupPrefData.length];
-        StringBuilder titleList = new StringBuilder();
-        for (int i = 1; i < mBackupPrefData.length; i++) {
-            String[] mBackupPrefKey = mBackupPrefData[i].split("<KEY>");
-            bkupTitleArray[i] = mBackupPrefKey[1];
-            titleList.append(String.format(Locale.getDefault(), "[%03d] %s%n%n", i,
-                    bkupTitleArray[i].replaceAll("\n", "")));
-            if (SaveDataList.DEBUG) {
-                Log.v(TAG, "[" + i + "] " + "HOLE_TITLE = " + mBackupPrefKey[1]);
-            }
-        }
-        // 読み込みデータ内容確認ダイアログを表示
-        showLoadDataDialog(titleList.toString(), mBackupPrefData);
+    void loadBackupData(@NonNull String file) {
+        showLoadDataDialog(file, SaveDataPref.getBackupDataTitleList(file));
     }
 
-    /**
-     * @param message ダイアログのメッセージ
-     * @param dataList データリスト
-     */
-    private void showLoadDataDialog(final String message, final String[] dataList) {
+    private void showLoadDataDialog(@NonNull final String file, @NonNull String message) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainTitle.this);
         dialog.setIcon(android.R.drawable.ic_menu_info_details);
@@ -401,25 +279,7 @@ public class MainTitle extends Activity {
             public void onClick(final DialogInterface dialog, final int whichButton) {
 
                 initializeAllData(mSaveDataList, mCreateButtons);
-                for (int i = 1; i < dataList.length; i++) {
-                    String[] mBackupPrefKey = dataList[i].split("<KEY>");
-                    SharedPreferences pref = getSharedPreferences("PREF" + String.valueOf(i),
-                            MODE_PRIVATE);
-                    Editor e = pref.edit();
-                    e.putString(Util.PREF_DATA_KEY[0], "0");
-                    for (int j = 1; j < mBackupPrefKey.length; j++) {
-                        if (j != 12) {
-                            e.putString(Util.PREF_DATA_KEY[j],
-                                    mBackupPrefKey[j].replaceAll("\n", ""));
-                        } else {
-                            e.putString(Util.PREF_DATA_KEY[j], mBackupPrefKey[j]);
-                        }
-                        if (SaveDataList.DEBUG) {
-                            Log.v(TAG, "PREF[" + i + "] " + "KEY[" + j + "] " + mBackupPrefKey[j]);
-                        }
-                    }
-                    e.commit();
-                }
+                SaveDataPref.restoreBackupData(file);
                 Toast.makeText(MainTitle.this,
                         getResources().getString(R.string.toast_backup_complete),
                         Toast.LENGTH_SHORT).show();

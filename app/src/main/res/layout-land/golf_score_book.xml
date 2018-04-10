@@ -1,5 +1,3 @@
-<!DOCTYPE Layout>
-<!-- 横画面用レイアウト -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scoreEditor"
     android:layout_width="match_parent"
@@ -242,9 +240,10 @@
                 android:layout_marginRight="@dimen/adjusted_size_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:padding="@dimen/adjusted_size_2dp"
-                android:textColor="#FFFFFF" >
+                android:gravity="center|center"
+                android:padding="0dp"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_20dp">
             </TextView>
 
             <TextView
@@ -255,9 +254,10 @@
                 android:layout_marginRight="@dimen/adjusted_size_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:padding="@dimen/adjusted_size_2dp"
-                android:textColor="#FFFFFF" >
+                android:gravity="center|center"
+                android:padding="0dp"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_20dp">
             </TextView>
 
             <TextView
@@ -268,9 +268,10 @@
                 android:layout_marginRight="@dimen/adjusted_size_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:padding="@dimen/adjusted_size_2dp"
-                android:textColor="#FFFFFF" >
+                android:gravity="center|center"
+                android:padding="0dp"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_20dp">
             </TextView>
 
             <TextView
@@ -280,9 +281,10 @@
                 android:layout_marginLeft="@dimen/adjusted_size_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:padding="@dimen/adjusted_size_2dp"
-                android:textColor="#FFFFFF" >
+                android:gravity="center|center"
+                android:padding="0dp"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/adjusted_text_size_20dp">
             </TextView>
         </LinearLayout>
 
@@ -357,7 +359,7 @@
                 android:layout_alignParentLeft="true"
                 android:drawableLeft="@drawable/image_button_graph"
                 android:text="@string/graph_btn"
-                android:textSize="@dimen/adjusted_text_size_12dp" >
+                android:textSize="@dimen/adjusted_text_size_18dp" >
             </Button>
 
             <RelativeLayout
@@ -402,7 +404,7 @@
                 android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/image_button_table"
                 android:text="@string/table_btn"
-                android:textSize="@dimen/adjusted_text_size_12dp" >
+                android:textSize="@dimen/adjusted_text_size_18dp" >
             </Button>
         </RelativeLayout>
     </RelativeLayout>

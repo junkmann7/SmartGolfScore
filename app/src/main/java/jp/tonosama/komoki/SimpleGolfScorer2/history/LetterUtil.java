@@ -1,7 +1,8 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.history;
 
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
 
 /**
@@ -28,11 +29,11 @@ public final class LetterUtil {
     public static float getMyAverage(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         float myAverage = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            myAverage += scoreMgr.getAllScores(saveNum)[playerNum][i]
-                    - scoreMgr.getAllParValues(saveNum)[i];
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            myAverage += scoreMgr.getAllScores(saveNum).get(playerNum).get(i)
+                    - scoreMgr.getAllParValues(saveNum).get(i);
         }
-        myAverage /= Util.TOTAL_HOLE_COUNT;
+        myAverage /= SGSConfig.TOTAL_HOLE_COUNT;
 
         return myAverage;
     }
@@ -40,10 +41,10 @@ public final class LetterUtil {
     public static float getMyPatAverage(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         float myPatAverage = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            myPatAverage += scoreMgr.getMyPatting(saveNum)[i];
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            myPatAverage += scoreMgr.getMyPatting(saveNum).get(i);
         }
-        myPatAverage /= Util.TOTAL_HOLE_COUNT;
+        myPatAverage /= SGSConfig.TOTAL_HOLE_COUNT;
 
         return myPatAverage;
     }
@@ -51,8 +52,8 @@ public final class LetterUtil {
     public static int getMyTotalScore(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         int myTotalScore = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            myTotalScore += scoreMgr.getAllScores(saveNum)[playerNum][i];
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            myTotalScore += scoreMgr.getAllScores(saveNum).get(playerNum).get(i);
         }
 
         return myTotalScore;
@@ -61,7 +62,7 @@ public final class LetterUtil {
     public static int getMyTotalScoreMinusHandi(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         int myTotalScoreMinusHandi = getMyTotalScore(scoreMgr, saveNum, playerNum);
-        myTotalScoreMinusHandi -= scoreMgr.getPlayersHandi(saveNum)[playerNum];
+        myTotalScoreMinusHandi -= scoreMgr.getPlayersHandi(saveNum).get(playerNum);
 
         return myTotalScoreMinusHandi;
     }
@@ -69,9 +70,9 @@ public final class LetterUtil {
     public static int getMyBasedTotalScore(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         int myTotalScore = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            myTotalScore += scoreMgr.getAllScores(saveNum)[playerNum][i]
-                    - scoreMgr.getAllParValues(saveNum)[i];
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            myTotalScore += scoreMgr.getAllScores(saveNum).get(playerNum).get(i)
+                    - scoreMgr.getAllParValues(saveNum).get(i);
         }
 
         return myTotalScore;
@@ -89,21 +90,21 @@ public final class LetterUtil {
             final int playerNum, final int par) {
         float[] eachHoleScore = { 0f, 0f, 0f, 0f };
         int[] eachHoleNum = { 0, 0, 0, 0 };
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            if (scoreMgr.getAllParValues(saveNum)[i] == 2) {
-                eachHoleScore[0] += scoreMgr.getAllScores(saveNum)[playerNum][i] - 2;
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            if (scoreMgr.getAllParValues(saveNum).get(i) == 2) {
+                eachHoleScore[0] += scoreMgr.getAllScores(saveNum).get(playerNum).get(i) - 2;
                 eachHoleNum[0]++;
             }
-            if (scoreMgr.getAllParValues(saveNum)[i] == 3) {
-                eachHoleScore[1] += scoreMgr.getAllScores(saveNum)[playerNum][i] - 3;
+            if (scoreMgr.getAllParValues(saveNum).get(i) == 3) {
+                eachHoleScore[1] += scoreMgr.getAllScores(saveNum).get(playerNum).get(i) - 3;
                 eachHoleNum[1]++;
             }
-            if (scoreMgr.getAllParValues(saveNum)[i] == 4) {
-                eachHoleScore[2] += scoreMgr.getAllScores(saveNum)[playerNum][i] - 4;
+            if (scoreMgr.getAllParValues(saveNum).get(i) == 4) {
+                eachHoleScore[2] += scoreMgr.getAllScores(saveNum).get(playerNum).get(i) - 4;
                 eachHoleNum[2]++;
             }
-            if (scoreMgr.getAllParValues(saveNum)[i] == 5) {
-                eachHoleScore[3] += scoreMgr.getAllScores(saveNum)[playerNum][i] - 5;
+            if (scoreMgr.getAllParValues(saveNum).get(i) == 5) {
+                eachHoleScore[3] += scoreMgr.getAllScores(saveNum).get(playerNum).get(i) - 5;
                 eachHoleNum[3]++;
             }
         }
@@ -153,10 +154,10 @@ public final class LetterUtil {
             final int playerNum) {
         int myRank = 1;
         int myScore = getMyTotalScore(scoreMgr, saveNum, playerNum)
-                - scoreMgr.getPlayersHandi(saveNum)[playerNum]; // mod for ver 2.0.1
+                - scoreMgr.getPlayersHandi(saveNum).get(playerNum); // mod for ver 2.0.1
         for (int i = 0; i < scoreMgr.getPlayerNum(saveNum); i++) {
             if (myScore > (getMyTotalScore(scoreMgr, saveNum, i) - scoreMgr
-                    .getPlayersHandi(saveNum)[i])) {
+                    .getPlayersHandi(saveNum).get(i))) {
                 myRank++; // mod for ver 2.0.1
             }
         }
@@ -169,18 +170,18 @@ public final class LetterUtil {
         //String comment="";
         //String Debug="";
         //int myBasedScore;
-        int[] scoreSort = new int[Util.TOTAL_HOLE_COUNT];
+        int[] scoreSort = new int[SGSConfig.TOTAL_HOLE_COUNT];
         int temp = 0;
         int sortCount = 1;
         int pottentialScore = 0;
 
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            scoreSort[i] = scoreMgr.getAllScores(saveNum)[rankNum][i]
-                    - scoreMgr.getAllParValues(saveNum)[i];
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            scoreSort[i] = scoreMgr.getAllScores(saveNum).get(rankNum).get(i)
+                    - scoreMgr.getAllParValues(saveNum).get(i);
         }
         while (sortCount == 1) {
             sortCount = 0;
-            for (int i = 0; i < Util.TOTAL_HOLE_COUNT - 1; i++) {
+            for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT - 1; i++) {
                 if (scoreSort[i] > scoreSort[i + 1]) {
                     temp = scoreSort[i];
                     scoreSort[i] = scoreSort[i + 1];
@@ -191,7 +192,7 @@ public final class LetterUtil {
 
         }
         for (int i = 0; i < 9; i++) {
-            pottentialScore += (scoreSort[i] + scoreMgr.getAllParValues(saveNum)[i]);
+            pottentialScore += (scoreSort[i] + scoreMgr.getAllParValues(saveNum).get(i));
 
         }
         pottentialScore *= 2;
@@ -202,24 +203,24 @@ public final class LetterUtil {
     public static float getMyBogeyOnKeepRate(final SaveDataList scoreMgr, final int saveNum) {
         float parOnRate = 0f;
         int count = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            if (scoreMgr.getMyPatting(saveNum)[i] == 0) {
-                if (scoreMgr.getAllScores(saveNum)[0][i] <= //
-                scoreMgr.getAllParValues(saveNum)[i] + 1) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            if (scoreMgr.getMyPatting(saveNum).get(i) == 0) {
+                if (scoreMgr.getAllScores(saveNum).get(0).get(i) <= //
+                scoreMgr.getAllParValues(saveNum).get(i) + 1) {
                     parOnRate += 1f;
 
                 }
                 count++;
             } else {
-                if ((scoreMgr.getAllScores(saveNum)[0][i] - //
-                scoreMgr.getMyPatting(saveNum)[i]) <= scoreMgr.getAllParValues(saveNum)[i] - 1) {
+                if ((scoreMgr.getAllScores(saveNum).get(0).get(i) - //
+                scoreMgr.getMyPatting(saveNum).get(i)) <= scoreMgr.getAllParValues(saveNum).get(i) - 1) {
                     parOnRate += 1f;
                 }
             }
         }
 
         if (count < 16) {
-            return (parOnRate / Util.TOTAL_HOLE_COUNT * 100f);
+            return (parOnRate / SGSConfig.TOTAL_HOLE_COUNT * 100f);
         } else { //入力が無い場合は0%を返す
             return 0.0F;
         }
@@ -228,24 +229,24 @@ public final class LetterUtil {
     public static float getMyParOnKeepRate(final SaveDataList scoreMgr, final int saveNum) {
         float parOnRate = 0f;
         int count = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            if (scoreMgr.getMyPatting(saveNum)[i] == 0) {
-                if (scoreMgr.getAllScores(saveNum)[0][i] <= scoreMgr.getAllParValues(saveNum)[i]) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            if (scoreMgr.getMyPatting(saveNum).get(i) == 0) {
+                if (scoreMgr.getAllScores(saveNum).get(0).get(i) <= scoreMgr.getAllParValues(saveNum).get(i)) {
                     parOnRate += 1f;
 
                 }
                 count++;
             } else {
-                if ((scoreMgr.getAllScores(saveNum)[0][i] //
-                - scoreMgr.getMyPatting(saveNum)[i]) <= //
-                scoreMgr.getAllParValues(saveNum)[i] - 2) {
+                if ((scoreMgr.getAllScores(saveNum).get(0).get(i) //
+                - scoreMgr.getMyPatting(saveNum).get(i)) <= //
+                scoreMgr.getAllParValues(saveNum).get(i) - 2) {
                     parOnRate += 1f;
                 }
             }
         }
 
         if (count < 16) {
-            return (parOnRate / Util.TOTAL_HOLE_COUNT * 100f);
+            return (parOnRate / SGSConfig.TOTAL_HOLE_COUNT * 100f);
         } else { //入力が無い場合は0%を返す
             return 0.0F;
         }
@@ -254,8 +255,8 @@ public final class LetterUtil {
 
     public static boolean getIsShortHole(final SaveDataList scoreMgr, final int saveNum) {
         boolean isShortHole = true;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            if (scoreMgr.getAllParValues(saveNum)[i] != 3) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            if (scoreMgr.getAllParValues(saveNum).get(i) != 3) {
                 isShortHole = false;
             }
         }
@@ -271,9 +272,9 @@ public final class LetterUtil {
             int myRank = 1;
             for (int j = 0; j < playernum; j++) {
                 if ((getMyTotalScore(scoreMgr, saveNum, i) //
-                - scoreMgr.getPlayersHandi(saveNum)[i]) > //
+                - scoreMgr.getPlayersHandi(saveNum).get(i)) > //
                 (getMyTotalScore(scoreMgr, saveNum, j) - //
-                scoreMgr.getPlayersHandi(saveNum)[j])) {
+                scoreMgr.getPlayersHandi(saveNum).get(j))) {
                     myRank++; // mod for ver 2.0.1
                 }
             }
@@ -303,8 +304,8 @@ public final class LetterUtil {
             int myRank = 1;
             for (int j = 0; j < playernum; j++) {
                 if (getMyFirstHalfScore(scoreMgr, saveNum, i)
-                        - scoreMgr.getPlayersHandi(saveNum)[i] > getMyFirstHalfScore(scoreMgr,
-                        saveNum, j) - scoreMgr.getPlayersHandi(saveNum)[j]) {
+                        - scoreMgr.getPlayersHandi(saveNum).get(i) > getMyFirstHalfScore(scoreMgr,
+                        saveNum, j) - scoreMgr.getPlayersHandi(saveNum).get(j)) {
                     myRank++;
                 }
             }
@@ -353,8 +354,8 @@ public final class LetterUtil {
     public static int getMyFirstHalfScore(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         int myFirstScore = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT / 2; i++) {
-            myFirstScore += scoreMgr.getAllScores(saveNum)[playerNum][i];
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT / 2; i++) {
+            myFirstScore += scoreMgr.getAllScores(saveNum).get(playerNum).get(i);
         }
 
         return myFirstScore;
@@ -363,8 +364,8 @@ public final class LetterUtil {
     public static int getMySecondHalfScore(final SaveDataList scoreMgr, final int saveNum,
             final int playerNum) {
         int mySecondScore = 0;
-        for (int i = Util.TOTAL_HOLE_COUNT / 2; i < Util.TOTAL_HOLE_COUNT; i++) {
-            mySecondScore += scoreMgr.getAllScores(saveNum)[playerNum][i];
+        for (int i = SGSConfig.TOTAL_HOLE_COUNT / 2; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            mySecondScore += scoreMgr.getAllScores(saveNum).get(playerNum).get(i);
         }
 
         return mySecondScore;
@@ -382,10 +383,10 @@ public final class LetterUtil {
         int mScore = 10;
         int tmp = 0;
 
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            tmp = scoreMgr.getAllScores(saveNum)[playerNum][i]
-                    - scoreMgr.getAllParValues(saveNum)[i];
-            if (scoreMgr.getAllScores(saveNum)[playerNum][i] == 1) { // ホールインワンなら
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            tmp = scoreMgr.getAllScores(saveNum).get(playerNum).get(i)
+                    - scoreMgr.getAllParValues(saveNum).get(i);
+            if (scoreMgr.getAllScores(saveNum).get(playerNum).get(i) == 1) { // ホールインワンなら
                 return -10;
             } else if (mScore > tmp) { // ・それ以外なら
                 mScore = tmp;
@@ -404,11 +405,11 @@ public final class LetterUtil {
     public static int[][] getParBasedScore(final int playerNum, final int saveNum,
             final SaveDataList scoreMgr) {
         int tempSum;
-        int[][] mAllScoreBasedPar = new int[playerNum][Util.TOTAL_HOLE_COUNT];
+        int[][] mAllScoreBasedPar = new int[playerNum][SGSConfig.TOTAL_HOLE_COUNT];
         for (int i = 0; i < playerNum; i++) {
-            tempSum = -scoreMgr.getHandiCaps(saveNum)[i]; //ハンディ付きで計算
-            for (int k = 0; k < Util.TOTAL_HOLE_COUNT; k++) {
-                tempSum += scoreMgr.getAllScores(saveNum)[i][k];
+            tempSum = -scoreMgr.getHandiCaps(saveNum).get(i); //ハンディ付きで計算
+            for (int k = 0; k < SGSConfig.TOTAL_HOLE_COUNT; k++) {
+                tempSum += scoreMgr.getAllScores(saveNum).get(i).get(k);
                 mAllScoreBasedPar[i][k] = tempSum;
             }
         }
@@ -506,7 +507,7 @@ public final class LetterUtil {
             final int[] mTurningPoint, final int[] mTurningChange, final int pIdx) {
         int[] upDown = { 0, 0 };
         for (int i = 0; i < playernum; i++) {
-            for (int k = 0; k < Util.TOTAL_HOLE_COUNT; k++) {
+            for (int k = 0; k < SGSConfig.TOTAL_HOLE_COUNT; k++) {
                 if (i != pIdx) { //同プレイヤーは計算なし
                     if (k > 4) { //5ホール目以降で順位の入れ替わりがあればカウントアップ
                         if ((mAllScoreBasedPar[i][k]) < (mAllScoreBasedPar[pIdx][k])) {

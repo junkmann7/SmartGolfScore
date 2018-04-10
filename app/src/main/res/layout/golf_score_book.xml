@@ -1,5 +1,3 @@
-<!DOCTYPE Layout>
-<!-- 縦画面用レイアウト -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/golf_score_book"
     android:layout_width="match_parent"
@@ -22,27 +20,28 @@
             android:layout_width="@dimen/adjusted_size_60dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:src="@drawable/image_button_goback" />
+            android:src="@drawable/image_button_goback"
+            android:contentDescription="@string/etc_content_description" />
 
         <TextView
             android:id="@+id/hole_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/adjusted_size_5dp"
             android:layout_marginRight="@dimen/adjusted_size_5dp"
             android:layout_weight="1"
             android:gravity="center"
             android:singleLine="true"
-            android:text="HOLE_TITLE"
             android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_text_size_18dp" />
+            android:textSize="@dimen/adjusted_text_size_20dp" />
 
         <ImageButton
             android:id="@+id/infoButton"
             android:layout_width="@dimen/adjusted_size_60dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:src="@drawable/imane_button_setting" />
+            android:src="@drawable/imane_button_setting"
+            android:contentDescription="@string/etc_content_description" />
     </LinearLayout>
 
     <RelativeLayout
@@ -134,49 +133,21 @@
                 android:layout_weight="1"
                 android:gravity="center|bottom" >
 
-                <TextView
-                    android:id="@+id/per1_name_area"
-                    android:layout_width="@dimen/adjusted_size_120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textColor="#FFF"
-                    android:textSize="@dimen/adjusted_text_size_16dp" >
-                </TextView>
+                <include
+                    layout="@layout/score_editor_player_name_text"
+                    android:id="@+id/per1_name_area" />
 
-                <TextView
-                    android:id="@+id/per2_name_area"
-                    android:layout_width="@dimen/adjusted_size_120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textColor="#FFF"
-                    android:textSize="@dimen/adjusted_text_size_16dp" >
-                </TextView>
+                <include
+                    layout="@layout/score_editor_player_name_text"
+                    android:id="@+id/per2_name_area" />
 
-                <TextView
-                    android:id="@+id/per3_name_area"
-                    android:layout_width="@dimen/adjusted_size_120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textColor="#FFF"
-                    android:textSize="@dimen/adjusted_text_size_16dp" >
-                </TextView>
+                <include
+                    layout="@layout/score_editor_player_name_text"
+                    android:id="@+id/per3_name_area" />
 
-                <TextView
-                    android:id="@+id/per4_name_area"
-                    android:layout_width="@dimen/adjusted_size_120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textColor="#FFF"
-                    android:textSize="@dimen/adjusted_text_size_16dp" >
-                </TextView>
+                <include
+                    layout="@layout/score_editor_player_name_text"
+                    android:id="@+id/per4_name_area" />
             </LinearLayout>
             <!-- プレイヤー名 E -->
             <!-- ドラムピッカー S -->
@@ -192,33 +163,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <jp.tonosama.komoki.wheel.widget.WheelView
-                        android:id="@+id/drumPicker1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                    <include layout="@layout/score_editor_drum_picker"
+                        android:id="@+id/drumPicker1" />
 
-                    <jp.tonosama.komoki.wheel.widget.WheelView
-                        android:id="@+id/drumPicker2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                    <include layout="@layout/score_editor_drum_picker"
+                        android:id="@+id/drumPicker2" />
 
-                    <jp.tonosama.komoki.wheel.widget.WheelView
-                        android:id="@+id/drumPicker3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                    <include layout="@layout/score_editor_drum_picker"
+                        android:id="@+id/drumPicker3" />
 
-                    <jp.tonosama.komoki.wheel.widget.WheelView
-                        android:id="@+id/drumPicker4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                    <include layout="@layout/score_editor_drum_picker"
+                        android:id="@+id/drumPicker4" />
                 </LinearLayout>
             </LinearLayout>
             <!-- ドラムピッカー E -->
@@ -240,59 +195,21 @@
             android:paddingBottom="@dimen/adjusted_size_5dp"
             android:paddingTop="@dimen/adjusted_size_5dp" >
 
-            <TextView
+            <include
                 android:id="@+id/per1_total_score"
-                android:layout_width="@dimen/adjusted_size_120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/adjusted_size_2dp"
-                android:layout_weight="1"
-                android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:text="Score1"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/adjusted_text_size_14dp" >
-            </TextView>
+                layout="@layout/score_editor_total_score_text" />
 
-            <TextView
+            <include
                 android:id="@+id/per2_total_score"
-                android:layout_width="@dimen/adjusted_size_120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/adjusted_size_2dp"
-                android:layout_marginRight="@dimen/adjusted_size_2dp"
-                android:layout_weight="1"
-                android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:text="Score2"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/adjusted_text_size_14dp" >
-            </TextView>
+                layout="@layout/score_editor_total_score_text" />
 
-            <TextView
+            <include
                 android:id="@+id/per3_total_score"
-                android:layout_width="@dimen/adjusted_size_120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/adjusted_size_2dp"
-                android:layout_marginRight="@dimen/adjusted_size_2dp"
-                android:layout_weight="1"
-                android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:text="Score3"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/adjusted_text_size_14dp" >
-            </TextView>
+                layout="@layout/score_editor_total_score_text" />
 
-            <TextView
+            <include
                 android:id="@+id/per4_total_score"
-                android:layout_width="@dimen/adjusted_size_120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/adjusted_size_2dp"
-                android:layout_weight="1"
-                android:background="@drawable/picker_back"
-                android:gravity="center"
-                android:text="Score4"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/adjusted_text_size_14dp" >
-            </TextView>
+                layout="@layout/score_editor_total_score_text" />
         </LinearLayout>
         <!-- スコア結果記入欄 E -->
 
@@ -368,7 +285,7 @@
                 android:paddingLeft="@dimen/adjusted_size_25dp"
                 android:paddingRight="@dimen/adjusted_size_25dp"
                 android:text="@string/graph_btn"
-                android:textSize="@dimen/adjusted_text_size_14dp" >
+                android:textSize="@dimen/adjusted_text_size_18dp" >
             </Button>
 
             <Button
@@ -380,7 +297,7 @@
                 android:paddingLeft="@dimen/adjusted_size_25dp"
                 android:paddingRight="@dimen/adjusted_size_25dp"
                 android:text="@string/table_btn"
-                android:textSize="@dimen/adjusted_text_size_14dp" >
+                android:textSize="@dimen/adjusted_text_size_18dp" >
             </Button>
         </LinearLayout>
         <!-- Viewボタン E -->

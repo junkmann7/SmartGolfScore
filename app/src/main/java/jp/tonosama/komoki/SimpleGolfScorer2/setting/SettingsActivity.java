@@ -1,22 +1,11 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.setting;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
-import jp.tonosama.komoki.SimpleGolfScorer2.editor.ScoreEditor;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -27,42 +16,52 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.ArrayUtil;
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
+import jp.tonosama.komoki.SimpleGolfScorer2.editor.ScoreEditor;
+
+import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.DEFAULT_HOLEPAR_SCORE;
+import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.DEFAULT_HOLEPAR_SHORT_SCORE;
+import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.MAX_PLAYER_NUM;
+
 /**
  * @author Komoki
  */
 public class SettingsActivity extends Activity {
 
-    /** タグ名 */
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    /** 表示プレイヤー数 */
-    private int mPlayerNum = 2;
+    private SaveData mSaveData = null;
 
-    /** 保存データ */
-    private SaveData mSaveData;
+    private int mPlayerNum = 2;
 
     /** タイムスタンプのフォーマット */
     private static final String TIME_STAMP_NAME = "yyyy/MM/dd";
+    /**  */
+    public static final String EXTRAS_IS_NEW_CREATE = "jp.tonosama.komoki.EXTRAS_IS_NEW_CREATE";
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
-
-        if (SaveDataList.DEBUG) {
-            Log.d(TAG, "onCreate -> s");
-        }
+        DevLog.d(TAG, "onCreate -> s");
         setContentView(R.layout.new_create);
 
-        int saveIdx = getSaveIdx();
-        if (saveIdx < 0) {
-            finish();
-            return;
-        }
-        if (getIsNewCreate()) {
-            String myName = getIntent().getExtras().getString(Util.EXTRAS_MY_NAME);
+        final int saveIdx = SaveDataPref.getSelectedSaveIdx();
+        if (isNewCreate()) {
+            String myName = SaveDataPref.getMyName();
             mSaveData = setupInitialValue(saveIdx, myName);
         } else {
-            mSaveData = Util.loadScoreDataFromPref(this, saveIdx);
+            mSaveData = SaveDataPref.getSaveDataMap().get(saveIdx);
         }
         setupSavedValue(mSaveData);
         mPlayerNum = Math.max(2, mSaveData.getPlayerNum());
@@ -76,9 +75,7 @@ public class SettingsActivity extends Activity {
         }
         setupButtonAction();
 
-        if (SaveDataList.DEBUG) {
-            Log.d(TAG, "onCreate -> e");
-        }
+        DevLog.d(TAG, "onCreate -> e");
     }
 
     /**
@@ -92,13 +89,12 @@ public class SettingsActivity extends Activity {
         String nowDate = new SimpleDateFormat(TIME_STAMP_NAME, Locale.US).format(new Date(System
                 .currentTimeMillis()));
 
-        SaveData sData = new SaveData();
-        sData.setSaveIdx(saveIdx);
-        sData.setHoleTitle(nowDate);
-        sData.getNames()[0] = myName;
-        sData.setEachHolePar(Util.DEFAULT_HOLEPAR_SCORE);
+        SaveData data = SaveData.createInitialData(saveIdx);
+        data.setHoleTitle(nowDate);
+        data.getPlayerNameList().put(0, myName);
+        data.setEachHolePar(DEFAULT_HOLEPAR_SCORE);
 
-        return sData;
+        return data;
     }
 
     /**
@@ -108,16 +104,16 @@ public class SettingsActivity extends Activity {
 
         SettingsRes.getTitleView(this).setText(sData.getHoleTitle());
         EditText[] nameView = SettingsRes.getNameView(this);
-        nameView[0].setText(sData.getNames()[0]);
-        nameView[1].setText(sData.getNames()[1]);
-        nameView[2].setText(sData.getNames()[2]);
-        nameView[3].setText(sData.getNames()[3]);
+        nameView[0].setText(sData.getPlayerNameList().get(0));
+        nameView[1].setText(sData.getPlayerNameList().get(1));
+        nameView[2].setText(sData.getPlayerNameList().get(2));
+        nameView[3].setText(sData.getPlayerNameList().get(3));
         SettingsRes.getMemoView(this).setText(sData.getMemoStr());
         EditText[] handiView = SettingsRes.getHandiView(this);
-        handiView[0].setText(String.valueOf(sData.getPlayersHandi()[0]));
-        handiView[1].setText(String.valueOf(sData.getPlayersHandi()[1]));
-        handiView[2].setText(String.valueOf(sData.getPlayersHandi()[2]));
-        handiView[3].setText(String.valueOf(sData.getPlayersHandi()[3]));
+        handiView[0].setText(String.valueOf(sData.getPlayersHandi().get(0)));
+        handiView[1].setText(String.valueOf(sData.getPlayersHandi().get(1)));
+        handiView[2].setText(String.valueOf(sData.getPlayersHandi().get(2)));
+        handiView[3].setText(String.valueOf(sData.getPlayersHandi().get(3)));
 
         RadioGroup mRadioGroup = SettingsRes.getRadioGroup(this);
         if (sData.getIs18Hround()) {
@@ -167,11 +163,11 @@ public class SettingsActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
-                if (mPlayerNum < Util.MAX_PLAYER_NUM) {
+                if (mPlayerNum < MAX_PLAYER_NUM) {
                     mPlayerNum++;
                     ViewGroup[] mPlayerEditArea = SettingsRes
                             .getPlayerEditArea(SettingsActivity.this);
-                    for (int i = 0; i < Util.MAX_PLAYER_NUM; i++) {
+                    for (int i = 0; i < MAX_PLAYER_NUM; i++) {
                         if (i < mPlayerNum) {
                             mPlayerEditArea[i].setVisibility(View.VISIBLE);
                         } else {
@@ -179,7 +175,7 @@ public class SettingsActivity extends Activity {
                         }
                     }
                 }
-                if (mPlayerNum == Util.MAX_PLAYER_NUM) {
+                if (mPlayerNum == MAX_PLAYER_NUM) {
                     button.setImageResource(R.drawable.image_button_add_disable);
                     button.setEnabled(false);
                 }
@@ -194,12 +190,12 @@ public class SettingsActivity extends Activity {
      */
     private void setupPlayerDeleteButtonAction(final ImageButton[] button) {
 
-        for (int i = 0; i < Util.MAX_PLAYER_NUM; i++) {
+        for (int i = 0; i < MAX_PLAYER_NUM; i++) {
             button[i].setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(final View v) {
                     int j;
-                    for (j = 0; j < Util.MAX_PLAYER_NUM; j++) {
+                    for (j = 0; j < MAX_PLAYER_NUM; j++) {
                         if (v == button[j]) {
                             break;
                         }
@@ -207,7 +203,7 @@ public class SettingsActivity extends Activity {
                     final int pressedNum = j;
                     EditText[] nameView = SettingsRes.getNameView(SettingsActivity.this);
                     final String name = nameView[j].getText().toString();
-                    if (getIsNewCreate() || name.trim().length() == 0) {
+                    if (isNewCreate() || name.trim().length() == 0) {
                         nameView[j].setText("");
                         for (int i = j + 1; i < mPlayerNum; i++) {
                             nameView[i - 1].setText(nameView[i].getText().toString());
@@ -237,7 +233,6 @@ public class SettingsActivity extends Activity {
      */
     private void showConfirmDeletePlayerDialog(final int pressedNum) {
 
-        final String[] mPrefDataKey = Util.PREF_DATA_KEY;
         EditText[] nameView = SettingsRes.getNameView(this);
         AlertDialog.Builder dialog = new AlertDialog.Builder(SettingsActivity.this);
         dialog.setIcon(R.drawable.ic_menu_notice);
@@ -247,29 +242,48 @@ public class SettingsActivity extends Activity {
         dialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
             public void onClick(final DialogInterface dialog, final int whichButton) {
+
+                // Saves currently modified settings
+                saveCurrentSettings();
+
+                // Remove and reorder list
+                int lastPlayerIdx = SGSConfig.MAX_PLAYER_NUM - 1;
+
+                // Name list
+                Map<Integer, String> nameList = mSaveData.getPlayerNameList();
+                nameList.remove(pressedNum);
+                for (int i = pressedNum + 1; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+                    nameList.put(i - 1, nameList.get(i));
+                }
+                nameList.put(lastPlayerIdx, "");
+                mSaveData.setNameList(nameList);
+
+                // Score list
+                Map<Integer, Map<Integer, Integer>> scoresList = mSaveData.getScoresList();
+                scoresList.remove(pressedNum);
+                for (int i = pressedNum + 1; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+                    scoresList.put(i - 1, scoresList.get(i));
+                }
+                scoresList.put(lastPlayerIdx, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
+                mSaveData.setScoresList(scoresList);
+
+                // Handi list
+                Map<Integer, Integer> handiList = mSaveData.getPlayersHandi();
+                handiList.remove(pressedNum);
+                for (int i = pressedNum + 1; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+                    handiList.put(i - 1, handiList.get(i));
+                }
+                handiList.put(lastPlayerIdx, 0);
+                mSaveData.setPlayersHandi(handiList);
+
+                // Save updated data
+                SaveDataPref.saveScoreData(mSaveData);
+
+                // Updates visibility of buttons
                 updatePlayerEditValue(pressedNum);
-                SharedPreferences pref = getSharedPreferences(Util.PREF_DATA_SLOT[getSaveIdx()],
-                        MODE_PRIVATE);
-                String[] playerScores = { pref.getString(mPrefDataKey[8], ""),
-                        pref.getString(mPrefDataKey[9], ""), pref.getString(mPrefDataKey[10], ""),
-                        pref.getString(mPrefDataKey[11], "") };
-                String[] playersPrKey = { mPrefDataKey[8], mPrefDataKey[9], mPrefDataKey[10],
-                        mPrefDataKey[11] };
-                Editor e = pref.edit();
-                for (int i = pressedNum + 1; i < mPlayerNum; i++) {
-                    e.putString(playersPrKey[i - 1], playerScores[i]);
-                }
-                e.putString(playersPrKey[mPlayerNum - 1], "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
-                String[] playerNames = { pref.getString(mPrefDataKey[4], ""),
-                        pref.getString(mPrefDataKey[5], ""), pref.getString(mPrefDataKey[6], ""),
-                        pref.getString(mPrefDataKey[7], "") };
-                String[] playerNamesKey = { mPrefDataKey[4], mPrefDataKey[5], mPrefDataKey[6],
-                        mPrefDataKey[7], };
-                for (int i = pressedNum + 1; i < mPlayerNum; i++) {
-                    e.putString(playerNamesKey[i - 1], playerNames[i]);
-                }
-                e.commit();
-                mPlayerNum--;
+
+                // decrement player num
+                mPlayerNum -= 1;
             }
         });
         dialog.setNegativeButton(android.R.string.no, null);
@@ -291,9 +305,9 @@ public class SettingsActivity extends Activity {
         nameView[mPlayerNum - 1].setText("");
         ViewGroup[] mPlayerEditArea = SettingsRes.getPlayerEditArea(this);
         mPlayerEditArea[mPlayerNum - 1].setVisibility(View.GONE);
-        ImageButton mPlayerAddButton = SettingsRes.getAddButton(this);
-        mPlayerAddButton.setImageResource(R.drawable.image_button_add);
-        mPlayerAddButton.setEnabled(true);
+        ImageButton playerAddButton = SettingsRes.getAddButton(this);
+        playerAddButton.setImageResource(R.drawable.image_button_add);
+        playerAddButton.setEnabled(true);
     }
 
     /**
@@ -350,18 +364,18 @@ public class SettingsActivity extends Activity {
             return false;
         }
         // プレイヤー未入力の場合は開始しない対応
-        String[] names = SettingsRes.getPersonNames(this);
-        if (names[0].trim().length() == 0 && names[1].trim().length() == 0
-                && names[2].trim().length() == 0 && names[3].trim().length() == 0) {
+        Map<Integer, String> names = SettingsRes.getPersonNames(this);
+        if (names.get(0).trim().length() == 0 && names.get(1).trim().length() == 0
+                && names.get(2).trim().length() == 0 && names.get(3).trim().length() == 0) {
             Toast.makeText(getApplicationContext(),
                     getResources().getString(R.string.toast_input_player), Toast.LENGTH_SHORT)
                     .show();
             return false;
         }
         // 編集時にプレイヤー未入力があれば開始しない対応
-        if (!getIsNewCreate()) {
+        if (!isNewCreate()) {
             for (int i = 0; i < mPlayerNum; i++) {
-                if (names[i].trim().length() == 0) {
+                if (names.get(i).trim().length() == 0) {
                     Toast.makeText(getApplicationContext(),
                             getResources().getString(R.string.toast_input_player),
                             Toast.LENGTH_SHORT).show();
@@ -375,9 +389,9 @@ public class SettingsActivity extends Activity {
     /**
      * startGolfScorer
      */
-    public void startGolfScorer() {
+    private void startGolfScorer() {
 
-        String[] personNames = SettingsRes.getPersonNames(this);
+        Map<Integer, String> personNames = SettingsRes.getPersonNames(this);
 
         // 開始しない条件を確認
         if (!checkEnableStart()) {
@@ -386,17 +400,17 @@ public class SettingsActivity extends Activity {
         // 未記入のプレイヤーを詰める
         int tmp = 0;
         String[] strTmp = { "", "", "", "" };
-        for (int i = 0; i < Util.MAX_PLAYER_NUM; i++) {
-            if (personNames[i].trim().length() != 0) {
-                strTmp[tmp] = personNames[i];
+        for (int i = 0; i < MAX_PLAYER_NUM; i++) {
+            if (personNames.get(i).trim().length() != 0) {
+                strTmp[tmp] = personNames.get(i);
                 tmp++;
             }
         }
-        System.arraycopy(strTmp, 0, personNames, 0, Util.MAX_PLAYER_NUM);
+        System.arraycopy(strTmp, 0, personNames.values().toArray(), 0, MAX_PLAYER_NUM);
         // SharedPreferenceへ記録
-        savePreference();
+        saveCurrentSettings();
 
-        if (getIsNewCreate()) {
+        if (isNewCreate()) {
             startMainScoreEditor();
         } else {
             Toast.makeText(this, getResources().getString(R.string.toast_saved_settings),
@@ -411,7 +425,6 @@ public class SettingsActivity extends Activity {
     private void startMainScoreEditor() {
 
         Intent intent = new Intent(getApplicationContext(), ScoreEditor.class);
-        intent.putExtra(Util.EXTRAS_SELECTED_IDX, getSaveIdx());
         startActivity(intent);
         Toast.makeText(getApplicationContext(),
                 getResources().getString(R.string.toast_created_new_data), Toast.LENGTH_SHORT)
@@ -425,62 +438,45 @@ public class SettingsActivity extends Activity {
      * @param handiEdit EditText[]
      * @return PersonHandi
      */
-    private int[] getPersonHandi(final EditText[] handiEdit) {
-        int[] handi = new int[4];
+    private Map<Integer, Integer> getPersonHandi(final EditText[] handiEdit) {
+        @SuppressLint("UseSparseArrays")
+        Map<Integer, Integer> handi = new HashMap<>();
         for (int i = 0; i < handiEdit.length; i++) {
             String val = handiEdit[i].getText().toString().replaceAll("<", "");
             try {
-                handi[i] = Integer.parseInt(val);
+                handi.put(i, Integer.parseInt(val));
             } catch (final Exception e) {
-                handi[i] = 0;
+                handi.put(i, 0);
             }
         }
         return handi;
     }
 
-    /**
-     * savePreference
-     */
-    private void savePreference() {
-
-        SaveData scoreData = mSaveData;
+    private void saveCurrentSettings() {
 
         // ショートホール設定の確認
         CheckBox mIsShortCheck = SettingsRes.getCheckBox(this);
         if (mIsShortCheck.isChecked()) {
-            scoreData.setEachHolePar(Util.DEFAULT_HOLEPAR_SHORT_SCORE);
+            mSaveData.setEachHolePar(DEFAULT_HOLEPAR_SHORT_SCORE);
         }
         // タイトル
-        scoreData.setHoleTitle(SettingsRes.getHoleTitle(this));
+        mSaveData.setHoleTitle(SettingsRes.getHoleTitle(this));
         // プレイヤー名
-        scoreData.setNames(SettingsRes.getPersonNames(this));
+        mSaveData.setNameList(SettingsRes.getPersonNames(this));
         // メモ
-        scoreData.setMemoStr(SettingsRes.getMemoStr(this));
+        mSaveData.setMemoStr(SettingsRes.getMemoStr(this));
         // ハンデ
-        scoreData.setPlayersHandi(getPersonHandi(SettingsRes.getHandiView(this)));
+        mSaveData.setPlayersHandi(getPersonHandi(SettingsRes.getHandiView(this)));
         // 18H or Out/In
-        scoreData.setIs18Hround(getIs18hRound());
+        mSaveData.setIs18Hround(getIs18hRound());
         // 天候
-        scoreData.setCondition(SettingsRes.getSpinner(this).getSelectedItemPosition());
+        mSaveData.setCondition(SettingsRes.getSpinner(this).getSelectedItemPosition());
         // データを保存
-        Util.saveScoreData(this, scoreData);
+        SaveDataPref.saveScoreData(mSaveData);
     }
 
-    /**
-     * @return idx
-     */
-    private int getSaveIdx() {
-        if (getIntent() == null || getIntent().getExtras() == null) {
-            return Util.INVALID;
-        }
-        return getIntent().getExtras().getInt(Util.EXTRAS_SELECTED_IDX, Util.INVALID);
-    }
-
-    /**
-     * @return isNewCreate
-     */
-    private boolean getIsNewCreate() {
+    private boolean isNewCreate() {
         return getIntent() == null || getIntent().getExtras() == null ||
-                getIntent().getExtras().getBoolean(Util.EXTRAS_IS_NEW_CREATE, true);
+                getIntent().getExtras().getBoolean(EXTRAS_IS_NEW_CREATE, true);
     }
 }

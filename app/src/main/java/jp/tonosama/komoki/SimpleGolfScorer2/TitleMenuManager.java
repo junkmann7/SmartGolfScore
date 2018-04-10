@@ -1,23 +1,17 @@
 package jp.tonosama.komoki.SimpleGolfScorer2;
 
-import java.io.File;
-
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataComparator;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Environment;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,18 +22,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataComparator;
+
 /**
  * @author Komoki
  */
 class TitleMenuManager {
 
-    /** タグ名 */
     private static final String TAG = TitleMenuManager.class.getSimpleName();
 
-    /** デバッグフラグ */
-    private static final boolean DEBUG = false;
+    private static final String MARKET_PACKAGE_NAME = "com.android.vending";
 
-    /** メニューID */
     private static final int FIRST_ID = Menu.FIRST;
 
     void onCreateOptionsMenu(final Menu menu, final Context context) {
@@ -61,9 +56,8 @@ class TitleMenuManager {
     }
 
     boolean onOptionsItemSelected(final MenuItem item, final Context context) {
-        if (DEBUG) {
-            Log.d(TAG, "onOptionsItemSelected item:" + item.toString());
-        }
+        DevLog.d(TAG, "onOptionsItemSelected item:" + item.toString());
+
         boolean ret = true;
         switch (item.getItemId()) {
         case FIRST_ID + 2:
@@ -159,7 +153,7 @@ class TitleMenuManager {
 
                     public void onClick(final DialogInterface dialog, final int which) {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setPackage(Util.MARKET_PACKAGE_NAME);
+                        intent.setPackage(MARKET_PACKAGE_NAME);
                         intent.setData(Uri.parse(res.getString(R.string.about_url_market)));
                         context.startActivity(intent);
                     }
@@ -200,15 +194,8 @@ class TitleMenuManager {
     private void actionDataRestore(final Context context) {
 
         Resources res = context.getResources();
-        final File mBkFileDir = new File(Environment.getExternalStorageDirectory() + "/"
-                + Util.BACKUP_DIR_NAME);
-        if (!mBkFileDir.exists()) {
-            Toast.makeText(context, res.getString(R.string.toast_backup_not_found),
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-        final String[] mBkFileList = mBkFileDir.list();
-        if (mBkFileList == null || mBkFileList.length == 0) {
+        final List<String> bkFileList = SaveDataPref.getBackupFileList();
+        if (bkFileList.size() < 1) {
             Toast.makeText(context, res.getString(R.string.toast_backup_not_found),
                     Toast.LENGTH_SHORT).show();
             return;
@@ -216,11 +203,10 @@ class TitleMenuManager {
         AlertDialog.Builder restoreDialog = new AlertDialog.Builder(context);
         restoreDialog.setIcon(R.drawable.ic_menu_restore);
         restoreDialog.setTitle(res.getString(R.string.dlg_restore_title));
-        restoreDialog.setItems(mBkFileList, new OnClickListener() {
+        restoreDialog.setItems(bkFileList.toArray(new String[]{}), new OnClickListener() {
 
             public void onClick(final DialogInterface dialog, final int item) {
-                ((MainTitle) context).loadBackupData(mBkFileDir.toString(), mBkFileList[item],
-                        context);
+                ((MainTitle) context).loadBackupData(bkFileList.get(item));
             }
         });
         restoreDialog.show();
@@ -241,7 +227,7 @@ class TitleMenuManager {
         backupDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
             public void onClick(final DialogInterface dialog, final int which) {
-                ((MainTitle) context).outputBackupData(context);
+                ((MainTitle) context).outputBackupData();
             }
         });
         backupDialog.setNegativeButton(android.R.string.cancel, null);
@@ -256,9 +242,9 @@ class TitleMenuManager {
     private void actionChangeSort(final Context context) {
 
         Resources res = context.getResources();
-        SharedPreferences pref = context.getSharedPreferences(Util.PREF_SORT_TYPE_SETTING,
+        SharedPreferences pref = context.getSharedPreferences(MainTitle.PREF_SORT_TYPE_SETTING,
                 Context.MODE_PRIVATE);
-        int sortType = pref.getInt(Util.PREF_SORT_TYPE_KEY, 0);
+        int sortType = pref.getInt(MainTitle.PREF_SORT_TYPE_KEY, 0);
         String[] sortNames = SaveDataComparator.getSortTypeStr(res);
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         dialog.setTitle(res.getString(R.string.menu_sort));
@@ -267,9 +253,9 @@ class TitleMenuManager {
             public void onClick(final DialogInterface dialog, final int item) {
                 dialog.dismiss();
                 SharedPreferences mSortPref = context.getSharedPreferences(
-                        Util.PREF_SORT_TYPE_SETTING, Context.MODE_PRIVATE);
+                        MainTitle.PREF_SORT_TYPE_SETTING, Context.MODE_PRIVATE);
                 Editor mEditor = mSortPref.edit();
-                mEditor.putInt(Util.PREF_SORT_TYPE_KEY, item);
+                mEditor.putInt(MainTitle.PREF_SORT_TYPE_KEY, item);
                 mEditor.commit();
                 ((MainTitle) context).reStartActivity();
             }

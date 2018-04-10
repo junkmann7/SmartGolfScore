@@ -1,10 +1,5 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.history;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
-import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ViewerUtil;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,11 +8,19 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
+import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ViewerUtil;
 
 /**
  * @author Komoki
@@ -27,9 +30,10 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
     /** タグ名称 */
     private static final String TAG = HistoryActivity.class.getSimpleName();
-
-    /** デバッグフラグ */
-    private static final boolean DEBUG = false;
+    /**  */
+    public static final String EXTRAS_FIXED_DATA_NUM = "jp.tonosama.komoki.EXTRAS_FIXED_DATA_NUM";
+    /**  */
+    public static final String EXTRAS_SAVED_DATA_NUM = "jp.tonosama.komoki.EXTRAS_SAVED_DATA_NUM";
 
     /** ViewPager */
     private ViewPager mViewPager;
@@ -68,8 +72,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
         StringBuilder mailBodyStr = new StringBuilder();
         mailBodyStr.append(LetterMessageUtil.getCommnetAboutCount(this, scoreManager, position));
-        mailBodyStr.append(String.format(getResources()
-                .getString(R.string.comment_round_summary_00)));
+        mailBodyStr.append(getResources().getString(R.string.comment_round_summary_00));
         mailBodyStr.append(LetterMessageUtil.getCommnetAboutWeather(this, scoreManager, position));
         mailBodyStr.append("\n\n");
         mailBodyStr
@@ -77,11 +80,9 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
                         scoreManager.getHoleTitle(position)));
 
         if (LetterUtil.getIsShortHole(scoreManager, position)) {
-            mailBodyStr.append(String.format(getResources().getString(
-                    R.string.comment_round_summary_03)));
+            mailBodyStr.append(getResources().getString(R.string.comment_round_summary_03));
         }
-        mailBodyStr.append(String.format(getResources()
-                .getString(R.string.comment_round_summary_04)));
+        mailBodyStr.append(getResources().getString(R.string.comment_round_summary_04));
 
         return mailBodyStr.toString();
     }
@@ -96,11 +97,12 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
     private String generagteRoundRecordStr(final SaveDataList scoreManager, final int position,
             final int playerRank, final int playerNum) {
 
+        //noinspection StringBufferReplaceableByString
         StringBuilder mailBodyStr = new StringBuilder();
         mailBodyStr.append(String.format(
                 getResources().getString(R.string.comment_round_record_00),
                 LetterUtil.getPlayerRankings(scoreManager, position)[playerRank],
-                scoreManager.getPlayerNames(position)[playerRank],
+                scoreManager.getPlayerNames(position).get(playerRank),
                 LetterUtil.getMyBasedTotalScore(scoreManager, position, playerRank)));
         mailBodyStr.append(String.format(
                 getResources().getString(R.string.comment_round_record_01),
@@ -113,7 +115,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
                 LetterUtil.getMySecondHalfScore(scoreManager, position, playerRank)));
         mailBodyStr.append(String.format(
                 getResources().getString(R.string.comment_round_record_04),
-                scoreManager.getHandiCaps(position)[playerRank]));
+                scoreManager.getHandiCaps(position).get(playerRank)));
         mailBodyStr.append(String.format("%n"));
         mailBodyStr.append(LetterMessageUtil.getCommentAboutScore(this, scoreManager, position,
                 playerRank));
@@ -141,7 +143,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
                 position);
         final String[] mAboutHole = LetterMessageUtil.getCommentAboutHole(this, scoreManager,
                 position);
-        final String[] playerNames = scoreManager.getPlayerNames(position);
+        final Map<Integer, String> playerNames = scoreManager.getPlayerNames(position);
 
         for (int i = 0; i < playernum; i++) {
             final int playerRank = LetterUtil.getPlayerRankingArray(scoreManager, position)[i];
@@ -149,23 +151,25 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
             bodyStr.append(roundRecordStr);
 
             for (int k = 0; k < playernum; k++) {
-                if (playerNames[rankArray[i]].equals(playerNames[k])) {
+                if (playerNames.get(rankArray[i]).equals(playerNames.get(k))) {
+                    //noinspection RedundantStringFormatCall
                     bodyStr.append(String.format(mRivalName[k]));
                 }
             }
-            if (playerNames[0].equals(playerNames[rankArray[i]])) {
+            if (playerNames.get(0).equals(playerNames.get(rankArray[i]))) {
                 bodyStr.append(LetterMessageUtil.getCommentAboutPatting(this, scoreManager,
                         position, i));
             }
             bodyStr.append("\n\n");
             for (int k = 0; k < playernum; k++) {
-                if (playerNames[rankArray[i]].equals(playerNames[k])) {
+                if (playerNames.get(rankArray[i]).equals(playerNames.get(k))) {
+                    //noinspection RedundantStringFormatCall
                     bodyStr.append(String.format(mAboutHole[k]));
                 }
             }
             bodyStr.append("\n");
         }
-        bodyStr.append(String.format(getResources().getString(R.string.comment_round_summary_99)));
+        bodyStr.append(getResources().getString(R.string.comment_round_summary_99));
 
         return bodyStr.toString();
     }
@@ -190,8 +194,8 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
                 final Intent mIntent = new Intent(HistoryActivity.this, DroidLetterActivity.class);
                 mIntent.putExtra(Intent.EXTRA_SUBJECT, mailSubStr);
-                mIntent.putExtra(Intent.EXTRA_TEXT, mailBodyStr.toString());
-                mIntent.putExtra(Util.EXTRAS_SELECTED_IDX, scoreData.getSaveIdx());
+                mIntent.putExtra(Intent.EXTRA_TEXT, mailBodyStr);
+                SaveDataPref.setSelectedSaveIdx(scoreData.getSaveIdx());
                 startActivity(mIntent);
             }
         });
@@ -220,7 +224,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
         tvList[5].setText(String.format(res.getString(R.string.hist_ret_my_pat_ave),
                 LetterUtil.getMyPatAverage(scoreMgr, idx, 0)));
         tvList[6].setText(String.format(res.getString(R.string.hist_ret_my_handi),
-                scoreMgr.getHandiCaps(idx)[0]));
+                scoreMgr.getHandiCaps(idx).get(0)));
         if (LetterUtil.getMyParOnKeepRate(scoreMgr, idx) > 5.0) {
             tvList[7].setText(String.format(res.getString(R.string.hist_ret_my_par_on_rate),
                     LetterUtil.getMyParOnKeepRate(scoreMgr, idx)));
@@ -289,7 +293,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
             finish();
             return vg;
         }
-        setupButtonAction(vg, scoreMgr);
+        setupButtonAction(vg);
         imgMyRankImage.setImageResource(LetterUtil.getRankingImageResourceByRank(LetterUtil
                 .getMyRanking(scoreMgr, idx, 0)));
 
@@ -307,17 +311,15 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
     /**
      * @param view View
-     * @param scoreMgr GolfScoreManager
      */
-    private void setupButtonAction(final View view, final SaveDataList scoreMgr) {
+    private void setupButtonAction(final View view) {
 
         Button graphButton = (Button) view.findViewById(R.id.history_graphviewButton);
         graphButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
                 final int position = mViewPager.getCurrentItem();
-                final SaveData scoreData = Util.loadScoreDataFromPref(HistoryActivity.this,
-                        position);
+                final SaveData scoreData = SaveDataPref.getSaveDataMap().get(position);
                 ViewerUtil.startGraphActivty(HistoryActivity.this, scoreData);
             }
         });
@@ -326,8 +328,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
             public void onClick(final View v) {
                 final int position = mViewPager.getCurrentItem();
-                final SaveData scoreData = Util.loadScoreDataFromPref(HistoryActivity.this,
-                        position);
+                final SaveData scoreData = SaveDataPref.getSaveDataMap().get(position);
                 ViewerUtil.startTableActivity(HistoryActivity.this, scoreData);
             }
         });
@@ -348,14 +349,12 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
         SaveDataList dataList = new SaveDataList();
 
         int fixedHoleNum = 0;
-        for (int idx = 0; idx < Util.MAX_DATA_SAVE_NUM; idx++) {
-
-            SaveData scoreData = Util.loadScoreDataFromPref(this, idx);
-            if (scoreData.getHoleTitle().trim().length() < 1) {
+        for (SaveData saveData : SaveDataPref.getSaveDataMap().values()) {
+            if (saveData.getHoleTitle().trim().length() < 1) {
                 break;
             }
-            if (scoreData.isHoleResultFixed()) {
-                dataList.append(fixedHoleNum, scoreData);
+            if (saveData.isHoleResultFixed()) {
+                dataList.append(fixedHoleNum, saveData);
                 ++fixedHoleNum;
             }
         }
@@ -409,10 +408,9 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
         //
     }
 
+    @SuppressLint("SetTextI18n")
     public void onPageSelected(final int position) {
-        if (DEBUG) {
-            Log.d(TAG, "onPageSelected position: " + position);
-        }
+        DevLog.d(TAG, "onPageSelected position: " + position);
         TextView txtCurrentHist = (TextView) findViewById(R.id.current_history);
         txtCurrentHist.setText(String.valueOf(position + 1) + " / "
                 + String.valueOf(mSaveDataList.getFixedDataNum()));

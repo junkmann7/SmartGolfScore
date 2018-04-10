@@ -2,10 +2,10 @@ package jp.tonosama.komoki.SimpleGolfScorer2.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-
-import android.util.Log;
 
 /**
  * @author Komoki
@@ -15,8 +15,6 @@ public class SaveDataList {
     /**  */
     private static final String TAG = SaveDataList.class.getSimpleName();
     /**  */
-    public static final boolean DEBUG = false;
-    /**  */
     private ArrayList<SaveData> mSaveDataList;
 
     /**
@@ -25,9 +23,11 @@ public class SaveDataList {
      */
     public SaveDataList() {
         mSaveDataList = new ArrayList<>();
-        if (DEBUG) {
-            Log.d(TAG, "new instance created.");
-        }
+        DevLog.d(TAG, "new instance created.");
+    }
+
+    public void append(final SaveData data) {
+        mSaveDataList.add(mSaveDataList.size(), data);
     }
 
     public void append(final int idx, final SaveData data) {
@@ -72,8 +72,8 @@ public class SaveDataList {
         return mSaveDataList.get(saveNum).getHoleTitle();
     }
 
-    public String[] getPlayerNames(final int saveNum) {
-        return mSaveDataList.get(saveNum).getNames();
+    public Map<Integer, String> getPlayerNames(final int saveNum) {
+        return mSaveDataList.get(saveNum).getPlayerNameList();
     }
 
     public int getWeather(final int saveNum) {
@@ -86,23 +86,23 @@ public class SaveDataList {
         return weather[mSaveDataList.get(saveNum).getCondition()];
     }
 
-    public int[] getAllParValues(final int saveNum) {
+    public Map<Integer, Integer> getAllParValues(final int saveNum) {
         return mSaveDataList.get(saveNum).getEachHolePar();
     }
 
-    public int[] getMyPatting(final int saveNum) {
-        return mSaveDataList.get(saveNum).getAbsolutePatting()[0];
+    public Map<Integer, Integer> getMyPatting(final int saveNum) {
+        return mSaveDataList.get(saveNum).getPattingScoresList().get(0);
     }
 
-    public int[] getHandiCaps(final int saveNum) {
+    public Map<Integer, Integer> getHandiCaps(final int saveNum) {
         return mSaveDataList.get(saveNum).getPlayersHandi();
     }
 
-    public int[] getPlayersHandi(final int saveNum) {
+    public Map<Integer, Integer> getPlayersHandi(final int saveNum) {
         return mSaveDataList.get(saveNum).getPlayersHandi();
     }
 
-    public int[][] getAllScores(final int saveNum) {
-        return mSaveDataList.get(saveNum).getAbsoluteScore();
+    public Map<Integer, Map<Integer, Integer>> getAllScores(final int saveNum) {
+        return mSaveDataList.get(saveNum).getScoresList();
     }
 }

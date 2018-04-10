@@ -1,16 +1,5 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.viewer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,13 +7,13 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,13 +31,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
+
 /**
  * @author Komoki
  */
 public class ScoreViewer extends Activity implements OnTouchListener {
 
     /**  */
-    private ViewGroup[] mScoreAreaList = new ViewGroup[Util.TOTAL_HOLE_COUNT];
+    private ViewGroup[] mScoreAreaList = new ViewGroup[SGSConfig.TOTAL_HOLE_COUNT];
     /**  */
     public static final String CAPTURE_IMAGE_DIR = "SmartGolfScore";
     /**  */
@@ -81,18 +84,13 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
 
-        int selectedIdx = getIntent().getIntExtra(Util.EXTRAS_SELECTED_IDX, -1);
+        int selectedIdx = SaveDataPref.getSelectedSaveIdx();
         if (selectedIdx < 0) {
             return;
         }
-        if (getIntent().getSerializableExtra(Util.EXTRAS_OUT_SAVE_DATA) != null) {
-            Serializable data = getIntent().getSerializableExtra(Util.EXTRAS_OUT_SAVE_DATA);
-            if (data instanceof SaveData) {
-                setScoreData((SaveData) data);
-            }
-        }
+        setScoreData(SaveDataPref.getSaveDataMap().get(selectedIdx));
         if (getScoreData() == null) {
-            setScoreData(Util.loadScoreDataFromPref(this, selectedIdx));
+            setScoreData(SaveDataPref.getSaveDataMap().get(selectedIdx));
         }
         setContentView(R.layout.score_viewer);
 
@@ -141,7 +139,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                     public void run() {
                         Uri imageTableUri = getOutputImageUri();
                         Uri imageGraphUri = getIntent().getParcelableExtra(
-                                Util.EXTRAS_IMAGE_URI_GRAPH);
+                                GraphActivity.EXTRAS_IMAGE_URI_GRAPH);
                         finish();
                         progressDialog.dismiss();
                         Intent i = new Intent();
@@ -167,7 +165,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
 
         SharedPreferences pref = getSharedPreferences(PREF_TABLE_SETTING, MODE_PRIVATE);
         mScoreViewerType = pref.getInt(PREF_TABLE_VALUE_TYPE_KEY, DEFAULT_VIEWER_TYPE);
-        String[] personNames = scoreData.getNames();
+        Map<Integer, String> personNames = scoreData.getPlayerNameList();
         if (!scoreData.getIs18Hround()) {
             for (int i = 9; i < 18; i++) {
                 String holeNumStr = String.valueOf(i + 1 - 9) + "H";
@@ -177,9 +175,9 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         ((TextView) findViewById(R.id.score_viewer_title)).setText(scoreData.getHoleTitle());
 
         TextView[][] playerScores = SVRes.getPlayerScoreTextViewList(this);
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            for (int j = 1; j < personNames.length; j++) {
-                if (personNames[j].trim().length() == 0) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            for (int j = 1; j < SGSConfig.MAX_PLAYER_NUM; j++) {
+                if (personNames.get(j).trim().length() == 0) {
                     playerScores[j][i].setVisibility(View.GONE);
                 }
             }
@@ -188,15 +186,15 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         TextView[] secondHalfScore = SVRes.getTextViewList(this, SVRes.HALF_RESULT_AREA_2ND);
         TextView[] handiScoreTV = SVRes.getTextViewList(this, SVRes.SCORE_RESULT_AREA);
         TextView[] totalScoreTV = SVRes.getTextViewList(this, SVRes.TOTAL_SCORE_AREA);
-        for (int i = 0; i < personNames.length; i++) {
-            if (personNames[i].trim().length() == 0) {
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            if (personNames.get(i).trim().length() == 0) {
                 firstHalfScore[i].setVisibility(View.GONE);
                 secondHalfScore[i].setVisibility(View.GONE);
                 handiScoreTV[i].setVisibility(View.GONE);
                 totalScoreTV[i].setVisibility(View.GONE);
                 findViewById(SVRes.PLAYER_NAME_AREA[i]).setVisibility(View.GONE);
             } else {
-                ((TextView) findViewById(SVRes.PLAYER_NAME_AREA[i])).setText(personNames[i]);
+                ((TextView) findViewById(SVRes.PLAYER_NAME_AREA[i])).setText(personNames.get(i));
             }
         }
         //
@@ -304,7 +302,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         if (perScore != 0 && name.trim().length() != 0) {
             String patStr = "";
             if (0 < patScore) {
-                patStr = "  ( " + patScore + " )";
+                patStr = " (" + patScore + ")";
             }
             final String scoreUnderStr = String.valueOf(perScore - parScore) + patStr;
             final String scoreOverStr = "+" + scoreUnderStr;
@@ -357,22 +355,23 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 .getCurrentHole() - 1]);
         curHoleArea.setBackgroundColor(Color.rgb(170, 238, 255));
 
-        final int totalHoleCount = Util.TOTAL_HOLE_COUNT;
+        final int totalHoleCount = SGSConfig.TOTAL_HOLE_COUNT;
         TextView[] parScoreTV = SVRes.getTextViewList(this, SVRes.PAR_AREA);
         TextView[][] tvList = SVRes.getPlayerScoreTextViewList(this);
 
         // 各ホールの結果を出力
-        int[] parScore = scoreData.getEachHolePar();
-        int[][] scores = scoreData.getAbsoluteScore();
-        int[][] patScore = scoreData.getAbsolutePatting();
-        String[] names = scoreData.getNames();
+        Map<Integer, Integer> parScore = scoreData.getEachHolePar();
+        Map<Integer, Map<Integer, Integer>> scores = scoreData.getScoresList();
+        Map<Integer, Map<Integer, Integer>> patScore = scoreData.getPattingScoresList();
+        Map<Integer, String> names = scoreData.getPlayerNameList();
         for (int i = 0; i < totalHoleCount; i++) {
-            if (parScore[i] != 0) {
-                String scoreStr = "Par" + String.valueOf(parScore[i]);
+            if (parScore.get(i) != 0) {
+                String scoreStr = "Par" + String.valueOf(parScore.get(i));
                 parScoreTV[i].setText(scoreStr);
             }
-            for (int j = 0; j < names.length; j++) {
-                updateScore(tvList[j][i], names[j], scores[j][i], parScore[i], patScore[j][i]);
+            for (int j = 0; j < SGSConfig.MAX_PLAYER_NUM; j++) {
+                updateScore(tvList[j][i], names.get(j), scores.get(j).get(i),
+                        parScore.get(i), patScore.get(j).get(i));
             }
         }
         // トータルスコアとハンデの結果を出力
@@ -407,22 +406,22 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      * @param scoreData スコアデータ
      * @param names 名前
      */
-    private void updateTotalAndHandi(final SaveData scoreData, final String[] names) {
+    private void updateTotalAndHandi(final SaveData scoreData, final Map<Integer, String> names) {
 
         int[] totalScore = scoreData.getTotalScore();
         int[] totalPat = scoreData.getTotalPatScore();
-        int[] playersHandi = scoreData.getPlayersHandi();
+        Map<Integer, Integer> playersHandi = scoreData.getPlayersHandi();
         TextView[] handiScoreTV = SVRes.getTextViewList(this, SVRes.SCORE_RESULT_AREA);
         TextView[] totalScoreTV = SVRes.getTextViewList(this, SVRes.TOTAL_SCORE_AREA);
-        for (int i = 0; i < names.length; i++) {
-            if (names[0].trim().length() != 0) {
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            if (names.get(0).trim().length() != 0) {
                 String patStr = "";
                 if (0 < totalPat[i]) {
                     patStr = " (" + String.valueOf(totalPat[i]) + ")";
                 }
-                String scoreStr = String.valueOf(totalScore[i] - playersHandi[i]) + patStr;
+                String scoreStr = String.valueOf(totalScore[i] - playersHandi.get(i)) + patStr;
                 totalScoreTV[i].setText(scoreStr);
-                handiScoreTV[i].setText(String.valueOf(playersHandi[i]));
+                handiScoreTV[i].setText(String.valueOf(playersHandi.get(i)));
             }
         }
     }
@@ -431,7 +430,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      * @param scoreData スコアデータ
      * @param names 名前
      */
-    private void updateHalfScore(final SaveData scoreData, final String[] names) {
+    private void updateHalfScore(final SaveData scoreData, final Map<Integer, String> names) {
 
         int[] totalFirstHalfScore = scoreData.getHalfScore(true);
         int[] totalSecondHalfScore = scoreData.getHalfScore(false);
@@ -439,8 +438,8 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         int[] totalSecondHalfPat = scoreData.getHalfPatScore(false);
         TextView[] firstHalfScore = SVRes.getTextViewList(this, SVRes.HALF_RESULT_AREA_1ST);
         TextView[] secondHalfScore = SVRes.getTextViewList(this, SVRes.HALF_RESULT_AREA_2ND);
-        for (int i = 0; i < names.length; i++) {
-            if (names[0].trim().length() != 0) {
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            if (names.get(0).trim().length() != 0) {
                 // 前半
                 String patStr1st = "";
                 if (0 < totalFirstHalfPat[i]) {
@@ -470,7 +469,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             public void onFocusChange(final View v, final boolean hasFocus) {
                 if (hasFocus) {
                     int j;
-                    for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
+                    for (j = 0; j < SGSConfig.TOTAL_HOLE_COUNT; j++) {
                         if (v == mScoreAreaList[j]) {
                             break;
                         }
@@ -478,7 +477,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                     mScoreAreaList[j].setBackgroundColor(Color.rgb(85, 119, 255));
                 } else {
                     int j;
-                    for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
+                    for (j = 0; j < SGSConfig.TOTAL_HOLE_COUNT; j++) {
                         if (v == mScoreAreaList[j]) {
                             break;
                         }
@@ -503,16 +502,12 @@ public class ScoreViewer extends Activity implements OnTouchListener {
 
             public void onClick(final View v) {
                 int j;
-                for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
+                for (j = 0; j < SGSConfig.TOTAL_HOLE_COUNT; j++) {
                     if (v == mScoreAreaList[j]) {
                         break;
                     }
                 }
-                SharedPreferences pref = getSharedPreferences(
-                        Util.PREF_DATA_SLOT[scoreData.getSaveIdx()], MODE_PRIVATE);
-                Editor e = pref.edit();
-                e.putString(Util.PREF_DATA_KEY[2], String.valueOf(j + 1));
-                e.commit();
+                SaveDataPref.updateCurrentHoleIdx(scoreData.getSaveIdx(), j + 1);
                 finish();
             }
         });
@@ -523,7 +518,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      */
     private void setupHoleControlUi(final SaveData scoreData) {
 
-        final int totalHoleCount = Util.TOTAL_HOLE_COUNT;
+        final int totalHoleCount = SGSConfig.TOTAL_HOLE_COUNT;
 
         // ScoreViewer でホール選択できるようにする対応
         for (int i = 0; i < totalHoleCount; i++) {
@@ -726,11 +721,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             int j = getViewHoleNumber(v);
             if (mIsHoleSelected && Math.abs(diffX) < CANCELE_MOVE_VALUE
                     && Math.abs(diffY) < CANCELE_MOVE_VALUE) {
-                SharedPreferences pref = getSharedPreferences(Util.PREF_DATA_SLOT[getScoreData()
-                        .getSaveIdx()], MODE_PRIVATE);
-                Editor e = pref.edit();
-                e.putString(Util.PREF_DATA_KEY[2], String.valueOf(j + 1));
-                e.commit();
+                SaveDataPref.updateCurrentHoleIdx(getScoreData().getSaveIdx(), j + 1);
                 finish();
             } else {
                 changeBgColor(v, mScoreAreaList[curHole - 1]);
@@ -745,7 +736,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      */
     private int getViewHoleNumber(final View view) {
         int j;
-        for (j = 0; j < Util.TOTAL_HOLE_COUNT; j++) {
+        for (j = 0; j < SGSConfig.TOTAL_HOLE_COUNT; j++) {
             if (view == mScoreAreaList[j]) {
                 break;
             }

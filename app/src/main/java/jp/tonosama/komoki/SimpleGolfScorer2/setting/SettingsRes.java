@@ -1,7 +1,6 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.setting;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,6 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
 
 /**
  * @author Komoki
@@ -35,8 +40,8 @@ public final class SettingsRes {
      * @return
      */
     public static ViewGroup[] getPlayerEditArea(final Activity activity) {
-        ViewGroup[] playerEditArea = new ViewGroup[Util.MAX_PLAYER_NUM];
-        for (int i = 0; i < Util.MAX_PLAYER_NUM; i++) {
+        ViewGroup[] playerEditArea = new ViewGroup[SGSConfig.MAX_PLAYER_NUM];
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
             playerEditArea[i] = (ViewGroup) activity.findViewById(PLAYER_EDIT_AREA_RES[i]);
         }
         return playerEditArea;
@@ -47,8 +52,8 @@ public final class SettingsRes {
      * @return
      */
     public static ImageButton[] getDelButton(final Activity activity) {
-        ImageButton[] mPlayerDelButton = new ImageButton[Util.MAX_PLAYER_NUM];
-        for (int i = 0; i < Util.MAX_PLAYER_NUM; i++) {
+        ImageButton[] mPlayerDelButton = new ImageButton[SGSConfig.MAX_PLAYER_NUM];
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
             mPlayerDelButton[i] = (ImageButton) activity.findViewById(PLAYER_DEL_BUTTON_RES[i]);
         }
         return mPlayerDelButton;
@@ -95,7 +100,7 @@ public final class SettingsRes {
      * @return HandiView
      */
     public static EditText[] getHandiView(final Activity activity) {
-        EditText[] handis = new EditText[Util.MAX_PLAYER_NUM];
+        EditText[] handis = new EditText[SGSConfig.MAX_PLAYER_NUM];
         handis[0] = ((EditText) activity.findViewById(R.id.per1_handi));
         handis[1] = ((EditText) activity.findViewById(R.id.per2_handi));
         handis[2] = ((EditText) activity.findViewById(R.id.per3_handi));
@@ -107,7 +112,7 @@ public final class SettingsRes {
      * @return NameView
      */
     public static EditText[] getNameView(final Activity activity) {
-        EditText[] names = new EditText[Util.MAX_PLAYER_NUM];
+        EditText[] names = new EditText[SGSConfig.MAX_PLAYER_NUM];
         names[0] = (EditText) activity.findViewById(R.id.per1_name_editor);
         names[1] = (EditText) activity.findViewById(R.id.per2_name_editor);
         names[2] = (EditText) activity.findViewById(R.id.per3_name_editor);
@@ -129,35 +134,22 @@ public final class SettingsRes {
         return ((Spinner) activity.findViewById(R.id.round_condition));
     }
 
-    /**
-     * getPersonNames
-     * 
-     * @param nameEdit EditText[]
-     * @return Person Names
-     */
-    public static String[] getPersonNames(final Activity activity) {
-        String[] names = new String[4];
+    public static Map<Integer, String> getPersonNames(final Activity activity) {
+        @SuppressLint("UseSparseArrays")
+        Map<Integer, String> names = new HashMap<>();
         EditText[] nameEdit = getNameView(activity);
-        names[0] = nameEdit[0].getText().toString().replaceAll("<", "");
-        names[1] = nameEdit[1].getText().toString().replaceAll("<", "");
-        names[2] = nameEdit[2].getText().toString().replaceAll("<", "");
-        names[3] = nameEdit[3].getText().toString().replaceAll("<", "");
+        names.put(0, nameEdit[0].getText().toString().replaceAll("<", ""));
+        names.put(1, nameEdit[1].getText().toString().replaceAll("<", ""));
+        names.put(2, nameEdit[2].getText().toString().replaceAll("<", ""));
+        names.put(3, nameEdit[3].getText().toString().replaceAll("<", ""));
         return names;
     }
 
-    /**
-     * @param titleEdit EditText
-     * @return Hole Title
-     */
     public static String getHoleTitle(final Activity activity) {
         EditText titleEdit = getTitleView(activity);
         return titleEdit.getText().toString().replaceAll("<", "");
     }
 
-    /**
-     * @param memoEdit EditText
-     * @return Memo Str
-     */
     public static String getMemoStr(final Activity activity) {
         EditText memoEdit = getMemoView(activity);
         return memoEdit.getText().toString().replaceAll("<", "");

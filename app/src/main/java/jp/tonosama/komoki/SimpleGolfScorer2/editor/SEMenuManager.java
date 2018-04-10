@@ -1,21 +1,19 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.editor;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
-import jp.tonosama.komoki.SimpleGolfScorer2.setting.SettingsActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
+import jp.tonosama.komoki.SimpleGolfScorer2.setting.SettingsActivity;
 
 /**
  * @author Komoki
@@ -72,28 +70,7 @@ final class SEMenuManager {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
             public void onClick(final DialogInterface dialog, final int whichButton) {
-
-                // 現在データ番号を消去して詰める
-                for (int i = sData.getSaveIdx(); i < Util.MAX_DATA_SAVE_NUM - 1; i++) {
-                    SharedPreferences pref1 = act.getSharedPreferences(Util.PREF_DATA_SLOT[i],
-                            Context.MODE_PRIVATE);
-                    SharedPreferences pref2 = act.getSharedPreferences(Util.PREF_DATA_SLOT[i + 1],
-                            Context.MODE_PRIVATE);
-                    Editor e = pref1.edit();
-                    for (int j = 0; j < Util.PREF_DATA_KEY.length; j++) {
-                        e.putString(Util.PREF_DATA_KEY[j],
-                                pref2.getString(Util.PREF_DATA_KEY[j], ""));
-                    }
-                    e.commit();
-                }
-                // ラストデータを消去する
-                SharedPreferences pref = act.getSharedPreferences(
-                        Util.PREF_DATA_SLOT[Util.MAX_DATA_SAVE_NUM - 1], Context.MODE_PRIVATE);
-                Editor e = pref.edit();
-                for (int i = 0; i < Util.PREF_DATA_KEY.length; i++) {
-                    e.putString(Util.PREF_DATA_KEY[i], "");
-                }
-                e.commit();
+                SaveDataPref.deleteSaveData(sData.getSaveIdx());
                 Toast.makeText(act, res.getString(R.string.toast_deleted_data), Toast.LENGTH_SHORT)
                         .show();
                 act.finish();
@@ -110,8 +87,8 @@ final class SEMenuManager {
     static void menuRoundSetting(final Activity mActivity, final SaveData scoreData) {
 
         Intent intent = new Intent(mActivity, SettingsActivity.class);
-        intent.putExtra(Util.EXTRAS_IS_NEW_CREATE, false); // 新規作成でない事を通知
-        intent.putExtra(Util.EXTRAS_SELECTED_IDX, scoreData.getSaveIdx()); // 保存データ番号を通知
+        intent.putExtra(SettingsActivity.EXTRAS_IS_NEW_CREATE, false); // 新規作成でない事を通知
+        SaveDataPref.setSelectedSaveIdx(scoreData.getSaveIdx());
         mActivity.startActivity(intent);
     }
 }

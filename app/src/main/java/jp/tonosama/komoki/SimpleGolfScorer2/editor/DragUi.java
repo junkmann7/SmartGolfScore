@@ -47,9 +47,6 @@ public class DragUi {
     /**  */
     public static final int DEFAULT_X = 5;
 
-    /**
-     * @param callback DragUiCallback
-     */
     public DragUi(final DragUiInterface dragInterface) {
         mInterface = dragInterface;
     }

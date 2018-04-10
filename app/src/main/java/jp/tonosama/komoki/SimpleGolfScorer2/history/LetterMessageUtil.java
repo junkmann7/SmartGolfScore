@@ -2,8 +2,13 @@ package jp.tonosama.komoki.SimpleGolfScorer2.history;
 
 import android.content.Context;
 import android.content.res.Resources;
+
+import java.util.List;
+import java.util.Map;
+
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
 
 /**
@@ -37,10 +42,10 @@ public final class LetterMessageUtil {
         int vitalScore = 0;
         String[] mVitalResult = getVitalResultStr(context);
         float[] retScores = new float[6];
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            final int score = scoreMgr.getAllScores(saveNum)[playerNum][i];
-            final int par = scoreMgr.getAllParValues(saveNum)[i];
-            if (i < Util.TOTAL_HOLE_COUNT / 2) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            final int score = scoreMgr.getAllScores(saveNum).get(playerNum).get(i);
+            final int par = scoreMgr.getAllParValues(saveNum).get(i);
+            if (i < SGSConfig.TOTAL_HOLE_COUNT / 2) {
                 retScores[0] += (score - par);
             } else {
                 retScores[1] += (score - par);
@@ -85,15 +90,15 @@ public final class LetterMessageUtil {
         int overAve = 0;
         int underAveNum = 0;
         int overAveNum = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
             // better than my average
             if (LetterUtil.getMyAverage(scoreMgr, saveNum, playerNum) > (scoreMgr
-                    .getAllScores(saveNum)[playerNum][i] - scoreMgr.getAllParValues(saveNum)[i])) {
-                underAve += scoreMgr.getMyPatting(saveNum)[i];
+                    .getAllScores(saveNum).get(playerNum).get(i) - scoreMgr.getAllParValues(saveNum).get(i))) {
+                underAve += scoreMgr.getMyPatting(saveNum).get(i);
                 underAveNum++;
                 // worse than my average
             } else {
-                overAve += scoreMgr.getMyPatting(saveNum)[i];
+                overAve += scoreMgr.getMyPatting(saveNum).get(i);
                 overAveNum++;
             }
         }
@@ -120,13 +125,13 @@ public final class LetterMessageUtil {
         float totalDeviation = 0f;
 
         float myAverage = LetterUtil.getMyAverage(scoreMgr, saveNum, playerNum);
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            float myBasedScore = (scoreMgr.getAllScores(saveNum)[playerNum][i] - //
-            (float) scoreMgr.getAllParValues(saveNum)[i]);
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            float myBasedScore = (scoreMgr.getAllScores(saveNum).get(playerNum).get(i) - //
+            (float) scoreMgr.getAllParValues(saveNum).get(i));
             float myDeviation = (myBasedScore - myAverage);
             totalDeviation += myDeviation * myDeviation;
         }
-        totalDeviation /= Util.TOTAL_HOLE_COUNT;
+        totalDeviation /= SGSConfig.TOTAL_HOLE_COUNT;
         float mySd = (float) Math.sqrt(totalDeviation);
 
         if (mySd <= 0.8f) {
@@ -220,31 +225,31 @@ public final class LetterMessageUtil {
     private static String getGoodHoleCommentMyself(final Context context, final int i, final int k,
             final SaveDataList scoreMgr, final int saveNum, final int scoreAtPar,
             final int chipingflag) {
-        int[][] scores = scoreMgr.getAllScores(saveNum);
-        int[] parVal = scoreMgr.getAllParValues(saveNum);
-        int[] patVal = scoreMgr.getMyPatting(saveNum);
+        Map<Integer, Map<Integer, Integer>> scores = scoreMgr.getAllScores(saveNum);
+        Map<Integer, Integer> parVal = scoreMgr.getAllParValues(saveNum);
+        Map<Integer, Integer> patVal = scoreMgr.getMyPatting(saveNum);
         String str = "";
         Resources res = context.getResources();
-        if (patVal[k] == 0) {
-            if (scores[i][k] == 1) { //ホールインワン
+        if (patVal.get(k) == 0) {
+            if (scores.get(i).get(k) == 1) { //ホールインワン
                 str += "";
                 // パーなどの感想は下に移動
             } else if (chipingflag > 0) { //チップイン //patting入力が無い場合は表示しない
-                str += String.format(res.getString(R.string.comment_hole_02), (k + 1), parVal[k],
-                        changeComentHole(context, scoreMgr, scoreAtPar, parVal[k]));
+                str += String.format(res.getString(R.string.comment_hole_02), (k + 1), parVal.get(k),
+                        changeComentHole(context, scoreMgr, scoreAtPar, parVal.get(k)));
             } else {
-                str += String.format(res.getString(R.string.comment_hole_00), (k + 1), parVal[k],
-                        changeComentHole(context, scoreMgr, scoreAtPar, parVal[k]));
+                str += String.format(res.getString(R.string.comment_hole_00), (k + 1), parVal.get(k),
+                        changeComentHole(context, scoreMgr, scoreAtPar, parVal.get(k)));
             }
-        } else if (patVal[k] == 1) { //1パット
-            str += String.format(res.getString(R.string.comment_hole_03), (k + 1), parVal[k],
-                    changeComentHole(context, scoreMgr, scoreAtPar, parVal[k]));
+        } else if (patVal.get(k) == 1) { //1パット
+            str += String.format(res.getString(R.string.comment_hole_03), (k + 1), parVal.get(k),
+                    changeComentHole(context, scoreMgr, scoreAtPar, parVal.get(k)));
         } else {
-            str += String.format(res.getString(R.string.comment_hole_00), (k + 1), parVal[k],
-                    changeComentHole(context, scoreMgr, scoreAtPar, parVal[k]));
+            str += String.format(res.getString(R.string.comment_hole_00), (k + 1), parVal.get(k),
+                    changeComentHole(context, scoreMgr, scoreAtPar, parVal.get(k)));
         }
-        if (scores[i][k] == 1) { //ホールインワン
-            str += String.format(res.getString(R.string.comment_hole_01), (k + 1), parVal[k]);
+        if (scores.get(i).get(k) == 1) { //ホールインワン
+            str += String.format(res.getString(R.string.comment_hole_01), (k + 1), parVal.get(k));
         } else if (scoreAtPar == -3) { //アルバトロス
             str += String.format(res.getString(R.string.comment_hole_16));
         } else if (scoreAtPar == -2) { //イーグル
@@ -268,13 +273,13 @@ public final class LetterMessageUtil {
     private static String getGoodHoleComment(final Context context, final int i, final int k,
             final SaveDataList scoreMgr, final int saveNum, final int scoreAtPar,
             final int chipingflag) {
-        int[] parVal = scoreMgr.getAllParValues(saveNum);
+        Map<Integer, Integer> parVal = scoreMgr.getAllParValues(saveNum);
         String str = "";
         Resources res = context.getResources();
         // 左端が本人だとする。getMyNameがほしいぜ
         if (i != 0) { //本人以外
-            str += String.format(res.getString(R.string.comment_hole_00), (k + 1), parVal[k],
-                    changeComentHole(context, scoreMgr, scoreAtPar, parVal[k]));
+            str += String.format(res.getString(R.string.comment_hole_00), (k + 1), parVal.get(k),
+                    changeComentHole(context, scoreMgr, scoreAtPar, parVal.get(k)));
         } else { // 本人
             str += getGoodHoleCommentMyself(context, i, k, scoreMgr, saveNum, scoreAtPar,
                     chipingflag);
@@ -291,16 +296,16 @@ public final class LetterMessageUtil {
      * @return Bad Comment
      */
     private static String getBadComment(final Context context, final int k,
-            final SaveDataList scoreMgr, final int[] parVal, final int scoreAtPar) {
+            final SaveDataList scoreMgr, final Map<Integer, Integer> parVal, final int scoreAtPar) {
 
         String mBadHoleComment = "";
         mBadHoleComment += String.format(
-                context.getResources().getString(R.string.comment_hole_00), (k + 1), parVal[k],
-                LetterMessageUtil.changeComentHole(context, scoreMgr, scoreAtPar, parVal[k]));
-        if (scoreAtPar >= (parVal[k] * 2)) { //ダブルパー以上
+                context.getResources().getString(R.string.comment_hole_00), (k + 1), parVal.get(k),
+                LetterMessageUtil.changeComentHole(context, scoreMgr, scoreAtPar, parVal.get(k)));
+        if (scoreAtPar >= (parVal.get(k) * 2)) { //ダブルパー以上
             mBadHoleComment += String.format(context.getResources().getString(
                     R.string.comment_hole_21));
-        } else if (scoreAtPar >= (parVal[k])) { //トリプルパー以上
+        } else if (scoreAtPar >= (parVal.get(k))) { //トリプルパー以上
             mBadHoleComment += String.format(context.getResources().getString(
                     R.string.comment_hole_20));
         }
@@ -358,8 +363,8 @@ public final class LetterMessageUtil {
         String[] mTotalHoleComent = { "", "", "", "" };
         int playernum = scoreMgr.getPlayerNum(saveNum);
         int chipingflag = 0; // patting入力が無い場合は表示しない
-        int[][] scores = scoreMgr.getAllScores(saveNum);
-        int[] parVal = scoreMgr.getAllParValues(saveNum);
+        Map<Integer, Map<Integer, Integer>> scores = scoreMgr.getAllScores(saveNum);
+        Map<Integer, Integer> parVal = scoreMgr.getAllParValues(saveNum);
 
         if (LetterUtil.getMyPatAverage(scoreMgr, saveNum, 0) > 0.5) { //patting入力が無い場合は表示しない
             chipingflag++;
@@ -371,9 +376,9 @@ public final class LetterMessageUtil {
             int mBadHoleCount = 0;
             int scoreAtPar = 0;
             float avg;
-            for (int k = 0; k < Util.TOTAL_HOLE_COUNT; k++) {
+            for (int k = 0; k < SGSConfig.TOTAL_HOLE_COUNT; k++) {
                 avg = LetterUtil.getMyAverage(scoreMgr, saveNum, i);
-                scoreAtPar = scores[i][k] - parVal[k];
+                scoreAtPar = scores.get(i).get(k) - parVal.get(k);
                 if (scoreAtPar - avg > 1.9f) {
                     //bad hole
                     mBadHoleCount++;
@@ -462,7 +467,7 @@ public final class LetterMessageUtil {
             if (mMaxTurning < mTurningPoint[t]) {
                 mMaxTurning = mTurningPoint[t];
                 mMaxTurnChg = mTurningChange[t];
-                name = String.format(scoreMgr.getPlayerNames(saveNum)[t]);
+                name = String.format(scoreMgr.getPlayerNames(saveNum).get(t));
             }
         }
         if (mMaxTurning >= 6) {
@@ -477,14 +482,14 @@ public final class LetterMessageUtil {
                 str += String.format(res.getString(R.string.comment_rival_12), name);
             }
             if (mMaxTurning > 15) {
-                str += String.format(res.getString(R.string.comment_rival_13), name);
+                str += String.format(res.getString(R.string.comment_rival_13));
             } else if (mMaxTurning > 9) {
-                str += String.format(res.getString(R.string.comment_rival_14), name);
+                str += String.format(res.getString(R.string.comment_rival_14));
             } else {
-                str += String.format(res.getString(R.string.comment_rival_15), name);
+                str += String.format(res.getString(R.string.comment_rival_15));
             }
         } else {
-            str += String.format(res.getString(R.string.comment_rival_16), name);
+            str += String.format(res.getString(R.string.comment_rival_16));
         }
         return str;
     }
@@ -504,7 +509,7 @@ public final class LetterMessageUtil {
             str += String.format(context.getResources().getString(R.string.comment_rival_01));
         }
         str += String.format(context.getResources().getString(R.string.comment_rival_02),
-                scoreMgr.getPlayerNames(saveNum)[t]);
+                scoreMgr.getPlayerNames(saveNum).get(t));
         return str;
     }
 
@@ -601,7 +606,7 @@ public final class LetterMessageUtil {
                 comment += String.format(res.getString(R.string.comment_ranking_05));
             } else {
                 comment += String.format(res.getString(R.string.comment_ranking_06),
-                        scoreMgr.getPlayerNames(saveNum)[rankArray[lastRank[pIdx] - 2]]);
+                        scoreMgr.getPlayerNames(saveNum).get(rankArray[lastRank[pIdx] - 2]));
             }
         } else {
             if (firstRank[pIdx] == 2) {

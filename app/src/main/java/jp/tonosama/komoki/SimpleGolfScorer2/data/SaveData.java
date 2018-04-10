@@ -1,18 +1,25 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.data;
 
-import java.io.Serializable;
+import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.ArrayUtil;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
 
 /**
  * GolfScoreData
  * 
  * @author Komoki
  */
+@SuppressLint("UseSparseArrays")
 public class SaveData implements Serializable {
 
     /**  */
-    private int mSaveIdx;
+    private final int mSaveIdx;
     /**  */
     private boolean mIs18Hround = true;
     /**  */
@@ -22,49 +29,57 @@ public class SaveData implements Serializable {
     /**  */
     private String mDemoChartTitle = "";
     /**  */
-    private String[] mPlayerNames = { "", "", "", "" };
+    private Map<Integer, String> mPlayerNames = new HashMap<>();
     /**  */
-    private int[] mPlayersAlpha = { 255, 255, 255, 255 };
+    private Map<Integer, Integer> mPlayersAlpha = new HashMap<>();
     /**  */
-    private int[] mAbsoluteScore1 = new int[Util.TOTAL_HOLE_COUNT];
+    private Map<Integer, Map<Integer, Integer>> mAbsoluteScore = new HashMap<>();
     /**  */
-    private int[] mAbsoluteScore2 = new int[Util.TOTAL_HOLE_COUNT];
+    private Map<Integer, Integer> mAbsolutePatting = new HashMap<>();
     /**  */
-    private int[] mAbsoluteScore3 = new int[Util.TOTAL_HOLE_COUNT];
+    private Map<Integer, Integer> mEachHolePar = new HashMap<>();
     /**  */
-    private int[] mAbsoluteScore4 = new int[Util.TOTAL_HOLE_COUNT];
+    private Map<Integer, Boolean> mEachHoleLocked = new HashMap<>();
     /**  */
-    private int[][] mAbsoluteScore = { mAbsoluteScore1, mAbsoluteScore2, mAbsoluteScore3,
-            mAbsoluteScore4 };
+    private Map<Integer, Integer> mPlayersHandi = new HashMap<>();
     /**  */
-    private int[] mAbsolutePatting = new int[Util.TOTAL_HOLE_COUNT];
+    private int[] mDemoSeries1 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
     /**  */
-    private int[] mEachHolePar = new int[Util.TOTAL_HOLE_COUNT];
+    private int[] mDemoSeries2 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
     /**  */
-    private boolean[] mEachHoleLocked = //
-    { false, false, false, false, false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false };
+    private int[] mDemoSeries3 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
     /**  */
-    private int[] mPlayersHandi = { 0, 0, 0, 0 };
-    /**  */
-    private int[] mDemoSeries1 = new int[Util.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[] mDemoSeries2 = new int[Util.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[] mDemoSeries3 = new int[Util.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[] mDemoSeries4 = new int[Util.TOTAL_HOLE_COUNT + 1];
+    private int[] mDemoSeries4 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
     /**  */
     private int[][] mDemoSeries = { mDemoSeries1, mDemoSeries2, mDemoSeries3, mDemoSeries4 };
     /**  */
     private String mMemoStr = "";
 
-    public int getSaveIdx() {
-        return mSaveIdx;
+    private SaveData(int saveIdx) {
+        mSaveIdx = saveIdx;
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            mAbsolutePatting.put(holeIdx, 0);
+            mEachHolePar.put(holeIdx, 4);
+            mEachHoleLocked.put(holeIdx, false);
+        }
+        for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+            mPlayerNames.put(playerIdx, "");
+            mPlayersAlpha.put(playerIdx, 255);
+            Map<Integer, Integer> scoreList = new HashMap<>();
+            for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+                scoreList.put(holeIdx, 0);
+            }
+            mAbsoluteScore.put(playerIdx, scoreList);
+            mPlayersHandi.put(playerIdx, 0);
+        }
     }
 
-    public void setSaveIdx(final int saveIdx) {
-        this.mSaveIdx = saveIdx;
+    public static SaveData createInitialData(int saveIdx) {
+        return new SaveData(saveIdx);
+    }
+
+    public int getSaveIdx() {
+        return mSaveIdx;
     }
 
     public boolean getIs18Hround() {
@@ -91,9 +106,9 @@ public class SaveData implements Serializable {
      */
     public boolean getIsShortHole() {
         boolean isShortHole = true;
-        int[] parScore = getEachHolePar();
-        for (int aParScore : parScore) {
-            if (aParScore != 3) {
+        Map<Integer, Integer> parScore = getEachHolePar();
+        for (int parVal : parScore.values()) {
+            if (parVal != 3) {
                 isShortHole = false;
             }
         }
@@ -127,19 +142,19 @@ public class SaveData implements Serializable {
         mOutputImageFlg = outputImageFlg;
     }
 
-    public String[] getNames() {
+    public Map<Integer, String> getPlayerNameList() {
         return mPlayerNames;
     }
 
-    public void setNames(final String[] names) {
+    public void setNameList(final Map<Integer, String> names) {
         mPlayerNames = names;
     }
 
-    public int[] getPlayersAlpha() {
+    public Map<Integer, Integer> getPlayersAlpha() {
         return mPlayersAlpha;
     }
 
-    public void setPlayersAlpha(final int[] playersAlpha) {
+    public void setPlayersAlpha(final Map<Integer, Integer> playersAlpha) {
         mPlayersAlpha = playersAlpha;
     }
 
@@ -159,20 +174,20 @@ public class SaveData implements Serializable {
         mDemoChartTitle = holeTitle;
     }
 
-    public int[][] getAbsoluteScore() {
+    public Map<Integer, Map<Integer, Integer>> getScoresList() {
         return mAbsoluteScore;
     }
 
-    public int[] getAbsoluteScore(final int idx) {
-        return mAbsoluteScore[idx];
+    public void setScoresList(@NonNull Map<Integer, Map<Integer, Integer>> scoresList) {
+        mAbsoluteScore = scoresList;
     }
 
     public int[] getTotalScore() {
         int[] total = { 0, 0, 0, 0 };
-        int[][] scores = getAbsoluteScore();
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            for (int j = 0; j < total.length; j++) {
-                total[j] += scores[j][i];
+        Map<Integer, Map<Integer, Integer>> scores = getScoresList();
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
+                total[playerIdx] += scores.get(playerIdx).get(holeIdx);
             }
         }
         return total;
@@ -180,15 +195,15 @@ public class SaveData implements Serializable {
 
     public int[] getHalfScore(final boolean forward) {
         int[] total = { 0, 0, 0, 0 };
-        int[][] scores = getAbsoluteScore();
-        int offset = Util.TOTAL_HOLE_COUNT / 2;
+        Map<Integer, Map<Integer, Integer>> scores = getScoresList();
+        int offset = SGSConfig.TOTAL_HOLE_COUNT / 2;
         if (forward) {
             offset = 0;
         }
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT / 2; i++) {
-            int idx = offset + i;
-            for (int j = 0; j < total.length; j++) {
-                total[j] += scores[j][idx];
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT / 2; holeIdx++) {
+            int offsetHoleIdx = offset + holeIdx;
+            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
+                total[playerIdx] += scores.get(playerIdx).get(offsetHoleIdx);
             }
         }
         return total;
@@ -196,10 +211,10 @@ public class SaveData implements Serializable {
 
     public int[] getTotalPatScore() {
         int[] total = { 0, 0, 0, 0 };
-        int[][] scores = getAbsolutePatting();
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            for (int j = 0; j < total.length; j++) {
-                total[j] += scores[j][i];
+        Map<Integer, Map<Integer, Integer>> scores = getPattingScoresList();
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
+                total[playerIdx] += scores.get(playerIdx).get(holeIdx);
             }
         }
         return total;
@@ -207,15 +222,15 @@ public class SaveData implements Serializable {
 
     public int[] getHalfPatScore(final boolean forward) {
         int[] total = { 0, 0, 0, 0 };
-        int[][] scores = getAbsolutePatting();
-        int offset = Util.TOTAL_HOLE_COUNT / 2;
+        Map<Integer, Map<Integer, Integer>> scores = getPattingScoresList();
+        int offset = SGSConfig.TOTAL_HOLE_COUNT / 2;
         if (forward) {
             offset = 0;
         }
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT / 2; i++) {
-            int idx = offset + i;
-            for (int j = 0; j < total.length; j++) {
-                total[j] += scores[j][idx];
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT / 2; holeIdx++) {
+            int offsetHoleIdx = offset + holeIdx;
+            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
+                total[playerIdx] += scores.get(playerIdx).get(offsetHoleIdx);
             }
         }
         return total;
@@ -223,49 +238,50 @@ public class SaveData implements Serializable {
 
     public int getTotalParScore() {
         int total = 0;
-        int[] scores = getEachHolePar();
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            total += scores[i];
+        Map<Integer, Integer> scores = getEachHolePar();
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            total += scores.get(i);
         }
         return total;
     }
 
     public int getHalfParScore(final boolean forward) {
         int total = 0;
-        int[] par = getEachHolePar();
-        int offset = Util.TOTAL_HOLE_COUNT / 2;
+        Map<Integer, Integer> par = getEachHolePar();
+        int offset = SGSConfig.TOTAL_HOLE_COUNT / 2;
         if (forward) {
             offset = 0;
         }
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT / 2; i++) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT / 2; i++) {
             int idx = offset + i;
-            total += par[idx];
+            total += par.get(idx);
         }
         return total;
     }
 
-    public int[][] getAbsolutePatting() {
-        int[] defPat = new int[mAbsolutePatting.length];
-        return new int[][]{ mAbsolutePatting, defPat, defPat, defPat };
+    public Map<Integer, Map<Integer, Integer>> getPattingScoresList() {
+        @SuppressLint("UseSparseArrays")
+        Map<Integer, Map<Integer, Integer>> patMap = new HashMap<>();
+        patMap.put(0, mAbsolutePatting);
+        patMap.put(1, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
+        patMap.put(2, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
+        patMap.put(3, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
+        return patMap;
     }
 
-    public int[] getAbsolutePatting(final int idx) {
-        return getAbsolutePatting()[idx];
-    }
-
-    public int[] getEachHolePar() {
+    public Map<Integer, Integer> getEachHolePar() {
         return mEachHolePar;
     }
 
-    public void setEachHolePar(final int[] eachHolePar) {
+    public void setEachHolePar(final Map<Integer, Integer> eachHolePar) {
         this.mEachHolePar = eachHolePar;
     }
 
-    public int[] getPlayersHandi() {
+    public Map<Integer, Integer> getPlayersHandi() {
         return mPlayersHandi;
     }
 
-    public void setPlayersHandi(final int[] playersHandi) {
+    public void setPlayersHandi(final Map<Integer, Integer> playersHandi) {
         this.mPlayersHandi = playersHandi;
     }
 
@@ -273,13 +289,13 @@ public class SaveData implements Serializable {
         return mDemoSeries[idx];
     }
 
-    public boolean[] getEachHoleLocked() {
+    public Map<Integer, Boolean> getEachHoleLocked() {
         return mEachHoleLocked;
     }
 
     public boolean isHoleResultFixed() {
         boolean ret = true;
-        for (boolean aMEachHoleLocked : mEachHoleLocked) {
+        for (boolean aMEachHoleLocked : mEachHoleLocked.values()) {
             if (!aMEachHoleLocked) {
                 ret = false;
             }
@@ -289,11 +305,16 @@ public class SaveData implements Serializable {
 
     public int getPlayerNum() {
         int playerNum = 0;
-        for (String mPlayerName : mPlayerNames) {
+        for (String mPlayerName : mPlayerNames.values()) {
             if (mPlayerName.trim().length() != 0) {
                 ++playerNum;
             }
         }
         return playerNum;
+    }
+
+    @Override
+    public String toString() {
+        return "idx:[" + mSaveIdx + "] Hole Tiele: [" + mDemoChartTitle + "]";
     }
 }

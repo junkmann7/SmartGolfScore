@@ -160,7 +160,7 @@
     <include layout="@layout/score_viewer_table_first" />
         -->
 
-        <include layout="@layout/score_viewer_table_old" />
+        <include layout="@layout/score_viewer_table_contents" />
 
         <!-- ========================================================= -->
         <!-- ハンディキャップとトータル -->
@@ -195,7 +195,7 @@
                     android:gravity="center|center"
                     android:text="@string/score_viewer_handi"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_10dp" />
+                    android:textSize="@dimen/adjusted_text_size_14dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -209,7 +209,7 @@
                     android:layout_weight="1"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -223,7 +223,7 @@
                     android:layout_weight="1"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -237,7 +237,7 @@
                     android:layout_weight="1"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -251,7 +251,7 @@
                     android:layout_weight="1"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -282,7 +282,7 @@
                     android:paddingTop="1dp"
                     android:text="@string/score_viewer_total"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_10dp" />
+                    android:textSize="@dimen/adjusted_text_size_14dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -296,7 +296,7 @@
                     android:layout_weight="1"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -310,7 +310,7 @@
                     android:layout_weight="2"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -324,7 +324,7 @@
                     android:layout_weight="2"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -338,7 +338,7 @@
                     android:layout_weight="2"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"
@@ -352,7 +352,7 @@
                     android:layout_weight="2"
                     android:gravity="center|center"
                     android:textColor="#FFFFFF"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_text_size_16dp" />
 
                 <View
                     android:layout_width="1dp"

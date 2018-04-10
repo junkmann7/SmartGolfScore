@@ -3,7 +3,9 @@ package jp.tonosama.komoki.SimpleGolfScorer2.viewer;
 import android.content.Context;
 import android.content.Intent;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import java.util.Map;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 
 /**
@@ -20,31 +22,31 @@ public final class ViewerUtil {
 
     public static void startGraphActivty(final Context context, final SaveData mScoreData) {
 
-        int[] mAlpha = new int[] { 255, 255, 255, 255 };
-        for (int i = 0; i < mScoreData.getNames().length; i++) {
-            if (mScoreData.getNames()[i].trim().length() == 0) {
-                mAlpha[i] = 0;
+        Map<Integer, Integer> alphaList = SaveData.createInitialData(-1).getPlayersAlpha();
+        for (int i = 0; i < mScoreData.getPlayerNameList().size(); i++) {
+            if (mScoreData.getPlayerNameList().get(i).trim().length() == 0) {
+                alphaList.put(i, 0);
             }
         }
-        mScoreData.setPlayersAlpha(mAlpha);
+        mScoreData.setPlayersAlpha(alphaList);
 
         Intent intent = new Intent(context, GraphActivity.class);
         intent.putExtra(Intent.EXTRA_TITLE, mScoreData.getHoleTitle());
-        intent.putExtra(Util.EXTRAS_SELECTED_IDX, mScoreData.getSaveIdx());
+        SaveDataPref.setSelectedSaveIdx(mScoreData.getSaveIdx());
         context.startActivity(intent);
     }
 
     public static void startTableActivity(final Context context, final SaveData mScoreData) {
 
-        int[] mAlpha = new int[] { 255, 255, 255, 255 };
-        for (int i = 0; i < mScoreData.getNames().length; i++) {
-            if (mScoreData.getNames()[i].trim().length() == 0) {
-                mAlpha[i] = 0;
+        Map<Integer, Integer> alphaList = SaveData.createInitialData(-1).getPlayersAlpha();
+        for (int i = 0; i < mScoreData.getPlayerNameList().size(); i++) {
+            if (mScoreData.getPlayerNameList().get(i).trim().length() == 0) {
+                alphaList.put(i, 0);
             }
         }
-        mScoreData.setPlayersAlpha(mAlpha);
+        mScoreData.setPlayersAlpha(alphaList);
         Intent intent = new Intent(context, ScoreViewer.class);
-        intent.putExtra(Util.EXTRAS_SELECTED_IDX, mScoreData.getSaveIdx());
+        SaveDataPref.setSelectedSaveIdx(mScoreData.getSaveIdx());
         context.startActivity(intent);
     }
 }

@@ -1,15 +1,7 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.editor;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
-import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
-import jp.tonosama.komoki.SimpleGolfScorer2.editor.DragUi.DragUiInterface;
-import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ViewerUtil;
-import jp.tonosama.komoki.wheel.widget.OnWheelChangedListener;
-import jp.tonosama.komoki.wheel.widget.WheelView;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +9,12 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,7 +23,16 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
+import jp.tonosama.komoki.SimpleGolfScorer2.editor.DragUi.DragUiInterface;
+import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ViewerUtil;
+import jp.tonosama.komoki.wheel.widget.OnWheelChangedListener;
+import jp.tonosama.komoki.wheel.widget.WheelView;
 
 /**
  * @author Komoki
@@ -40,20 +42,14 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
     /** タグ名 */
     private static final String TAG = ScoreEditor.class.getSimpleName();
 
-    /** デバッグフラグ */
-    private static final boolean DEBUG = false;
-
-    /** 保存データ */
-    private SaveData mSaveData;
-
     /** ドラッグ操作UI */
     private DragUi mDragUi;
 
     @Override
     public void onResume() {
-        setData(Util.loadScoreDataFromPref(this, getData().getSaveIdx()));
-        refreshEditor(getData(), 0);
         super.onResume();
+
+        refreshEditor(getData(), 0);
     }
 
     @Override
@@ -61,14 +57,6 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         super.onCreate(icicle);
         setContentView(SERes.MAIN_LAYOUT_RES_ID);
 
-        int selectedIdx = getIntent().getIntExtra(Util.EXTRAS_SELECTED_IDX, -1);
-        if (selectedIdx < 0) {
-            return;
-        }
-        setData(Util.loadScoreDataFromPref(this, selectedIdx));
-
-        // TextView に情報をセット;
-        ((TextView) findViewById(R.id.hole_title)).setText(getData().getHoleTitle());
         // ParSpinnerのセット
         SERes.initParSpinner(this);
         // drumPickerを初期化
@@ -210,30 +198,31 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      * @param holeMove int
      */
     private void refreshEditor(final SaveData sData, final int holeMove) {
+        ((TextView) findViewById(R.id.hole_title)).setText(getData().getHoleTitle());
         final int oldCurHole = sData.getCurrentHole();
-        int newCurHole = (oldCurHole + holeMove) % Util.TOTAL_HOLE_COUNT;
+        int newCurHole = (oldCurHole + holeMove) % SGSConfig.TOTAL_HOLE_COUNT;
         if (newCurHole == 0) {
-            newCurHole = Util.TOTAL_HOLE_COUNT;
+            newCurHole = SGSConfig.TOTAL_HOLE_COUNT;
         }
         sData.setCurrentHole(newCurHole);
         // プレイヤー名をセット
         TextView[] personNameTextViews = SERes.getPersonNameTextViews(this);
         for (int i = 0; i < personNameTextViews.length; i++) {
-            personNameTextViews[i].setText(getData().getNames()[i]);
+            personNameTextViews[i].setText(getData().getPlayerNameList().get(i));
         }
         // ホール移動時、数値入力済みの場合に移動元ホールをロックする対応
         final WheelView[] drum = SERes.getDrumPicker(ScoreEditor.this);
         if (holeMove != 0
-                && (drum[0].getCurrentItem() != 0 || sData.getNames()[0].trim().length() < 1)
-                && (drum[1].getCurrentItem() != 0 || sData.getNames()[1].trim().length() < 1)
-                && (drum[2].getCurrentItem() != 0 || sData.getNames()[2].trim().length() < 1)
-                && (drum[3].getCurrentItem() != 0 || sData.getNames()[3].trim().length() < 1)) {
-            if (!sData.getEachHoleLocked()[oldCurHole - 1]) {
-                sData.getEachHoleLocked()[oldCurHole - 1] = true;
+                && (drum[0].getCurrentItem() != 0 || sData.getPlayerNameList().get(0).trim().length() < 1)
+                && (drum[1].getCurrentItem() != 0 || sData.getPlayerNameList().get(1).trim().length() < 1)
+                && (drum[2].getCurrentItem() != 0 || sData.getPlayerNameList().get(2).trim().length() < 1)
+                && (drum[3].getCurrentItem() != 0 || sData.getPlayerNameList().get(3).trim().length() < 1)) {
+            if (!sData.getEachHoleLocked().get(oldCurHole - 1)) {
+                sData.getEachHoleLocked().put(oldCurHole - 1, true);
             }
         }
         // ドラムをロックする対応
-        final boolean isLocked = sData.getEachHoleLocked()[newCurHole - 1];
+        final boolean isLocked = sData.getEachHoleLocked().get(newCurHole - 1);
         for (WheelView aDrum : drum) {
             aDrum.setIsWheelLocked(isLocked);
             aDrum.invalidate();
@@ -256,15 +245,15 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         RatingBar ratingBar = SERes.getRatingBar(this);
         // RatingBar のカレント数値エリアに値をセット
         ratingBar.setIsIndicator(false);
-        ratingBar.setRating(sData.getAbsolutePatting()[0][sData.getCurrentHole() - 1]);
+        ratingBar.setRating(sData.getPattingScoresList().get(0).get(sData.getCurrentHole() - 1));
         ImageView iv = (ImageView) findViewById(R.id.my_pat_img);
-        iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[sData.getAbsolutePatting()[0][sData
-                .getCurrentHole() - 1]]);
+        iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[sData.getPattingScoresList().get(0).get(sData
+                .getCurrentHole() - 1)]);
         // RatingBarをロックする対応
-        ratingBar.setIsIndicator(sData.getEachHoleLocked()[sData.getCurrentHole() - 1]);
+        ratingBar.setIsIndicator(sData.getEachHoleLocked().get(sData.getCurrentHole() - 1));
         // ロック/アンロックボタンを表示する対応
         ImageButton lockButton = SERes.getLockButton(this);
-        if (sData.getEachHoleLocked()[sData.getCurrentHole() - 1]) {
+        if (sData.getEachHoleLocked().get(sData.getCurrentHole() - 1)) {
             lockButton.setImageResource(R.drawable.ic_menu_lock);
             ratingBar.setBackgroundColor(0x66000000);
         } else {
@@ -308,7 +297,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         for (int i = 0; i < drum.length; i++) {
             // !! 現在ホールのスコアデータが書き換わる !!
             final int curHoleIdx = sData.getCurrentHole() - 1;
-            final int score = sData.getAbsoluteScore(i)[curHoleIdx];
+            final int score = sData.getScoresList().get(i).get(curHoleIdx);
             drum[i].setCurrentItem(score);
         }
     }
@@ -318,7 +307,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      */
     private void refreshSpinner(final SaveData sData) {
         final int curHoleIdx = sData.getCurrentHole() - 1;
-        int nextPar = sData.getEachHolePar()[curHoleIdx] - SERes.MINIMUM_PAR_COUNT;
+        int nextPar = sData.getEachHolePar().get(curHoleIdx) - SERes.MINIMUM_PAR_COUNT;
         SERes.getParSpinner(this).setSelection(nextPar);
     }
 
@@ -330,7 +319,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         TextView[] personNameTextViews = SERes.getPersonNameTextViews(this);
         TextView[] personScoreTextViews = SERes.getPersonScoreTextViews(this);
         for (int i = 0; i < drum.length; i++) {
-            if (sData.getNames()[i].trim().length() == 0) {
+            if (sData.getPlayerNameList().get(i).trim().length() == 0) {
                 personNameTextViews[i].setVisibility(View.GONE);
                 drum[i].setVisibility(View.GONE);
                 personScoreTextViews[i].setVisibility(View.GONE);
@@ -349,33 +338,32 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
     /**
      * @param scoreData GolfScoreData
      */
-    private void onSaveResult(final SaveData scoreData) {
-
+    private void saveCurrentState(final SaveData scoreData) {
+        if (scoreData == null) {
+            return;
+        }
         // 現在の状態を保持
-        // ホールタイトルを保存
-        String holeTitle = ((TextView) findViewById(R.id.hole_title)).getText().toString();
-        scoreData.setHoleTitle(holeTitle);
         // パー値を保存
         int par = SERes.getParSpinner(this).getSelectedItemPosition() + SERes.MINIMUM_PAR_COUNT;
-        scoreData.getEachHolePar()[scoreData.getCurrentHole() - 1] = par;
+        scoreData.getEachHolePar().put(scoreData.getCurrentHole() - 1, par);
         // 各プレイヤーのスコア値を保存
         final WheelView[] drumPickers = SERes.getDrumPicker(this);
         for (int i = 0; i < drumPickers.length; i++) {
             int score = drumPickers[i].getCurrentItem();
-            scoreData.getAbsoluteScore(i)[scoreData.getCurrentHole() - 1] = score;
+            scoreData.getScoresList().get(i).put(scoreData.getCurrentHole() - 1, score);
         }
         // パットのスコア値を保存
         RatingBar ratingBar = SERes.getRatingBar(this);
         int pat = (int) ratingBar.getRating();
-        scoreData.getAbsolutePatting()[0][scoreData.getCurrentHole() - 1] = pat;
+        scoreData.getPattingScoresList().get(0).put(scoreData.getCurrentHole() - 1, pat);
         // プリファレンスに保存
-        Util.saveScoreData(this, scoreData);
+        SaveDataPref.saveScoreData(scoreData);
     }
 
     @Override
     public void onPause() {
-        onSaveResult(getData());
         super.onPause();
+        saveCurrentState(getData());
     }
 
     /**
@@ -385,12 +373,12 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      * @param animVal int
      */
     private void onAnimationEndMain(final View view, final int animVal) {
-        if (DEBUG) {
-            Log.d(TAG, "onAnimationEndMain() curHole:" + getData().getCurrentHole() + " moveVal:"
-                    + mDragUi.getMoveValue());
-        }
+
+        DevLog.d(TAG, "onAnimationEndMain() curHole:" + getData().getCurrentHole() + " moveVal:"
+                + mDragUi.getMoveValue());
+
         refreshEditor(getData(), mDragUi.getMoveValue());
-        onSaveResult(getData());
+        saveCurrentState(getData());
 
         mDragUi.setCurrentX(DragUi.DEFAULT_X);
         view.layout(DragUi.DEFAULT_X, 0, DragUi.DEFAULT_X + view.getWidth(), view.getHeight());
@@ -441,15 +429,15 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
                         return;
                     }
                     View[] wheels = SERes.getDrumPicker(ScoreEditor.this);
-                    int idx = 0;
+                    int playerIdx = 0;
                     for (int i = 0; i < wheels.length; i++) {
                         if (wheel.equals(wheels[i])) {
-                            idx = i;
+                            playerIdx = i;
                             break;
                         }
                     }
                     int curHoleIdx = getData().getCurrentHole() - 1;
-                    getData().getAbsoluteScore(idx)[curHoleIdx] = newVal;
+                    getData().getScoresList().get(playerIdx).put(curHoleIdx, newVal);
                     refreshPicker(getData());
                 }
             });
@@ -467,7 +455,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
                     final int position, final long id) {
                 SaveData sData = getData();
                 final int curHoleIdx = sData.getCurrentHole() - 1;
-                sData.getEachHolePar()[curHoleIdx] = position + SERes.MINIMUM_PAR_COUNT;
+                sData.getEachHolePar().put(curHoleIdx, position + SERes.MINIMUM_PAR_COUNT);
             }
 
             public void onNothingSelected(final AdapterView<?> arg0) {
@@ -489,7 +477,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
 
             public void onClick(final View v) {
 
-                onSaveResult(getData());
+                saveCurrentState(getData());
                 ViewerUtil.startTableActivity(ScoreEditor.this, getData());
             }
         });
@@ -499,7 +487,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
 
             public void onClick(final View v) {
 
-                onSaveResult(getData());
+                saveCurrentState(getData());
                 ViewerUtil.startGraphActivty(ScoreEditor.this, getData());
             }
         });
@@ -535,7 +523,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
                 iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[pat]);
                 if (fromUser) {
                     int curHoleIdx = getData().getCurrentHole() - 1;
-                    getData().getAbsolutePatting(0)[curHoleIdx] = pat;
+                    getData().getPattingScoresList().get(0).put(curHoleIdx, pat);
                 }
             }
         });
@@ -551,21 +539,16 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
             public void onClick(final View v) {
                 final SaveData scoreData = getData();
                 final int curHoleIdx = scoreData.getCurrentHole() - 1;
-                final boolean isLocked = scoreData.getEachHoleLocked()[curHoleIdx];
-                scoreData.getEachHoleLocked()[curHoleIdx] = !isLocked;
+                final boolean isLocked = scoreData.getEachHoleLocked().get(curHoleIdx);
+                scoreData.getEachHoleLocked().put(curHoleIdx, !isLocked);
                 refreshEditor(scoreData, 0);
             }
         });
     }
 
+    @Override
     public SaveData getData() {
-        return mSaveData;
-    }
-
-    /**
-     * @param saveData SaveData
-     */
-    public void setData(final SaveData saveData) {
-        this.mSaveData = saveData;
+        int selectedIdx = SaveDataPref.getSelectedSaveIdx();
+        return SaveDataPref.getSaveDataMap().get(selectedIdx);
     }
 }

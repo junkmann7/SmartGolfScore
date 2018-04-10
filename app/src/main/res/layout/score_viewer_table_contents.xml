@@ -28,7 +28,7 @@
             android:gravity="center|center"
             android:text="1H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -56,7 +56,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -70,7 +70,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -84,7 +84,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -98,7 +98,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -132,7 +132,7 @@
             android:gravity="center|center"
             android:text="2H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -146,7 +146,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -160,7 +160,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -174,7 +174,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -188,7 +188,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -202,7 +202,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -236,7 +236,7 @@
             android:gravity="center|center"
             android:text="3H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -250,7 +250,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -264,7 +264,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -278,7 +278,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -292,7 +292,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -306,7 +306,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -338,9 +338,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="4h"
+            android:text="4H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -354,7 +354,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -368,7 +368,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -382,7 +382,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -396,7 +396,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -410,7 +410,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -442,9 +442,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="5h"
+            android:text="5H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -458,7 +458,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -472,7 +472,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -486,7 +486,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -500,7 +500,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -514,7 +514,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -546,9 +546,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="6h"
+            android:text="6H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -562,7 +562,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -576,7 +576,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -590,7 +590,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -604,7 +604,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -618,7 +618,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -650,9 +650,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="7h"
+            android:text="7H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -666,7 +666,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -680,7 +680,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -694,7 +694,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -708,7 +708,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -722,7 +722,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -754,9 +754,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="8h"
+            android:text="8H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -770,7 +770,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -784,7 +784,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -798,7 +798,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -812,7 +812,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -826,7 +826,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -858,9 +858,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="9h"
+            android:text="9H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -874,7 +874,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -888,7 +888,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -902,7 +902,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -916,7 +916,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -930,7 +930,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -963,7 +963,7 @@
             android:gravity="center|center"
             android:text="Out"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -977,7 +977,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -991,7 +991,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1005,7 +1005,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1019,7 +1019,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1033,7 +1033,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1063,9 +1063,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="10h"
+            android:text="10H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1079,7 +1079,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1093,7 +1093,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1107,7 +1107,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1121,7 +1121,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1135,7 +1135,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1167,9 +1167,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="11h"
+            android:text="11H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1183,7 +1183,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1197,7 +1197,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1211,7 +1211,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1225,7 +1225,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1239,7 +1239,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1271,9 +1271,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="12h"
+            android:text="12H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1287,7 +1287,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1301,7 +1301,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1315,7 +1315,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1329,7 +1329,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1343,7 +1343,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1375,9 +1375,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="13h"
+            android:text="13H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1391,7 +1391,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1405,7 +1405,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1419,7 +1419,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1433,7 +1433,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1447,7 +1447,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1479,9 +1479,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="14h"
+            android:text="14H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1495,7 +1495,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1509,7 +1509,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1523,7 +1523,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1537,7 +1537,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1551,7 +1551,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1583,9 +1583,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="15h"
+            android:text="15H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1599,7 +1599,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1613,7 +1613,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1627,7 +1627,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1641,7 +1641,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1655,7 +1655,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1687,9 +1687,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="16h"
+            android:text="16H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1703,7 +1703,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1717,7 +1717,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1731,7 +1731,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1745,7 +1745,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1759,7 +1759,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1791,9 +1791,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="17h"
+            android:text="17H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1807,7 +1807,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1821,7 +1821,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1835,7 +1835,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1849,7 +1849,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1863,7 +1863,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1895,9 +1895,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:text="18h"
+            android:text="18H"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1911,7 +1911,7 @@
             android:layout_weight="1"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_14dp" />
 
         <View
             android:layout_width="1dp"
@@ -1925,7 +1925,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1939,7 +1939,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1953,7 +1953,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1967,7 +1967,7 @@
             android:layout_weight="2"
             android:gravity="center|center"
             android:textColor="#000000"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -1999,7 +1999,7 @@
             android:gravity="center|center"
             android:text="In"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -2014,7 +2014,7 @@
             android:gravity="center|center"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -2030,7 +2030,7 @@
             android:maxLines="2"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -2046,7 +2046,7 @@
             android:maxLines="2"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -2062,7 +2062,7 @@
             android:maxLines="2"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"
@@ -2078,7 +2078,7 @@
             android:maxLines="2"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/adjusted_text_size_12dp" />
+            android:textSize="@dimen/adjusted_text_size_16dp" />
 
         <View
             android:layout_width="1dp"

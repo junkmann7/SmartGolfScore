@@ -39,10 +39,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.Util;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
+import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.chart.ChartConfig;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 
@@ -67,6 +67,10 @@ public class GraphActivity extends Activity {
     private float mDpx;
     private int mMinValueY = Integer.MAX_VALUE;
     private int mMaxValueY = Integer.MIN_VALUE;
+    /**  */
+    public static final String EXTRAS_IMAGE_URI_GRAPH = "jp.tonosama.komoki.EXTRAS_IMAGE_URI_GRAPH";
+    /** */
+    public static final String EXTRAS_OUT_SAVE_DATA = "jp.tonosama.komoki.EXTRAS_OUTPUT_SAVE_DATA";
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -77,18 +81,13 @@ public class GraphActivity extends Activity {
     }
 
     protected void initData() {
-        int selectedIdx = getIntent().getIntExtra(Util.EXTRAS_SELECTED_IDX, -1);
+        int selectedIdx = SaveDataPref.getSelectedSaveIdx();
         if (selectedIdx < 0) {
             return;
         }
-        if (getIntent().getSerializableExtra(Util.EXTRAS_OUT_SAVE_DATA) != null) {
-            Serializable data = getIntent().getSerializableExtra(Util.EXTRAS_OUT_SAVE_DATA);
-            if (data instanceof SaveData) {
-                setScoreData((SaveData) data);
-            }
-        }
+        setScoreData(SaveDataPref.getSaveDataMap().get(selectedIdx));
         if (getScoreData() == null) {
-            setScoreData(Util.loadScoreDataFromPref(this, selectedIdx));
+            setScoreData(SaveDataPref.getSaveDataMap().get(selectedIdx));
         }
         // get shared preferrence
         SharedPreferences pref = getSharedPreferences(ChartConfig.PREF_GRAPH_SETTING, MODE_PRIVATE);
@@ -137,8 +136,8 @@ public class GraphActivity extends Activity {
         // チャート外側余白の背景色
         renderer.setMarginsColor(Color.argb(0x00, 0xFF, 0xFF, 0xFF));
 
-        renderer.setXLabels(Util.TOTAL_HOLE_COUNT + 2);
-        renderer.setYLabels(Util.TOTAL_HOLE_COUNT + 2);
+        renderer.setXLabels(SGSConfig.TOTAL_HOLE_COUNT + 2);
+        renderer.setYLabels(SGSConfig.TOTAL_HOLE_COUNT + 2);
 
         // グリッド表示
         renderer.setShowGrid(true);
@@ -154,7 +153,7 @@ public class GraphActivity extends Activity {
                 "HOLE", // X-axis title
                 "",     // y-axis title
                 0,      // x Min
-                Util.TOTAL_HOLE_COUNT + 1, // x Max
+                SGSConfig.TOTAL_HOLE_COUNT + 1, // x Max
                 mMinValueY - margin,    // y Min
                 mMaxValueY + margin,    // y Max
                 Color.GRAY,
@@ -168,6 +167,7 @@ public class GraphActivity extends Activity {
         return gView;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void setChartSettings(XYMultipleSeriesRenderer renderer,
                                   String title, String xTitle, String yTitle, double xMin,
                                   double xMax, double yMin, double yMax, int axesColor,
@@ -188,16 +188,17 @@ public class GraphActivity extends Activity {
     private XYMultipleSeriesDataset buildDataSet() {
         XYMultipleSeriesDataset dataSet = new XYMultipleSeriesDataset();
         for (int i = 0; i < mScoreData.getPlayerNum(); i++) {
-            addXYSeries(dataSet, mScoreData.getNames()[i], 0, i);
+            addXYSeries(dataSet, mScoreData.getPlayerNameList().get(i), 0, i);
         }
         return dataSet;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void addXYSeries(XYMultipleSeriesDataset dataSet, String title, int scale, int idx) {
         XYSeries series = new XYSeries(title, scale);
 
         int total = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
             total += mScoreData.getDemoSeries(idx)[i];
             series.add(i, i + 1, total);
             mMinValueY = Math.min(mMinValueY, total);
@@ -284,10 +285,10 @@ public class GraphActivity extends Activity {
                             String text = getIntent().getStringExtra(Intent.EXTRA_TEXT);
                             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                             intent.putExtra(Intent.EXTRA_TEXT, text);
-                            intent.putExtra(Util.EXTRAS_IMAGE_URI_GRAPH, imageUri);
+                            intent.putExtra(EXTRAS_IMAGE_URI_GRAPH, imageUri);
                             getScoreData().setOutputImageFlg(true);
-                            intent.putExtra(Util.EXTRAS_SELECTED_IDX, getScoreData().getSaveIdx());
-                            intent.putExtra(Util.EXTRAS_OUT_SAVE_DATA, getScoreData());
+                            SaveDataPref.setSelectedSaveIdx(getScoreData().getSaveIdx());
+                            intent.putExtra(EXTRAS_OUT_SAVE_DATA, getScoreData());
                             startActivity(intent);
                         }
                     });
@@ -460,8 +461,8 @@ public class GraphActivity extends Activity {
         int mBestPlayer = checkBestPlayer(getScoreData());
         // for FailSafe s
         int mNullCheck = 0;
-        for (int i = 0; i < Util.TOTAL_HOLE_COUNT; i++) {
-            mNullCheck += getScoreData().getAbsoluteScore(0)[i];
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            mNullCheck += getScoreData().getScoresList().get(0).get(holeIdx);
         }
         if (mNullCheck == 0) {
             finish();
@@ -479,37 +480,37 @@ public class GraphActivity extends Activity {
                                       final int bestPlayer) {
         int baseNum;
         if (mBaseLineType == 0) {
-            for (int i = 0; i < golfScoreData.getNames().length; i++) {
-                golfScoreData.getDemoSeries(i)[0] = golfScoreData.getPlayersHandi()[i]
-                        - golfScoreData.getPlayersHandi()[bestPlayer];
+            for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+                golfScoreData.getDemoSeries(i)[0] = golfScoreData.getPlayersHandi().get(i)
+                        - golfScoreData.getPlayersHandi().get(bestPlayer);
             }
         } else {
-            for (int i = 0; i < golfScoreData.getNames().length; i++) {
-                golfScoreData.getDemoSeries(i)[0] = 0 - golfScoreData.getPlayersHandi()[i];
+            for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+                golfScoreData.getDemoSeries(i)[0] = 0 - golfScoreData.getPlayersHandi().get(i);
             }
         }
-        for (int i = 1; i < Util.TOTAL_HOLE_COUNT + 1; i++) {
-            baseNum = golfScoreData.getEachHolePar()[i - 1];
+        for (int i = 1; i < SGSConfig.TOTAL_HOLE_COUNT + 1; i++) {
+            baseNum = golfScoreData.getEachHolePar().get(i - 1);
             if (mBaseLineType != ChartConfig.BASE_LINE_TYPE_INT.length - 1) {
                 baseNum = ChartConfig.BASE_LINE_TYPE_INT[mBaseLineType];
             }
-            for (int j = 0; j < golfScoreData.getNames().length; j++) {
-                if (golfScoreData.getAbsoluteScore(j)[i - 1] != 0) {
+            for (int j = 0; j < SGSConfig.MAX_PLAYER_NUM; j++) {
+                if (golfScoreData.getScoresList().get(j).get(i - 1) != 0) {
                     golfScoreData.getDemoSeries(j)[i] = golfScoreData.getDemoSeries(j)[i - 1]
-                            + (golfScoreData.getAbsoluteScore(j)[i - 1]
-                            - golfScoreData.getEachHolePar()[i - 1] - baseNum);
+                            + (golfScoreData.getScoresList().get(j).get(i - 1)
+                            - golfScoreData.getEachHolePar().get(i - 1) - baseNum);
                 }
             }
             if (mBaseLineType == 0) {
-                for (int j = 0; j < golfScoreData.getNames().length; j++) {
-                    int score = golfScoreData.getAbsoluteScore(bestPlayer)[i - 1];
+                for (int j = 0; j < SGSConfig.MAX_PLAYER_NUM; j++) {
+                    int score = golfScoreData.getScoresList().get(bestPlayer).get(i - 1);
                     golfScoreData.getDemoSeries(j)[i] = golfScoreData.getDemoSeries(j)[i - 1]
-                            + (score - golfScoreData.getAbsoluteScore(j)[i - 1]);
+                            + (score - golfScoreData.getScoresList().get(j).get(i - 1));
                 }
             }
         }
-        for (int i = 0; i < golfScoreData.getNames().length; i++) {
-            if (golfScoreData.getPlayersAlpha()[i] == 0) {
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            if (golfScoreData.getPlayersAlpha().get(i) == 0) {
                 for (int j = 0; j < golfScoreData.getDemoSeries(0).length; j++) {
                     golfScoreData.getDemoSeries(i)[j] = 0;
                 }
@@ -532,7 +533,7 @@ public class GraphActivity extends Activity {
         Intent i = new Intent(getApplicationContext(), GraphActivity.class);
         i.putExtra(Intent.EXTRA_TITLE, getScoreData().getHoleTitle());
         i.putExtra(Intent.EXTRA_UID, mBaseLineType);
-        i.putExtra(Util.EXTRAS_SELECTED_IDX, getScoreData().getSaveIdx());
+        SaveDataPref.setSelectedSaveIdx(getScoreData().getSaveIdx());
         startActivity(i);
         finish();
     }
@@ -543,17 +544,17 @@ public class GraphActivity extends Activity {
      */
     public int checkBestPlayer(final SaveData golfScoreData) {
         int bestPlayer = 0;
-        int[] score = {-golfScoreData.getPlayersHandi()[0], -golfScoreData.getPlayersHandi()[1],
-                -golfScoreData.getPlayersHandi()[2], -golfScoreData.getPlayersHandi()[3]};
-        for (int i = 0; i < golfScoreData.getEachHolePar().length; i++) {
-            score[0] += golfScoreData.getAbsoluteScore(0)[i];
-            score[1] += golfScoreData.getAbsoluteScore(1)[i];
-            score[2] += golfScoreData.getAbsoluteScore(2)[i];
-            score[3] += golfScoreData.getAbsoluteScore(3)[i];
+        int[] score = {-golfScoreData.getPlayersHandi().get(0), -golfScoreData.getPlayersHandi().get(1),
+                -golfScoreData.getPlayersHandi().get(2), -golfScoreData.getPlayersHandi().get(3)};
+        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
+            score[0] += golfScoreData.getScoresList().get(0).get(i);
+            score[1] += golfScoreData.getScoresList().get(1).get(i);
+            score[2] += golfScoreData.getScoresList().get(2).get(i);
+            score[3] += golfScoreData.getScoresList().get(3).get(i);
         }
         int playerNum = 0;
-        for (int i = 0; i < golfScoreData.getPlayersHandi().length; i++) {
-            if (golfScoreData.getNames()[i].trim().length() != 0) {
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            if (golfScoreData.getPlayerNameList().get(i).trim().length() != 0) {
                 playerNum++;
             }
         }
