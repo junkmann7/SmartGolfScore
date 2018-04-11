@@ -43,15 +43,7 @@ public class SaveData implements Serializable {
     /**  */
     private Map<Integer, Integer> mPlayersHandi = new HashMap<>();
     /**  */
-    private int[] mDemoSeries1 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[] mDemoSeries2 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[] mDemoSeries3 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[] mDemoSeries4 = new int[SGSConfig.TOTAL_HOLE_COUNT + 1];
-    /**  */
-    private int[][] mDemoSeries = { mDemoSeries1, mDemoSeries2, mDemoSeries3, mDemoSeries4 };
+    private Map<Integer, Map<Integer, Integer>> mDemoSeries = new HashMap<>();
     /**  */
     private String mMemoStr = "";
 
@@ -65,12 +57,17 @@ public class SaveData implements Serializable {
         for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
             mPlayerNames.put(playerIdx, "");
             mPlayersAlpha.put(playerIdx, 255);
+            mPlayersHandi.put(playerIdx, 0);
             Map<Integer, Integer> scoreList = new HashMap<>();
             for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
                 scoreList.put(holeIdx, 0);
             }
+            Map<Integer, Integer> demoList = new HashMap<>();
+            for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT + 1; holeIdx++) {
+                demoList.put(holeIdx, 0);
+            }
             mAbsoluteScore.put(playerIdx, scoreList);
-            mPlayersHandi.put(playerIdx, 0);
+            mDemoSeries.put(playerIdx, demoList);
         }
     }
 
@@ -285,8 +282,22 @@ public class SaveData implements Serializable {
         this.mPlayersHandi = playersHandi;
     }
 
-    public int[] getDemoSeries(final int idx) {
-        return mDemoSeries[idx];
+    public Map<Integer, Integer> getDemoSeries(final int playerIdx) {
+        return mDemoSeries.get(playerIdx);
+    }
+
+    public String dumpDemoData() {
+        StringBuilder builder = new StringBuilder();
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT + 1; holeIdx++) {
+            builder.append("HOLE [").append(holeIdx).append("] ");
+            for (int playerIdx = 0; playerIdx < getPlayerNum(); playerIdx++) {
+                String name = getPlayerNameList().get(playerIdx);
+                int value = getDemoSeries(playerIdx).get(holeIdx);
+                builder.append(name).append(":").append(value).append(" ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 
     public Map<Integer, Boolean> getEachHoleLocked() {
@@ -311,6 +322,35 @@ public class SaveData implements Serializable {
             }
         }
         return playerNum;
+    }
+
+    public int getBestPlayer() {
+        Map<Integer, Integer> scores = new HashMap<>();
+        // Setup initial values
+        for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+            int handi = getPlayersHandi().get(playerIdx);
+            scores.put(playerIdx, -handi);
+        }
+        // Sum up scores of each hole
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                int prevTotal = scores.get(playerIdx);
+                int scoreAtHole = getScoresList().get(playerIdx).get(holeIdx);
+                scores.put(playerIdx, prevTotal + scoreAtHole);
+            }
+        }
+        int bestPlayer = -1;
+        int bestScore = Integer.MAX_VALUE;
+        for (int i = 0; i < getPlayerNum(); i++) {
+            if (getPlayerNameList().get(i).trim().length() == 0) {
+                continue;
+            }
+            if (scores.get(i) < bestScore) {
+                bestPlayer = i;
+                bestScore = scores.get(i);
+            }
+        }
+        return bestPlayer;
     }
 
     @Override

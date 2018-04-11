@@ -20,7 +20,8 @@ import jp.tonosama.komoki.SimpleGolfScorer2.R;
 import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
-import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ViewerUtil;
+import jp.tonosama.komoki.SimpleGolfScorer2.viewer.GraphActivity;
+import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ScoreViewer;
 
 /**
  * @author Komoki
@@ -319,8 +320,9 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
             public void onClick(final View v) {
                 final int position = mViewPager.getCurrentItem();
-                final SaveData scoreData = SaveDataPref.getSaveDataMap().get(position);
-                ViewerUtil.startGraphActivty(HistoryActivity.this, scoreData);
+                final SaveData scoreData = mSaveDataList.get(position);
+                SaveDataPref.setSelectedSaveIdx(scoreData.getSaveIdx());
+                GraphActivity.startViewer(scoreData);
             }
         });
         Button tableButton = (Button) view.findViewById(R.id.history_viewButton);
@@ -328,8 +330,9 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
 
             public void onClick(final View v) {
                 final int position = mViewPager.getCurrentItem();
-                final SaveData scoreData = SaveDataPref.getSaveDataMap().get(position);
-                ViewerUtil.startTableActivity(HistoryActivity.this, scoreData);
+                final SaveData scoreData = mSaveDataList.get(position);
+                SaveDataPref.setSelectedSaveIdx(scoreData.getSaveIdx());
+                ScoreViewer.startViewer(scoreData);
             }
         });
     }

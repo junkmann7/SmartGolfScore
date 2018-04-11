@@ -1,8 +1,5 @@
 package jp.tonosama.komoki.wheel.widget;
 
-import java.util.LinkedList;
-import java.util.List;
-import jp.tonosama.komoki.SimpleGolfScorer2.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -18,11 +15,15 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.FloatMath;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
+import jp.tonosama.komoki.SimpleGolfScorer2.R;
 
 /**
  * @author Komoki
@@ -119,8 +120,8 @@ public class WheelView extends View {
 
         if (DEBUG) {
             float aspect = (float) height / (float) width;
-            Log.d(TAG, "width = " + width + ", height = " + height + ", aspect = " + aspect + "");
-            Log.d(TAG, "mDensity = " + mDensity + ", displayMetrics.density = "
+            DevLog.d(TAG, "width = " + width + ", height = " + height + ", aspect = " + aspect + "");
+            DevLog.d(TAG, "mDensity = " + mDensity + ", displayMetrics.density = "
                     + displayMetrics.density);
         }
     }

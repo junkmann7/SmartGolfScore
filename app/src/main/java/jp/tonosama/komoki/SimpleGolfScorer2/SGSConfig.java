@@ -15,6 +15,10 @@ public class SGSConfig {
 
     public static final int TOTAL_HOLE_COUNT = 18;
 
+    public static final int TOTAL_GRAPH_DATA_COUNT = TOTAL_HOLE_COUNT + 1;
+
+    public static final int TOTAL_GRAPH_X_LABEL_COUNT = TOTAL_HOLE_COUNT + 2;
+
     public static final Map<Integer, Integer> DEFAULT_HOLEPAR_SHORT_SCORE = new HashMap<Integer, Integer>() {
         {
             for (int i = 0; i < TOTAL_HOLE_COUNT; i++) {

@@ -5,7 +5,7 @@ import android.util.Log;
 
 public class DevLog {
 
-    private static boolean sEnable = false;
+    private static boolean sEnable = BuildConfig.DEBUG;
 
     private DevLog() {
         //private constructor

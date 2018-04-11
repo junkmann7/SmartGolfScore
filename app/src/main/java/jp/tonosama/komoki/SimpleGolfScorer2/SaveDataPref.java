@@ -134,6 +134,7 @@ public final class SaveDataPref {
         }
         saveData.setHoleTitle("");
         saveScoreData(saveData);
+        sSaveDataMap.remove(saveIndex);
     }
 
     /**
@@ -292,10 +293,11 @@ public final class SaveDataPref {
         init(context);
     }
 
-    public static void updateCurrentHoleIdx(int saveIdx, int holeIdx) {
+    public static void updateCurrentHoleIdx(@NonNull SaveData saveData, int holeIdx) {
+        saveData.setCurrentHole(holeIdx);
         Context context = SGSApplication.getInstance();
         SharedPreferences pref = context.getSharedPreferences(
-                SaveDataPref.PREF_DATA_SLOT[saveIdx], Context.MODE_PRIVATE);
+                SaveDataPref.PREF_DATA_SLOT[saveData.getSaveIdx()], Context.MODE_PRIVATE);
         Editor e = pref.edit();
         e.putString(SaveDataPref.PREF_DATA_KEY[2], String.valueOf(holeIdx));
         e.commit();

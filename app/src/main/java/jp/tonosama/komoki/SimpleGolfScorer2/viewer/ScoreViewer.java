@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -20,7 +21,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -37,10 +37,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
+import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSApplication;
 import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
 import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
@@ -80,6 +81,16 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     private Button mOutputBtn;
     /**  */
     private SaveData mScoreData;
+
+    /**
+     * Starts table viewer with the given save data
+     */
+    public static void startViewer(final SaveData saveData) {
+        Context context = SGSApplication.getInstance();
+        Intent intent = new Intent(context, ScoreViewer.class);
+        SaveDataPref.setSelectedSaveIdx(saveData.getSaveIdx());
+        context.startActivity(intent);
+    }
 
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
@@ -132,7 +143,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
-                    Log.e("Runnable", "InterruptedException");
+                    DevLog.d("Runnable", "InterruptedException");
                 }
                 ScoreViewer.this.runOnUiThread(new Runnable() {
 
@@ -351,8 +362,8 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             finish();
             return;
         }
-        ViewGroup curHoleArea = (ViewGroup) findViewById(SVRes.EACH_HOLE_AREA[scoreData
-                .getCurrentHole() - 1]);
+        ViewGroup curHoleArea = (ViewGroup) findViewById(
+                SVRes.EACH_HOLE_AREA[scoreData.getCurrentHole() - 1]);
         curHoleArea.setBackgroundColor(Color.rgb(170, 238, 255));
 
         final int totalHoleCount = SGSConfig.TOTAL_HOLE_COUNT;
@@ -507,7 +518,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                         break;
                     }
                 }
-                SaveDataPref.updateCurrentHoleIdx(scoreData.getSaveIdx(), j + 1);
+                SaveDataPref.updateCurrentHoleIdx(scoreData, j + 1);
                 finish();
             }
         });
@@ -721,7 +732,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             int j = getViewHoleNumber(v);
             if (mIsHoleSelected && Math.abs(diffX) < CANCELE_MOVE_VALUE
                     && Math.abs(diffY) < CANCELE_MOVE_VALUE) {
-                SaveDataPref.updateCurrentHoleIdx(getScoreData().getSaveIdx(), j + 1);
+                SaveDataPref.updateCurrentHoleIdx(getScoreData(), j + 1);
                 finish();
             } else {
                 changeBgColor(v, mScoreAreaList[curHole - 1]);

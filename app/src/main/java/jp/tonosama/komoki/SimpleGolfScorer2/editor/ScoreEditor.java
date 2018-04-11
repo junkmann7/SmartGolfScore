@@ -30,7 +30,8 @@ import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
 import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 import jp.tonosama.komoki.SimpleGolfScorer2.editor.DragUi.DragUiInterface;
-import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ViewerUtil;
+import jp.tonosama.komoki.SimpleGolfScorer2.viewer.GraphActivity;
+import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ScoreViewer;
 import jp.tonosama.komoki.wheel.widget.OnWheelChangedListener;
 import jp.tonosama.komoki.wheel.widget.WheelView;
 
@@ -478,7 +479,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
             public void onClick(final View v) {
 
                 saveCurrentState(getData());
-                ViewerUtil.startTableActivity(ScoreEditor.this, getData());
+                ScoreViewer.startViewer(getData());
             }
         });
         // Graph Buton クリック動作
@@ -488,7 +489,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
             public void onClick(final View v) {
 
                 saveCurrentState(getData());
-                ViewerUtil.startGraphActivty(ScoreEditor.this, getData());
+                GraphActivity.startViewer(getData());
             }
         });
     }
