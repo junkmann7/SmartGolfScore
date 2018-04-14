@@ -8,7 +8,6 @@ import jp.tonosama.komoki.SimpleGolfScorer2.SGSApplication;
 
 public final class ChartConfig {
     public static final String[] BASE_LINE_TYPE_TITLE = new String[]{"Auto", "PAR", "+1", "+2", "+3", "Double PAR"};
-    public static final String[] BASE_LINE_TYPE_STR = new String[]{"Auto", "PAR", "+1", "+2", "+3", "Double"};
     public static final String PREF_GRAPH_SETTING = "PREF_GRAPH_SETTING";
     public static final String PREF_GRAPH_BASIS_TYPE_KEY = "PREF_GRAPH_BASIS_TYPE_KEY";
 

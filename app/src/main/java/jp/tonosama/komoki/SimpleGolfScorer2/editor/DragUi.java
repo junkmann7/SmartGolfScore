@@ -18,7 +18,7 @@ import android.widget.ImageView;
 /**
  * @author Komoki
  */
-public class DragUi {
+class DragUi {
 
     /**
      * @author Komoki
@@ -45,29 +45,29 @@ public class DragUi {
     /**  */
     private int mCurrentX = 5;
     /**  */
-    public static final int DEFAULT_X = 5;
+    static final int DEFAULT_X = 5;
 
-    public DragUi(final DragUiInterface dragInterface) {
+    DragUi(final DragUiInterface dragInterface) {
         mInterface = dragInterface;
     }
 
-    public int getCurrentX() {
+    private int getCurrentX() {
         return mCurrentX;
     }
 
-    public void setCurrentX(final int currentX) {
+    void setCurrentX(final int currentX) {
         this.mCurrentX = currentX;
     }
 
-    public boolean isAnimating() {
+    boolean isAnimating() {
         return mIsAnimating;
     }
 
-    public void setIsAnimating(final boolean isAnimating) {
+    void setIsAnimating(final boolean isAnimating) {
         this.mIsAnimating = isAnimating;
     }
 
-    public int getAnimVal(final boolean isNext) {
+    int getAnimVal(final boolean isNext) {
         int animVal = -400;
         if (isNext) {
             animVal = -animVal;
@@ -75,28 +75,28 @@ public class DragUi {
         return animVal;
     }
 
-    public int getAnimVal() {
+    int getAnimVal() {
         return mAnimVal;
     }
 
-    public void setAnimVal(final int animVal) {
+    void setAnimVal(final int animVal) {
         this.mAnimVal = animVal;
     }
 
-    public int getMoveValue() {
+    int getMoveValue() {
         return mMoveValue;
     }
 
-    public void setMoveValue(final int moveValue) {
+    void setMoveValue(final int moveValue) {
         this.mMoveValue = moveValue;
     }
 
     /**
      * フッターエリアをタッチ&ドラッグ動作
      */
-    public void setFooterAreaAction(final Activity activity, final AnimationListener listener,
-            final View mFooterArea, final Button mPrevArrw, final Button mNextArrw,
-            final View mDragImag, final View mCurrentPosImg) {
+    void setFooterAreaAction(final Activity activity, final AnimationListener listener,
+                             final View mFooterArea, final Button mPrevArrw,
+                             final View mDragImag, final View mCurrentPosImg) {
 
         mFooterArea.setOnTouchListener(new View.OnTouchListener() {
 
@@ -108,7 +108,7 @@ public class DragUi {
                 SaveData data = mInterface.getData();
                 // ドラッグしたら
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    int diffX = (mOffsetX - x) * 1;
+                    int diffX = (mOffsetX - x);
                     setCurrentX(getCurrentX() - diffX);
                     mOffsetX = x;
                     if (getCurrentX() < 0) {
@@ -122,7 +122,7 @@ public class DragUi {
                     actionMoveMain(activity, data, holeLength, mCurrentPosImg);
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     // タッチダウンしたら
-                    actionDownMain(x, mPrevArrw, mNextArrw, mDragImag, mCurrentPosImg);
+                    actionDownMain(x, mDragImag, mCurrentPosImg);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     // タッチアップしたら
                     actionUpMain(activity, listener, data, holeLength);
@@ -167,13 +167,10 @@ public class DragUi {
 
     /**
      * @param x int
-     * @param mPrevArrw ImageView
-     * @param mNextArrw ImageView
      * @param mDragImag View
      * @param mCurrentPosImg View
      */
-    private void actionDownMain(final int x, final Button mPrevArrw, final Button mNextArrw,
-            final View mDragImag, final View mCurrentPosImg) {
+    private void actionDownMain(final int x, final View mDragImag, final View mCurrentPosImg) {
         mOffsetX = x;
         setCurrentX(x);
         mDragImag.setVisibility(View.INVISIBLE);

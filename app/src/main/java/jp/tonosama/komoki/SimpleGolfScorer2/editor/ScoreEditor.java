@@ -90,7 +90,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         // Viewer ボタンクリック動作
         setViewerButtonAction();
         // フッターエリアをタッチ&ドラッグ動作
-        setFooterAreaAction(dragUi, prevArrw, nextArrw);
+        setFooterAreaAction(dragUi, prevArrw);
         // 前へ/次へボタンクリック時の動作
         setArrowButtonAction(prevArrw, nextArrw);
         // 戻るボタンクリック時の動作
@@ -499,13 +499,11 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      * 
      * @param dragUi DragUi
      * @param prevArrw Button
-     * @param nextArrw Button
      */
-    private void setFooterAreaAction(final DragUi dragUi, final Button prevArrw,
-            final Button nextArrw) {
+    private void setFooterAreaAction(final DragUi dragUi, final Button prevArrw) {
         ViewGroup footerArea = SERes.getFooterArea(this);
         ImageView dragImag = SERes.getDragImg(this);
-        dragUi.setFooterAreaAction(this, this, footerArea, prevArrw, nextArrw, dragImag,
+        dragUi.setFooterAreaAction(this, this, footerArea, prevArrw, dragImag,
                 SERes.getCurHoleImg(this));
     }
 

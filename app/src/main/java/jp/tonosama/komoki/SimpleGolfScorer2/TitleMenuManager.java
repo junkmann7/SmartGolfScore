@@ -35,52 +35,40 @@ class TitleMenuManager {
 
     private static final String MARKET_PACKAGE_NAME = "com.android.vending";
 
-    private static final int FIRST_ID = Menu.FIRST;
-
     void onCreateOptionsMenu(final Menu menu, final Context context) {
 
         Resources res = context.getResources();
-        // バックアップ
-        MenuItem menu1 = menu.add(0, Menu.FIRST, Menu.NONE, res.getString(R.string.menu_backup));
-        menu1.setIcon(R.drawable.ic_menu_save);
-        // リストア
-        MenuItem menu2 = menu.add(0, Menu.FIRST + 1, Menu.NONE,
-                res.getString(R.string.menu_restore));
-        menu2.setIcon(R.drawable.ic_menu_restore);
-        // 並び替え
-        MenuItem menu3 = menu.add(0, Menu.FIRST + 2, Menu.NONE, res.getString(R.string.menu_sort));
-        menu3.setIcon(R.drawable.ic_menu_sort);
-        // ABOUT
-        MenuItem menu4 = menu.add(0, Menu.FIRST + 4, Menu.NONE, res.getString(R.string.menu_about));
-        menu4.setIcon(R.drawable.ic_menu_question);
+
+        for (SGSMenu sgsMenu : SGSMenu.values()) {
+            MenuItem menuItem = menu.add(
+                    0,
+                    sgsMenu.getMenuId(),
+                    Menu.NONE,
+                    res.getString(sgsMenu.getTitleResId()));
+            menuItem.setIcon(sgsMenu.getIconResId());
+        }
     }
 
     boolean onOptionsItemSelected(final MenuItem item, final Context context) {
         DevLog.d(TAG, "onOptionsItemSelected item:" + item.toString());
 
         boolean ret = true;
-        switch (item.getItemId()) {
-        case FIRST_ID + 2:
-            // 並び順変更
-            actionChangeSort(context);
-            break;
-        case FIRST_ID:
-            // データバックアップ
-            actionDataBackup(context);
-            break;
-        case FIRST_ID + 1:
-            // データリストア
-            actionDataRestore(context);
-            break;
-        case FIRST_ID + 3: // history
-            break;
-        case FIRST_ID + 4: // about
-            // about
-            actionAbout(context);
-            break;
-        default:
-            ret = false;
-            break;
+        switch (SGSMenu.getMenu(item.getItemId())) {
+            case Sort:
+                actionChangeSort(context);
+                break;
+            case Backup:
+                actionDataBackup(context);
+                break;
+            case Restore:
+                actionDataRestore(context);
+                break;
+            case About:
+                actionAbout(context);
+                break;
+            default:
+                ret = false;
+                break;
         }
         return ret;
     }
