@@ -5,21 +5,17 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
-
+@SuppressLint("ClickableViewAccessibility")
 class WheelScrollView extends ScrollView {
-
-    private static final String TAG = WheelScrollView.class.getSimpleName();
 
     private static final long ABSORB_DELAYED_MILLIS = 50;
 
-    private boolean mIsScrollEnabled = true;
+    private final int mAbsorbHeight;
 
-    private int mAbsorbHeight;
+    private boolean mIsScrollEnabled = true;
 
     private boolean mIsDragging = false;
 
@@ -28,6 +24,9 @@ class WheelScrollView extends ScrollView {
     private Runnable mAbsorbRunnable = new Runnable() {
         @Override
         public void run() {
+            if (mAbsorbHeight < 1) {
+                return;
+            }
             final int scrollY = getScrollY();
             int prevAbsorbY = (scrollY / mAbsorbHeight) * mAbsorbHeight;
             int nextAbsorbY = (scrollY / mAbsorbHeight + 1) * mAbsorbHeight;
@@ -39,26 +38,20 @@ class WheelScrollView extends ScrollView {
         }
     };
 
-    interface ScrollListener {
-
-        void onScrollChanged(int left, int top, int oldLeft, int oldTop);
-    }
-
-    @Nullable
-    private ScrollListener mListener;
+    @NonNull
+    private WheelScrollListener mListener;
 
     public WheelScrollView(@NonNull Context context) {
-        super(context);
+        this(context, 0, new DefaultWheelScrollListener());
     }
 
-    public WheelScrollView(@NonNull Context context, int absorbHeight, @NonNull ScrollListener listener) {
+    public WheelScrollView(@NonNull Context context, int absorbHeight, @NonNull WheelScrollListener listener) {
         super(context);
         mAbsorbHeight = absorbHeight;
         mListener = listener;
     }
 
     private void setIsDragging(boolean isDragging) {
-        DevLog.d(TAG, "setIsDragging " + isDragging);
         mIsDragging = isDragging;
         if (!isDragging) {
             mHandler.postDelayed(mAbsorbRunnable, ABSORB_DELAYED_MILLIS);
@@ -75,7 +68,6 @@ class WheelScrollView extends ScrollView {
 
     ////////////////////////
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (!mIsScrollEnabled) {
@@ -98,9 +90,7 @@ class WheelScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int left, int top, int oldLeft, int oldTop) {
         super.onScrollChanged(left, top, oldLeft, oldTop);
-        if (mListener != null) {
-            mListener.onScrollChanged(left, top, oldLeft, oldTop);
-        }
+        mListener.onScrollChanged(top, oldTop);
         mHandler.removeCallbacks(mAbsorbRunnable);
         if (!isDragging()) {
             mHandler.postDelayed(mAbsorbRunnable, ABSORB_DELAYED_MILLIS);

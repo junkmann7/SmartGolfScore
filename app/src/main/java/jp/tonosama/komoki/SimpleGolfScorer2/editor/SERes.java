@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView;
 
 /**
  * @author Komoki
@@ -28,9 +27,6 @@ final class SERes {
 
     /** Parの最小値 */
     static final int MINIMUM_PAR_COUNT = 2;
-
-    /**  */
-    static final int MAIN_LAYOUT_RES_ID = R.layout.score_editor;
 
     /**  */
     static final int[] CURRENT_HOLE_IMG_RES_IDS = { //
@@ -49,10 +45,6 @@ final class SERes {
             R.drawable.hole_number_10, R.drawable.hole_number_11, R.drawable.hole_number_12,
             R.drawable.hole_number_13, R.drawable.hole_number_14, R.drawable.hole_number_15,
             R.drawable.hole_number_16, R.drawable.hole_number_17, R.drawable.hole_number_18, };
-    /**  */
-    private static final int[] DRUM_PICKER_RES_IDS = { //
-    R.id.drumPicker1, R.id.drumPicker2, //
-            R.id.drumPicker3, R.id.drumPicker4 };
 
     /**  */
     static final int[] MY_PAT_IMG_RES_IDS = { //
@@ -108,15 +100,6 @@ final class SERes {
 
     static Spinner getParSpinner(final Activity activity) {
         return (Spinner) activity.findViewById(SERes.PAR_SPINNER_RES_ID);
-    }
-
-    static WheelView[] getDrumPicker(final Activity activity) {
-
-        final WheelView[] drumPickers = new WheelView[SERes.DRUM_PICKER_RES_IDS.length];
-        for (int i = 0; i < drumPickers.length; i++) {
-            drumPickers[i] = (WheelView) activity.findViewById(SERes.DRUM_PICKER_RES_IDS[i]);
-        }
-        return drumPickers;
     }
 
     static TextView getHoleTitleTextView(final Activity activity) {

@@ -143,6 +143,10 @@ public class SaveData implements Serializable {
         return mPlayerNames;
     }
 
+    public boolean isPlayerExist(int playerIdx) {
+        return 0 < mPlayerNames.get(playerIdx).trim().length();
+    }
+
     public void setNameList(final Map<Integer, String> names) {
         mPlayerNames = names;
     }

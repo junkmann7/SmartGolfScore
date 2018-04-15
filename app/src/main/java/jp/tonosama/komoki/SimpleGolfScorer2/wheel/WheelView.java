@@ -18,7 +18,7 @@ import android.widget.TextView;
 import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
 
-public class WheelView extends RelativeLayout implements WheelScrollView.ScrollListener {
+public class WheelView extends RelativeLayout implements WheelScrollListener {
 
     private static final String TAG = WheelView.class.getSimpleName();
 
@@ -30,11 +30,11 @@ public class WheelView extends RelativeLayout implements WheelScrollView.ScrollL
 
     private boolean mIsLocked;
 
+    @NonNull
     private OnWheelChangedListener mListener;
 
+    @NonNull
     private WheelScrollView mScrollView;
-
-    private View mCounterLayout;
 
     private Drawable mTopShadow;
 
@@ -43,24 +43,22 @@ public class WheelView extends RelativeLayout implements WheelScrollView.ScrollL
     private Drawable mCenterDrawable;
 
     public WheelView(@NonNull Context context) {
+        this(context, new DefaultOnWheelChangedListener());
+    }
+
+    public WheelView(Context context, @SuppressWarnings("unused") AttributeSet attrs) {
+        this(context, new DefaultOnWheelChangedListener());
+    }
+
+    public WheelView(@NonNull Context context, @NonNull OnWheelChangedListener listener) {
         super(context);
-        init(context);
-    }
 
-    public WheelView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
-    }
-
-    private void init(@NonNull Context context) {
+        mListener = listener;
         initShadow(context);
         setBackgroundResource(R.drawable.wheel_bg);
 
-        mCounterLayout = createCounterLayout(context, MIN_VALUE, MAX_VALUE);
-
-        mScrollView = new WheelScrollView(context, getTextViewHeight(), this);
-        mScrollView.setVerticalScrollBarEnabled(false);
-        mScrollView.addView(mCounterLayout, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        View containerView = createCounterLayout(context, MIN_VALUE, MAX_VALUE);
+        mScrollView = createScrollView(containerView);
 
         addView(mScrollView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     }
@@ -73,14 +71,20 @@ public class WheelView extends RelativeLayout implements WheelScrollView.ScrollL
         int shadowHeight = getTextViewHeight();
         mTopShadow.setBounds(0, 0, getWidth(), shadowHeight);
         mTopShadow.draw(canvas);
-        mBottomShadow.setBounds(0, getHeight() - shadowHeight, getWidth(),
-                getHeight());
+        mBottomShadow.setBounds(0, getHeight() - shadowHeight, getWidth(), getHeight());
         mBottomShadow.draw(canvas);
         // Center shadow
         int center = getHeight() / 2;
         int offset = shadowHeight / 2;
         mCenterDrawable.setBounds(0, center - offset, getWidth(), center + offset);
         mCenterDrawable.draw(canvas);
+    }
+
+    private WheelScrollView createScrollView(@NonNull View containerView) {
+        WheelScrollView scrollView = new WheelScrollView(getContext(), getTextViewHeight(), this);
+        scrollView.setVerticalScrollBarEnabled(false);
+        scrollView.addView(containerView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        return scrollView;
     }
 
     private void initShadow(@NonNull Context context) {
@@ -127,7 +131,7 @@ public class WheelView extends RelativeLayout implements WheelScrollView.ScrollL
     // Public method
     ////////////////////////////////
 
-    public void addChangingListener(OnWheelChangedListener listener) {
+    public void setOnWheelChangedListener(OnWheelChangedListener listener) {
         mListener = listener;
     }
 
@@ -207,22 +211,22 @@ public class WheelView extends RelativeLayout implements WheelScrollView.ScrollL
         DevLog.d(TAG, "onLayout width:" + width + " height:" + height);
 
         int padding = height / 2 - getTextViewHeight() / 2;
-        mCounterLayout.setPadding(0, padding, 0, padding);
+        if (0 < mScrollView.getChildCount()) {
+            mScrollView.getChildAt(0).setPadding(0, padding, 0, padding);
+        }
     }
 
     @Override
-    public void onScrollChanged(int left, int top, int oldLeft, int oldTop) {
-        super.onScrollChanged(left, top, oldLeft, oldTop);
+    public void onScrollChanged(int scrollY, int oldScrollY) {
+        DevLog.d(TAG, "onScrollChanged  scrollY:" + scrollY + " oldScrollY:" + oldScrollY);
 
-        int slot = calcCurrentItem(top);
-        if (mCurrentSlot != slot) {
-            if (mListener != null) {
-                mListener.onChanged(this, mCurrentSlot, slot);
-            }
-            mCurrentSlot = slot;
+        int newValue = calcCurrentItem(scrollY);
+        int oldValue = mCurrentSlot;
+        if (oldValue != newValue) {
+            mCurrentSlot = newValue;
+            mListener.onChanged(oldValue, newValue);
+            DevLog.d(TAG, "onScrollChanged  oldValue:" + oldValue + " newValue:" + newValue);
         }
-        DevLog.d(TAG, "onScrollChanged  l:" + left + " t:" + top +
-                " oldl:" + oldLeft + " oldt:" + oldTop + " currentSlot:[" + slot + "]");
     }
 
     ////////////////////
