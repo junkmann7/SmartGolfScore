@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="#999"
+    android:orientation="horizontal">
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <TextView
+        android:text="Out"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|center"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/adjusted_text_size_16dp" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/score_total_half1"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        layout="@layout/score_viewer_each_player_half_score" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/per1_score_total_half1"
+        layout="@layout/score_viewer_each_player_half_score" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/per2_score_total_half1"
+        layout="@layout/score_viewer_each_player_half_score" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/per3_score_total_half1"
+        layout="@layout/score_viewer_each_player_half_score" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/per4_score_total_half1"
+        layout="@layout/score_viewer_each_player_half_score" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+</LinearLayout>

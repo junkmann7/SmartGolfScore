@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#333" >
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        layout="@layout/score_viewer_each_player_name"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center|center"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/adjusted_text_size_14dp" />
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/viewer_per1_name"
+        layout="@layout/score_viewer_each_player_name"/>
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/viewer_per2_name"
+        layout="@layout/score_viewer_each_player_name"/>
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/viewer_per3_name"
+        layout="@layout/score_viewer_each_player_name"/>
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+
+    <include
+        android:id="@+id/viewer_per4_name"
+        layout="@layout/score_viewer_each_player_name"/>
+
+    <include
+        layout="@layout/score_viewer_separator_vertical" />
+</LinearLayout>

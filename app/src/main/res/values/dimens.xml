@@ -5,6 +5,7 @@
     <dimen name="adjusted_size_2dp">2dp</dimen>
     <dimen name="adjusted_size_4dp">4dp</dimen>
     <dimen name="adjusted_size_5dp">5dp</dimen>
+    <dimen name="adjusted_size_8dp">8dp</dimen>
     <dimen name="adjusted_size_10dp">10dp</dimen>
     <dimen name="adjusted_size_15dp">15dp</dimen>
     <dimen name="adjusted_size_20dp">20sp</dimen>
@@ -35,6 +36,8 @@
     <dimen name="adjusted_text_size_16dp">16sp</dimen>
     <dimen name="adjusted_text_size_18dp">18sp</dimen>
     <dimen name="adjusted_text_size_20dp">20sp</dimen>
+    <dimen name="adjusted_text_size_22dp">23sp</dimen>
+    <dimen name="adjusted_text_size_24dp">24sp</dimen>
     <dimen name="adjusted_text_size_28dp">28sp</dimen>
     <dimen name="adjusted_text_size_32dp">32sp</dimen>
     <dimen name="graph_plot_size">3dip</dimen>

@@ -31,7 +31,7 @@ final class SERes {
     static final int MINIMUM_PAR_COUNT = 2;
 
     /**  */
-    static final int MAIN_LAYOUT_RES_ID = R.layout.golf_score_book;
+    static final int MAIN_LAYOUT_RES_ID = R.layout.score_editor;
 
     /**  */
     static final int[] CURRENT_HOLE_IMG_RES_IDS = { //

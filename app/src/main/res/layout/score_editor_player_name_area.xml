@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:paddingTop="@dimen/adjusted_size_8dp"
+    android:paddingBottom="@dimen/adjusted_size_8dp"
+    android:gravity="center_horizontal|center_vertical" >
+
+    <include
+        layout="@layout/score_editor_player_name_text"
+        android:id="@+id/per1_name_area" />
+
+    <include
+        layout="@layout/score_editor_player_name_text"
+        android:id="@+id/per2_name_area" />
+
+    <include
+        layout="@layout/score_editor_player_name_text"
+        android:id="@+id/per3_name_area" />
+
+    <include
+        layout="@layout/score_editor_player_name_text"
+        android:id="@+id/per4_name_area" />
+</LinearLayout>

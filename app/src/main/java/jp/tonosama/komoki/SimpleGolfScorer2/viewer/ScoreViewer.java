@@ -172,24 +172,31 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         (new Thread(runnable)).start();
     }
 
-    public void getPlayerScoreViews(final SaveData scoreData) {
+    private void getPlayerScoreViews(final SaveData scoreData) {
+
+        // HOLE TITLE
+        ((TextView) findViewById(R.id.score_viewer_title)).setText(scoreData.getHoleTitle());
 
         SharedPreferences pref = getSharedPreferences(PREF_TABLE_SETTING, MODE_PRIVATE);
         mScoreViewerType = pref.getInt(PREF_TABLE_VALUE_TYPE_KEY, DEFAULT_VIEWER_TYPE);
+        // HOLE Number
         Map<Integer, String> personNames = scoreData.getPlayerNameList();
-        if (!scoreData.getIs18Hround()) {
-            for (int i = 9; i < 18; i++) {
-                String holeNumStr = String.valueOf(i + 1 - 9) + "H";
-                ((TextView) findViewById(SVRes.HOLE_NUM_AREA[i])).setText(holeNumStr);
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            String holeNumStr;
+            if (!scoreData.getIs18Hround() &&
+                    (SGSConfig.TOTAL_HOLE_COUNT/2 <= holeIdx && holeIdx < SGSConfig.TOTAL_HOLE_COUNT)) {
+                holeNumStr = String.valueOf(holeIdx + 1 - 9) + "H";
+            } else {
+                holeNumStr = String.valueOf(holeIdx + 1) + "H";
             }
+            SVRes.getHoleNumberTextView(this).get(holeIdx).setText(holeNumStr);
         }
-        ((TextView) findViewById(R.id.score_viewer_title)).setText(scoreData.getHoleTitle());
 
-        TextView[][] playerScores = SVRes.getPlayerScoreTextViewList(this);
-        for (int i = 0; i < SGSConfig.TOTAL_HOLE_COUNT; i++) {
-            for (int j = 1; j < SGSConfig.MAX_PLAYER_NUM; j++) {
-                if (personNames.get(j).trim().length() == 0) {
-                    playerScores[j][i].setVisibility(View.GONE);
+        Map<Integer, Map<Integer, TextView>> playerScores = SVRes.getPlayerScoreTextView(this);
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            for (int playerIdx = 1; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                if (personNames.get(playerIdx).trim().length() == 0) {
+                    playerScores.get(playerIdx).get(holeIdx).setVisibility(View.GONE);
                 }
             }
         }
@@ -366,23 +373,27 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 SVRes.EACH_HOLE_AREA[scoreData.getCurrentHole() - 1]);
         curHoleArea.setBackgroundColor(Color.rgb(170, 238, 255));
 
-        final int totalHoleCount = SGSConfig.TOTAL_HOLE_COUNT;
-        TextView[] parScoreTV = SVRes.getTextViewList(this, SVRes.PAR_AREA);
-        TextView[][] tvList = SVRes.getPlayerScoreTextViewList(this);
+        Map<Integer, TextView> parScoreTV = SVRes.getParNumberTextView(this);
+        Map<Integer, Map<Integer, TextView>> playerScoreTextViewMap
+                = SVRes.getPlayerScoreTextView(this);
 
         // 各ホールの結果を出力
         Map<Integer, Integer> parScore = scoreData.getEachHolePar();
         Map<Integer, Map<Integer, Integer>> scores = scoreData.getScoresList();
         Map<Integer, Map<Integer, Integer>> patScore = scoreData.getPattingScoresList();
         Map<Integer, String> names = scoreData.getPlayerNameList();
-        for (int i = 0; i < totalHoleCount; i++) {
-            if (parScore.get(i) != 0) {
-                String scoreStr = "Par" + String.valueOf(parScore.get(i));
-                parScoreTV[i].setText(scoreStr);
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+            if (parScore.get(holeIdx) != 0) {
+                String scoreStr = String.valueOf(parScore.get(holeIdx));
+                parScoreTV.get(holeIdx).setText(scoreStr);
             }
-            for (int j = 0; j < SGSConfig.MAX_PLAYER_NUM; j++) {
-                updateScore(tvList[j][i], names.get(j), scores.get(j).get(i),
-                        parScore.get(i), patScore.get(j).get(i));
+            for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                updateScore(
+                        playerScoreTextViewMap.get(playerIdx).get(holeIdx),
+                        names.get(playerIdx),
+                        scores.get(playerIdx).get(holeIdx),
+                        parScore.get(holeIdx),
+                        patScore.get(playerIdx).get(holeIdx));
             }
         }
         // トータルスコアとハンデの結果を出力
@@ -715,7 +726,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             mOffsetX = (int) event.getX();
             mOffsetY = (int) event.getY();
-            v.setBackgroundColor(Color.argb(255, 85, 119, 255));
+            v.setBackgroundColor(Color.argb(255, 0x66, 0xCC, 0xFF));
             mIsHoleSelected = true;
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             int diffX = mOffsetX - (int) event.getX();
