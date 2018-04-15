@@ -1,7 +1,6 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.editor;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
-import jp.tonosama.komoki.wheel.widget.NumericWheelAdapter;
-import jp.tonosama.komoki.wheel.widget.WheelView;
+import jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView;
 
 /**
  * @author Komoki
@@ -95,24 +94,7 @@ final class SERes {
         return personScoreTextViews;
     }
 
-    static void initDrumPicker(final Activity activity) {
-
-        final WheelView[] drumPickers = getDrumPicker(activity);
-        final int orientation = activity.getResources().getConfiguration().orientation;
-        for (WheelView drumPicker : drumPickers) {
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                int drumNum = 4;
-                drumPicker.setVisibleItems(drumNum);
-            } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                int drumNum = 3;
-                drumPicker.setVisibleItems(drumNum);
-            }
-            drumPicker.setAdapter(new NumericWheelAdapter(0, 20));
-            drumPicker.setCyclic(true);
-        }
-    }
-
-    static Spinner initParSpinner(final Activity activity) {
+    static void initParSpinner(final Activity activity) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         adapter.add(String.valueOf(MINIMUM_PAR_COUNT));
@@ -122,7 +104,6 @@ final class SERes {
         Spinner mParSpinner = (Spinner) activity.findViewById(SERes.PAR_SPINNER_RES_ID);
         mParSpinner.setPrompt("Select Par");
         mParSpinner.setAdapter(adapter);
-        return mParSpinner;
     }
 
     static Spinner getParSpinner(final Activity activity) {

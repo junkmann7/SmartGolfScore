@@ -29,7 +29,6 @@
     <dimen name="adjusted_size_120dp">240dp</dimen>
     <dimen name="adjusted_size_127dp">254dp</dimen>
     <dimen name="main_title_btn_textsize">32sp</dimen>
-    <dimen name="score_wheet_text_size">72dp</dimen>
     <dimen name="adjusted_text_size_10dp">20sp</dimen>
     <dimen name="adjusted_text_size_12dp">24sp</dimen>
     <dimen name="adjusted_text_size_14dp">28sp</dimen>

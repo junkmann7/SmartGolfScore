@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -25,6 +23,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataComparator;
+import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveDataList;
 
 /**
  * @author Komoki
@@ -52,7 +51,6 @@ class TitleMenuManager {
     boolean onOptionsItemSelected(final MenuItem item, final Context context) {
         DevLog.d(TAG, "onOptionsItemSelected item:" + item.toString());
 
-        boolean ret = true;
         switch (SGSMenu.getMenu(item.getItemId())) {
             case Sort:
                 actionChangeSort(context);
@@ -67,10 +65,9 @@ class TitleMenuManager {
                 actionAbout(context);
                 break;
             default:
-                ret = false;
                 break;
         }
-        return ret;
+        return true;
     }
 
     /**
@@ -228,11 +225,8 @@ class TitleMenuManager {
      * @param context Context
      */
     private void actionChangeSort(final Context context) {
-
         Resources res = context.getResources();
-        SharedPreferences pref = context.getSharedPreferences(MainTitle.PREF_SORT_TYPE_SETTING,
-                Context.MODE_PRIVATE);
-        int sortType = pref.getInt(MainTitle.PREF_SORT_TYPE_KEY, 0);
+        int sortType = SaveDataList.getSortType();
         String[] sortNames = SaveDataComparator.getSortTypeStr(res);
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         dialog.setTitle(res.getString(R.string.menu_sort));
@@ -240,11 +234,7 @@ class TitleMenuManager {
 
             public void onClick(final DialogInterface dialog, final int item) {
                 dialog.dismiss();
-                SharedPreferences mSortPref = context.getSharedPreferences(
-                        MainTitle.PREF_SORT_TYPE_SETTING, Context.MODE_PRIVATE);
-                Editor mEditor = mSortPref.edit();
-                mEditor.putInt(MainTitle.PREF_SORT_TYPE_KEY, item);
-                mEditor.commit();
+                SaveDataList.saveSortType(item);
                 ((MainTitle) context).reStartActivity();
             }
         });

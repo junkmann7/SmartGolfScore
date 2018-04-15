@@ -361,6 +361,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
                 ++fixedHoleNum;
             }
         }
+        dataList.sort();
         return dataList;
     }
 

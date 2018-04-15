@@ -1,11 +1,15 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
 import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
 import jp.tonosama.komoki.SimpleGolfScorer2.R;
+import jp.tonosama.komoki.SimpleGolfScorer2.SGSApplication;
 
 /**
  * @author Komoki
@@ -16,6 +20,10 @@ public class SaveDataList {
     private static final String TAG = SaveDataList.class.getSimpleName();
     /**  */
     private ArrayList<SaveData> mSaveDataList;
+    /**  */
+    public static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
+    /**  */
+    public static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
 
     /**
      * コンストラクタ
@@ -38,8 +46,22 @@ public class SaveDataList {
         return mSaveDataList.get(index);
     }
 
-    public void sort(final int sortType) {
-        Collections.sort(mSaveDataList, new SaveDataComparator(sortType));
+    public void sort() {
+        Collections.sort(mSaveDataList, new SaveDataComparator(getSortType()));
+    }
+
+    public static int getSortType() {
+        Context context = SGSApplication.getInstance();
+        SharedPreferences sortPref = context.getSharedPreferences(PREF_SORT_TYPE_SETTING,
+                Context.MODE_PRIVATE);
+        return sortPref.getInt(PREF_SORT_TYPE_KEY, 0);
+    }
+
+    public static void saveSortType(int sortType) {
+        Context context = SGSApplication.getInstance();
+        SharedPreferences sortPref = context.getSharedPreferences(PREF_SORT_TYPE_SETTING,
+                Context.MODE_PRIVATE);
+        sortPref.edit().putInt(PREF_SORT_TYPE_KEY, sortType).commit();
     }
 
     public int size() {

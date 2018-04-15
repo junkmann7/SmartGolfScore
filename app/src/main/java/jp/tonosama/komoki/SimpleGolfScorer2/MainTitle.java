@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
@@ -42,10 +41,6 @@ public class MainTitle extends Activity {
 
     /** ボタンリスト */
     private ArrayList<Button> mCreateButtons = new ArrayList<>();
-    /**  */
-    public static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
-    /**  */
-    public static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
 
     @Override
     public void onResume() {
@@ -97,9 +92,7 @@ public class MainTitle extends Activity {
             saveDataList.append(data);
         }
         // Load settings for sorting type
-        SharedPreferences mSortPref = getSharedPreferences(PREF_SORT_TYPE_SETTING, MODE_PRIVATE);
-        int sortType = mSortPref.getInt(PREF_SORT_TYPE_KEY, 0);
-        saveDataList.sort(sortType);
+        saveDataList.sort();
 
         // 保存データ用ボタンを作成
         createSaveButtons(saveDataList, saveButton);

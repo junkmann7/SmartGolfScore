@@ -32,8 +32,8 @@ import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 import jp.tonosama.komoki.SimpleGolfScorer2.editor.DragUi.DragUiInterface;
 import jp.tonosama.komoki.SimpleGolfScorer2.viewer.GraphActivity;
 import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ScoreViewer;
-import jp.tonosama.komoki.wheel.widget.OnWheelChangedListener;
-import jp.tonosama.komoki.wheel.widget.WheelView;
+import jp.tonosama.komoki.SimpleGolfScorer2.wheel.OnWheelChangedListener;
+import jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView;
 
 /**
  * @author Komoki
@@ -60,8 +60,6 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
 
         // ParSpinnerのセット
         SERes.initParSpinner(this);
-        // drumPickerを初期化
-        SERes.initDrumPicker(this);
         //
         Button prevArrw = SERes.getPrevArrwButton(this);
         Button nextArrw = SERes.getNextArrwButton(this);
