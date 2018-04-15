@@ -1,9 +1,9 @@
-<!DOCTYPE values>
 <resources>
 
-    <string-array name="table_dispstyle_array">
-        <item>Relative Value</item>
-        <item>Absolute Value</item>
+    <string-array name="table_text_size_array">
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
     </string-array>
 
 </resources>

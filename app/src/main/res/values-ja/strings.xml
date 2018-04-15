@@ -19,6 +19,7 @@
     <string name="table_btn">スコア表</string>
     <string name="menu_delete">データ削除</string>
     <string name="menu_setting">ラウンド設定</string>
+    <string name="menu_score_viewer_text_size_setting">テキストサイズ設定</string>
     <string name="menu_output_score">スコア表保存</string>
     <string name="menu_output_graph">グラフ保存</string>
     <string name="menu_backup">バックアップ</string>
@@ -40,7 +41,8 @@
     <string name="dlg_restore_title">バックアップデータを選択</string>
     <string name="dlg_restore_confirm_title">バックアップデータの確認</string>
     <string name="dlg_restore_confirm_msg">以下のデータが見つかりました。\n\n現在のデータをすべて削除して、このデータを上書きします。\n\n%1$s</string>
-    <string name="dlg_chg_tble_title">値の表示方法を選択</string>
+    <string name="dlg_restore_progress_msg">%1$sを読み込み中…</string>
+    <string name="dlg_chg_text_size">テキストサイズを選択</string>
     <string name="dlg_delete_player_title">プレイヤーの削除</string>
     <string name="dlg_delete_player_msg">「%1$s」を削除します。この操作は取り消せません。</string>
     <string name="dlg_output_image_msg_score">スコア表を画像として保存しました。このスコア表をメールに添付しますか？</string>

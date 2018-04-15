@@ -26,7 +26,8 @@
         android:layout_weight="1"
         android:gravity="center|center"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/adjusted_text_size_16dp" />
+        android:textSize="@dimen/adjusted_text_size_16dp"
+        android:tag="score_text" />
 
     <include
         layout="@layout/score_viewer_separator_vertical" />

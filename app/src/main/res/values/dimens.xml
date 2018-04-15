@@ -34,6 +34,7 @@
     <dimen name="adjusted_text_size_12dp">12sp</dimen>
     <dimen name="adjusted_text_size_14dp">14sp</dimen>
     <dimen name="adjusted_text_size_16dp">16sp</dimen>
+    <dimen name="adjusted_text_size_17dp">17sp</dimen>
     <dimen name="adjusted_text_size_18dp">18sp</dimen>
     <dimen name="adjusted_text_size_20dp">20sp</dimen>
     <dimen name="adjusted_text_size_22dp">23sp</dimen>

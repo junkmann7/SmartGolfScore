@@ -19,6 +19,7 @@
     <string name="table_btn">Table</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_setting">Settings</string>
+    <string name="menu_score_viewer_text_size_setting">Text Size Setting</string>
     <string name="menu_output_score">Save Score</string>
     <string name="menu_output_graph">Save Graph</string>
     <string name="menu_backup">Backup</string>
@@ -40,7 +41,8 @@
     <string name="dlg_restore_title">Select backup data</string>
     <string name="dlg_restore_confirm_title">Confirm backup data</string>
     <string name="dlg_restore_confirm_msg">Found following data.\nDelete all current data and overwrite by this data.OK?\n\n%1$s</string>
-    <string name="dlg_chg_tble_title">Select Value Style</string>
+    <string name="dlg_restore_progress_msg">Loading %1$s …</string>
+    <string name="dlg_chg_text_size">Select Text Size</string>
     <string name="dlg_delete_player_title">Delete player</string>
     <string name="dlg_delete_player_msg">Delete [%1$s]. This operation is not cancelable.</string>
     <string name="dlg_output_image_msg_score">Saved the result of score as image. Send this image by E-Mail?</string>

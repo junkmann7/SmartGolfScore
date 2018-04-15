@@ -1,9 +1,9 @@
-<!DOCTYPE values>
 <resources>
 
-    <string-array name="table_dispstyle_array">
-        <item>PAR基準の値</item>
-        <item>スコア</item>
+    <string-array name="table_text_size_array">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
     </string-array>
 
 </resources>

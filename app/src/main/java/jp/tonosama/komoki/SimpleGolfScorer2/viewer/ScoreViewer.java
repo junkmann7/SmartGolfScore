@@ -20,7 +20,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -37,6 +39,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import jp.tonosama.komoki.SimpleGolfScorer2.DevLog;
@@ -56,7 +59,9 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     /**  */
     public static final String CAPTURE_IMAGE_DIR = "SmartGolfScore";
     /**  */
-    private static final int CANCELE_MOVE_VALUE = 20;
+    private static final int CANCEL_MOVE_VALUE = 20;
+    /** */
+    private static final String SCORE_TEXT_TAG = "score_text";
     /**  */
     private int mOffsetX = 0;
     /**  */
@@ -111,6 +116,39 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         // 手紙にグラフを表示する対応
         if (getScoreData().isOutputImageFlg()) {
             showOutputProgressDialog();
+        }
+
+        // Sets the text size according to the saved preference
+        updateTextSize();
+    }
+
+    private void updateTextSize() {
+        ViewGroup vg = (ViewGroup) findViewById(R.id.score_viewer_root);
+        List<View> viewList = getChildViewList(vg);
+        setTextSize(viewList, SVPreference.getSVTextSize());
+    }
+
+    private static List<View> getChildViewList(@NonNull ViewGroup vg) {
+        int childCount = vg.getChildCount();
+        List<View> viewList = new ArrayList<>();
+        for (int i = 0; i < childCount; i++) {
+            View child = vg.getChildAt(i);
+            viewList.add(child);
+            if (child instanceof ViewGroup) {
+                viewList.addAll(getChildViewList((ViewGroup) child));
+            }
+        }
+        return viewList;
+    }
+
+    private static void setTextSize(@NonNull List<View> viewList, float textSize) {
+        for (View view : viewList) {
+            if (!(view instanceof TextView)) {
+                continue;
+            }
+            if (SCORE_TEXT_TAG.equals(view.getTag())) {
+                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            }
         }
     }
 
@@ -563,16 +601,41 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        //---------------------------------------------------------------------
-        // カスタマイズ箇所
-        MenuItem menu1 = menu.add(0, Menu.FIRST, Menu.NONE,
-                getResources().getString(R.string.menu_output_score));
-        menu1.setIcon(R.drawable.image_button_table);
-        MenuItem menu2 = menu.add(0, Menu.FIRST + 1, Menu.NONE,
-                getResources().getString(R.string.menu_chg_tble));
-        menu2.setIcon(R.drawable.imane_button_setting);
-        //---------------------------------------------------------------------
+        for (SVMenu svMenu : SVMenu.values()) {
+            MenuItem menuItem = menu.add(0, svMenu.getMenuId(), Menu.NONE,
+                    getResources().getString(svMenu.getTitleResId()));
+            menuItem.setIcon(svMenu.getIconResId());
+        }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (SVMenu.getMenu(item.getItemId())) {
+            case ChangeTextSize:
+                changeTableTextSize();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    private void changeTableTextSize() {
+
+        AlertDialog.Builder mDialog = new AlertDialog.Builder(this);
+        mDialog.setTitle(getResources().getString(R.string.dlg_chg_text_size));
+        mDialog.setSingleChoiceItems(
+                this.getResources().getStringArray(R.array.table_text_size_array),
+                SVPreference.getSVTextSizeIndex(), new OnClickListener() {
+
+                    public void onClick(final DialogInterface dialog, final int item) {
+                        SVPreference.setSVTextSize(item);
+                        updateTextSize();
+                        dialog.dismiss();
+                    }
+                });
+        mDialog.create().show();
     }
 
     /**
@@ -581,66 +644,6 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      */
     private static String createName(final long dateTaken) {
         return DateFormat.format("yyyy-MM-dd_kk.mm.ss", dateTaken).toString();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-
-        case Menu.FIRST: // Output
-
-            Uri imgUri = getOutputImageUri();
-            if (imgUri == null) {
-                return false;
-            }
-            Intent is = new Intent();
-            is.setAction(Intent.ACTION_VIEW);
-            is.setType("image/png");
-            is.setData(imgUri);
-            startActivity(is);
-
-            return true;
-
-        case Menu.FIRST + 1:
-            changeBasis();
-            return true;
-        default:
-            break;
-        }
-        return false;
-    }
-
-    /**
-     * changeBasis
-     */
-    private void changeBasis() {
-
-        AlertDialog.Builder mDialog = new AlertDialog.Builder(this);
-        mDialog.setTitle(getResources().getString(R.string.dlg_chg_tble_title));
-        mDialog.setSingleChoiceItems(
-                this.getResources().getStringArray(R.array.table_dispstyle_array),
-                mScoreViewerType, new OnClickListener() {
-
-                    public void onClick(final DialogInterface dialog, final int item) {
-                        mScoreViewerType = item;
-                        dialog.dismiss();
-                        updateScoreTable(getScoreData());
-                        SharedPreferences mTablePref = getSharedPreferences(PREF_TABLE_SETTING,
-                                MODE_PRIVATE);
-                        Editor mEditor = mTablePref.edit();
-                        mEditor.putInt(PREF_TABLE_VALUE_TYPE_KEY, mScoreViewerType);
-                        mEditor.commit();
-
-                        if (mScoreViewerType == 0) {
-                            mSettingBtn.setText(getResources().getString(
-                                    R.string.btn_change_table_basis_par));
-                        } else {
-                            mSettingBtn.setText(getResources().getString(
-                                    R.string.btn_change_table_basis_abs));
-                        }
-                    }
-                });
-        mDialog.create().show();
     }
 
     public Uri getOutputImageUri() {
@@ -731,7 +734,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             int diffX = mOffsetX - (int) event.getX();
             int diffY = mOffsetY - (int) event.getY();
-            if (Math.abs(diffX) > CANCELE_MOVE_VALUE || Math.abs(diffY) > CANCELE_MOVE_VALUE) {
+            if (Math.abs(diffX) > CANCEL_MOVE_VALUE || Math.abs(diffY) > CANCEL_MOVE_VALUE) {
                 mIsHoleSelected = false;
                 changeBgColor(v, mScoreAreaList[curHole - 1]);
             }
@@ -741,8 +744,8 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             int diffX = mOffsetX - (int) event.getX();
             int diffY = mOffsetY - (int) event.getY();
             int j = getViewHoleNumber(v);
-            if (mIsHoleSelected && Math.abs(diffX) < CANCELE_MOVE_VALUE
-                    && Math.abs(diffY) < CANCELE_MOVE_VALUE) {
+            if (mIsHoleSelected && Math.abs(diffX) < CANCEL_MOVE_VALUE
+                    && Math.abs(diffY) < CANCEL_MOVE_VALUE) {
                 SaveDataPref.updateCurrentHoleIdx(getScoreData(), j + 1);
                 finish();
             } else {

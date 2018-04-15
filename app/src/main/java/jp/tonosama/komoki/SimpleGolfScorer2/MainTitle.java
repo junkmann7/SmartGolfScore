@@ -2,6 +2,7 @@ package jp.tonosama.komoki.SimpleGolfScorer2;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -279,11 +280,20 @@ public class MainTitle extends Activity {
             public void onClick(final DialogInterface dialog, final int whichButton) {
 
                 initializeAllData(mSaveDataList, mCreateButtons);
-                SaveDataPref.restoreBackupData(file);
-                Toast.makeText(MainTitle.this,
-                        getResources().getString(R.string.toast_backup_complete),
-                        Toast.LENGTH_SHORT).show();
-                reStartActivity();
+                final ProgressDialog progressDialog = new ProgressDialog(MainTitle.this);
+                progressDialog.setMessage(String.format(getResources()
+                        .getString(R.string.dlg_restore_progress_msg), file));
+                progressDialog.show();
+                SaveDataPref.restoreBackupData(file, new SaveDataPref.RestoreCallback() {
+                    @Override
+                    public void onComplete() {
+                        progressDialog.dismiss();
+                        Toast.makeText(MainTitle.this,
+                                getResources().getString(R.string.toast_backup_complete),
+                                Toast.LENGTH_SHORT).show();
+                        reStartActivity();
+                    }
+                });
             }
         });
         dialog.setNegativeButton(android.R.string.cancel, null);

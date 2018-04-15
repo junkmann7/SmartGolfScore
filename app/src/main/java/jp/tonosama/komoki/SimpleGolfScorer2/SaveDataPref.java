@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.widget.Toast;
@@ -118,7 +120,7 @@ public final class SaveDataPref {
         return "";
     }
 
-    public static int getEmptySaveIdx() {
+    static int getEmptySaveIdx() {
         for (int i = 0; i < MAX_DATA_SAVE_NUM; i++) {
             if (sSaveDataMap.get(i) == null) {
                 return i;
@@ -189,7 +191,7 @@ public final class SaveDataPref {
         void onFail();
     }
 
-    public static void backupData(@NonNull BackupCallback callback) {
+    static void backupData(@NonNull BackupCallback callback) {
 
         long mDateTaken = System.currentTimeMillis();
         String bkFileName = DateFormat.format("yyyyMMdd_kkmmss", mDateTaken).toString() + ".txt";
@@ -215,7 +217,7 @@ public final class SaveDataPref {
         }
     }
 
-    public static List<String> getBackupFileList() {
+    static List<String> getBackupFileList() {
 
         final File bkFileDir = new File(Environment.getExternalStorageDirectory() + "/"
                 + BACKUP_DIR_NAME);
@@ -229,7 +231,7 @@ public final class SaveDataPref {
         return Arrays.asList(bkFileList);
     }
 
-    public static String[] getBackupPrefData(@NonNull String file) {
+    private static String[] getBackupPrefData(@NonNull String file) {
         Context context = SGSApplication.getInstance();
         String bkDirName = Environment.getExternalStorageDirectory() + "/" + BACKUP_DIR_NAME;
         BufferedReader readLine = null;
@@ -256,7 +258,7 @@ public final class SaveDataPref {
         return loadedData.toString().split("<PREFERRENCE>");
     }
 
-    public static String getBackupDataTitleList(@NonNull String file) {
+    static String getBackupDataTitleList(@NonNull String file) {
         final String[] backupPrefData = getBackupPrefData(file);
         String[] bkupTitleArray = new String[backupPrefData.length];
         StringBuilder titleList = new StringBuilder();
@@ -269,7 +271,22 @@ public final class SaveDataPref {
         return titleList.toString();
     }
 
-    public static void restoreBackupData(@NonNull String file) {
+    interface RestoreCallback {
+
+        void onComplete();
+    }
+
+    static void restoreBackupData(@NonNull final String file, @NonNull final RestoreCallback callback) {
+        WorkerThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                restoreBackupDataSync(file, callback);
+            }
+        });
+    }
+
+    private static void restoreBackupDataSync(@NonNull String file,
+                                              @NonNull final RestoreCallback callback) {
         Context context = SGSApplication.getInstance();
         String[] backupPrefData = getBackupPrefData(file);
         for (int saveIdx = 1; saveIdx < backupPrefData.length; saveIdx++) {
@@ -291,6 +308,13 @@ public final class SaveDataPref {
             e.commit();
         }
         init(context);
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onComplete();
+            }
+        });
     }
 
     public static void updateCurrentHoleIdx(@NonNull SaveData saveData, int holeIdx) {
