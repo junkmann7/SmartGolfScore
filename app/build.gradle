@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "jp.tonosama.komoki.SimpleGolfScorer2"
         minSdkVersion 4
@@ -27,8 +27,8 @@ android {
         }
     }
 }
-dependencies {
-    compile fileTree(include: '*.jar', dir: 'libs')
-    compile 'com.android.support:support-v4:21.0.3'
-}
 
+dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    implementation 'com.android.support:support-v4:21.0.3'
+}
