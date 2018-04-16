@@ -83,6 +83,7 @@ public class GraphActivity extends Activity {
         Context context = SGSApplication.getInstance();
         SaveDataPref.setSelectedSaveIdx(saveData.getSaveIdx());
         Intent intent = new Intent(context, GraphActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_TITLE, saveData.getHoleTitle());
         context.startActivity(intent);
     }

@@ -102,6 +102,8 @@ public final class LetterMessageUtil {
                 overAveNum++;
             }
         }
+        underAveNum = Math.max(underAveNum, 1);
+        overAveNum = Math.max(overAveNum, 1);
         pressureScore = (underAve / underAveNum) - (overAve / overAveNum);
         if (pressureScore > 1.5f) {
             return mPressureResult[0];

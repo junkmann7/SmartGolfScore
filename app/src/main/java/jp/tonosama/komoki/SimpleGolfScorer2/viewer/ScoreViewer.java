@@ -93,6 +93,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     public static void startViewer(final SaveData saveData) {
         Context context = SGSApplication.getInstance();
         Intent intent = new Intent(context, ScoreViewer.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         SaveDataPref.setSelectedSaveIdx(saveData.getSaveIdx());
         context.startActivity(intent);
     }
