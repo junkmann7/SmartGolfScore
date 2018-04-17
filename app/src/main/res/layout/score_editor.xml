@@ -120,6 +120,7 @@
 
     <!-- スコア結果記入欄 S -->
     <LinearLayout
+        android:id="@+id/score_editor_total_score_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"

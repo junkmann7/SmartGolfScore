@@ -15,19 +15,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
-/**
- * @author Komoki
- */
 class DragUi {
 
-    /**
-     * @author Komoki
-     */
     interface DragUiInterface {
 
-        /**
-         * @return SaveData
-         */
         SaveData getData();
     }
 
@@ -148,18 +139,18 @@ class DragUi {
         if (sData.getIs18Hround()) {
             ((ImageView) activity.findViewById(R.id.golf_hole_icon))
                     .setImageResource(R.drawable.golf_hole_icon);
-            SERes.getHoleTitleTextView(activity).setBackgroundResource(
+            SERes.getHoleNameTextView(activity).setBackgroundResource(
                     SERes.HOLE_NUMBER_IMG_RES_IDS[tmpHole - 1]);
         } else {
             if (tmpHole < 10) {
                 ((ImageView) activity.findViewById(R.id.golf_hole_icon))
                         .setImageResource(R.drawable.golf_hole_icon_out);
-                SERes.getHoleTitleTextView(activity).setBackgroundResource(
+                SERes.getHoleNameTextView(activity).setBackgroundResource(
                         SERes.HOLE_NUMBER_IMG_RES_IDS[tmpHole - 1]);
             } else {
                 ((ImageView) activity.findViewById(R.id.golf_hole_icon))
                         .setImageResource(R.drawable.golf_hole_icon_in);
-                SERes.getHoleTitleTextView(activity).setBackgroundResource(
+                SERes.getHoleNameTextView(activity).setBackgroundResource(
                         SERes.HOLE_NUMBER_IMG_RES_IDS[tmpHole - 10]);
             }
         }
@@ -209,7 +200,7 @@ class DragUi {
         setAnimVal(-moveVal);
         setMoveValue(tmpHole - sData.getCurrentHole());
         setIsAnimating(true);
-        SERes.getDrumAreaView(activity).startAnimation(set);
+        SERes.getDrumPickerArea(activity).startAnimation(set);
     }
 
     /**

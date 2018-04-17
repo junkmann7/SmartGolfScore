@@ -35,16 +35,24 @@ import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ScoreViewer;
 import jp.tonosama.komoki.SimpleGolfScorer2.wheel.OnWheelChangedListener;
 import jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView;
 
-/**
- * @author Komoki
- */
 public class ScoreEditor extends Activity implements AnimationListener, DragUiInterface {
 
-    /** タグ名 */
     private static final String TAG = ScoreEditor.class.getSimpleName();
 
-    /** ドラッグ操作UI */
     private DragUi mDragUi;
+
+    @Override
+    public void onCreate(final Bundle icicle) {
+        super.onCreate(icicle);
+        setContentView(R.layout.score_editor);
+
+        // ParSpinnerのセット
+        SERes.initParSpinner(this);
+        mDragUi = new DragUi(this);
+        setupUiAction(mDragUi,
+                SERes.getPrevArrow(this),
+                SERes.getNextArrow(this));
+    }
 
     @Override
     public void onResume() {
@@ -54,17 +62,10 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
     }
 
     @Override
-    public void onCreate(final Bundle icicle) {
-        super.onCreate(icicle);
-        setContentView(R.layout.score_editor);
+    public void onPause() {
+        super.onPause();
 
-        // ParSpinnerのセット
-        SERes.initParSpinner(this);
-        //
-        Button prevArrw = SERes.getPrevArrwButton(this);
-        Button nextArrw = SERes.getNextArrwButton(this);
-        mDragUi = new DragUi(this);
-        setupUiAction(mDragUi, prevArrw, nextArrw);
+        saveCurrentState(getData());
     }
 
     /**
@@ -102,7 +103,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      */
     private void setExitButtonAction() {
 
-        findViewById(R.id.main_exit_button).setOnClickListener(new View.OnClickListener() {
+        SERes.getExitButton(this).setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
                 finish();
@@ -115,7 +116,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      */
     private void setSettingButtonAction() {
 
-        findViewById(R.id.infoButton).setOnClickListener(new View.OnClickListener() {
+        SERes.getSettingButton(this).setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
                 SEMenuManager.menuRoundSetting(ScoreEditor.this, getData());
@@ -152,11 +153,11 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      */
     private void onArrowButtonClick(final Button view) {
 
-        int moveX = findViewById(SERes.DRUM_PICKER_AREA_RES_ID).getWidth() + 10;
+        int moveX = SERes.getDrumPickerArea(this).getWidth() + 10;
         int moveSlot = -1;
-        boolean isNext = view.equals(SERes.getNextArrwButton(this));
+        boolean isNext = view.equals(SERes.getNextArrow(this));
         if (isNext) {
-            moveX = -findViewById(SERes.DRUM_PICKER_AREA_RES_ID).getWidth() - 10;
+            moveX = -SERes.getDrumPickerArea(this).getWidth() - 10;
             moveSlot = 1;
         }
         if (mDragUi.isAnimating()) {
@@ -164,7 +165,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         }
         // アニメーション対応
         // (右から中心,中心から右方向,下から中心,中心から下方向)
-        View drumPickerArea = findViewById(SERes.DRUM_PICKER_AREA_RES_ID);
+        View drumPickerArea = SERes.getDrumPickerArea(this);
         TranslateAnimation trans = new TranslateAnimation(0, moveX, 0, 0);
         trans.setDuration(200);
         trans.setInterpolator(new DecelerateInterpolator());
@@ -197,7 +198,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
      * @param holeMove int
      */
     private void refreshEditor(final SaveData sData, final int holeMove) {
-        ((TextView) findViewById(R.id.hole_title)).setText(getData().getHoleTitle());
+        SERes.getHoleTitleTextView(this).setText(getData().getHoleTitle());
         final int oldCurHole = sData.getCurrentHole();
         int newCurHole = (oldCurHole + holeMove) % SGSConfig.TOTAL_HOLE_COUNT;
         if (newCurHole == 0) {
@@ -205,9 +206,8 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         }
         sData.setCurrentHole(newCurHole);
         // プレイヤー名をセット
-        TextView[] personNameTextViews = SERes.getPersonNameTextViews(this);
-        for (int i = 0; i < personNameTextViews.length; i++) {
-            personNameTextViews[i].setText(getData().getPlayerNameList().get(i));
+        for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+            getPersonNameText(playerIdx).setText(getData().getPlayerNameList().get(playerIdx));
         }
         // ホール移動時、数値入力済みの場合に移動元ホールをロックする対応
         if (holeMove != 0
@@ -234,10 +234,24 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         refreshPicker(sData);
     }
 
+    ////////
+
     private WheelView getWheelView(int playerIdx) {
-        ViewGroup vg = (ViewGroup) findViewById(R.id.picker_area);
+        ViewGroup vg = SERes.getPickerArea(this);
         return (WheelView) vg.getChildAt(playerIdx);
     }
+
+    private TextView getPersonNameText(int playerIdx) {
+        ViewGroup vg = SERes.getPlayerNameArea(this);
+        return (TextView) vg.getChildAt(playerIdx);
+    }
+
+    private TextView getPersonScoreTextView(int playerIdx) {
+        ViewGroup vg = SERes.getTotalScoreArea(this);
+        return (TextView) vg.getChildAt(playerIdx);
+    }
+
+    ////////
 
     /**
      * @param sData GolfScoreData
@@ -248,7 +262,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         // RatingBar のカレント数値エリアに値をセット
         ratingBar.setIsIndicator(false);
         ratingBar.setRating(sData.getPattingScoresList().get(0).get(sData.getCurrentHole() - 1));
-        ImageView iv = (ImageView) findViewById(R.id.my_pat_img);
+        ImageView iv = SERes.getPatImage(this);
         iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[sData.getPattingScoresList().get(0).get(sData
                 .getCurrentHole() - 1)]);
         // RatingBarをロックする対応
@@ -270,20 +284,20 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         dragImag.setVisibility(View.VISIBLE);
         SERes.getCurHoleImg(this).setVisibility(View.GONE);
         if (sData.getIs18Hround()) {
-            ((ImageView) findViewById(R.id.golf_hole_icon))
+            SERes.getHoleIcon(this)
                     .setImageResource(R.drawable.golf_hole_icon);
-            SERes.getHoleTitleTextView(ScoreEditor.this).setBackgroundResource(
+            SERes.getHoleNameTextView(ScoreEditor.this).setBackgroundResource(
                     SERes.HOLE_NUMBER_IMG_RES_IDS[sData.getCurrentHole() - 1]);
         } else {
             if (sData.getCurrentHole() < 10) {
-                ((ImageView) findViewById(R.id.golf_hole_icon))
+                SERes.getHoleIcon(this)
                         .setImageResource(R.drawable.golf_hole_icon_out);
-                SERes.getHoleTitleTextView(ScoreEditor.this).setBackgroundResource(
+                SERes.getHoleNameTextView(ScoreEditor.this).setBackgroundResource(
                         SERes.HOLE_NUMBER_IMG_RES_IDS[sData.getCurrentHole() - 1]);
             } else {
-                ((ImageView) findViewById(R.id.golf_hole_icon))
+                SERes.getHoleIcon(this)
                         .setImageResource(R.drawable.golf_hole_icon_in);
-                SERes.getHoleTitleTextView(ScoreEditor.this).setBackgroundResource(
+                SERes.getHoleNameTextView(ScoreEditor.this).setBackgroundResource(
                         SERes.HOLE_NUMBER_IMG_RES_IDS[sData.getCurrentHole() - 10]);
             }
         }
@@ -310,22 +324,18 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
     }
 
     private void removeInvisiblePersonDrum(final SaveData sData) {
-        TextView[] personNameTextViews = SERes.getPersonNameTextViews(this);
-        TextView[] personScoreTextViews = SERes.getPersonScoreTextViews(this);
-        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
-            if (sData.getPlayerNameList().get(i).trim().length() == 0) {
-                personNameTextViews[i].setVisibility(View.GONE);
-                getWheelView(i).setVisibility(View.GONE);
-                personScoreTextViews[i].setVisibility(View.GONE);
+        for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+            if (!sData.isPlayerExist(playerIdx)) {
+                getPersonNameText(playerIdx).setVisibility(View.GONE);
+                getWheelView(playerIdx).setVisibility(View.GONE);
+                getPersonScoreTextView(playerIdx).setVisibility(View.GONE);
             }
         }
     }
 
-    public void refreshPicker(final SaveData saveData) {
-        // トータルスコアを表示
-        TextView[] personScoreTextViews = SERes.getPersonScoreTextViews(this);
-        for (int i = 0; i < personScoreTextViews.length; i++) {
-            personScoreTextViews[i].setText(String.valueOf(saveData.getTotalScore()[i]));
+    private void refreshPicker(final SaveData saveData) {
+        for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+            getPersonScoreTextView(playerIdx).setText(String.valueOf(saveData.getTotalScore()[playerIdx]));
         }
     }
 
@@ -351,12 +361,6 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
         scoreData.getPattingScoresList().get(0).put(scoreData.getCurrentHole() - 1, pat);
         // プリファレンスに保存
         SaveDataPref.saveScoreData(scoreData);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        saveCurrentState(getData());
     }
 
     /**
@@ -396,7 +400,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
 
     public void onAnimationEnd(final Animation animation) {
 
-        View drumPickerArea = findViewById(SERes.DRUM_PICKER_AREA_RES_ID);
+        View drumPickerArea = SERes.getDrumPickerArea(this);
         onAnimationEndMain(drumPickerArea, mDragUi.getAnimVal());
         mDragUi.setIsAnimating(false);
     }
@@ -455,7 +459,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
     private void setViewerButtonAction() {
 
         // View Button クリック動作
-        Button viewerButton = (Button) findViewById(R.id.viewButton);
+        Button viewerButton = SERes.getViewButton(this);
         viewerButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
@@ -465,7 +469,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
             }
         });
         // Graph Buton クリック動作
-        Button graphButton = (Button) findViewById(R.id.graphviewButton);
+        Button graphButton = SERes.getGraphButton(this);
         graphButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
@@ -500,7 +504,7 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
                     final boolean fromUser) {
 
                 int pat = (int) rating;
-                ImageView iv = (ImageView) findViewById(R.id.my_pat_img);
+                ImageView iv = SERes.getPatImage(ScoreEditor.this);
                 iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[pat]);
                 if (fromUser) {
                     int curHoleIdx = getData().getCurrentHole() - 1;
