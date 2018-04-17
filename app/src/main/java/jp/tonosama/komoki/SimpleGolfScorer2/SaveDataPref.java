@@ -1,6 +1,7 @@
 package jp.tonosama.komoki.SimpleGolfScorer2;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -70,14 +71,20 @@ public final class SaveDataPref {
     }
 
     @SuppressLint("UseSparseArrays")
-    static void init(@NonNull Context context) {
-        sSaveDataMap = new HashMap<>();
+    static void initialize() {
+        Context context = SGSApplication.getInstance();
+        Map<Integer, SaveData> savedDatamap = new HashMap<>();
         for (int idx = 0; idx < MAX_DATA_SAVE_NUM; idx++) {
             SaveData data = getScoreData(context, idx);
             if (data != null) {
-                sSaveDataMap.put(idx, data);
+                savedDatamap.put(idx, data);
             }
         }
+        sSaveDataMap = new HashMap<>(savedDatamap);
+    }
+
+    static boolean isInitialized() {
+        return sSaveDataMap != null;
     }
 
     /**  */
@@ -276,43 +283,46 @@ public final class SaveDataPref {
         void onComplete();
     }
 
-    static void restoreBackupData(@NonNull final String file, @NonNull final RestoreCallback callback) {
-        WorkerThreadPool.execute(new Runnable() {
+    static void restoreBackupData(@NonNull Activity activity,
+                                  @NonNull final String file,
+                                  @NonNull final RestoreCallback callback) {
+        ProgressWorker.start(activity, new ProgressWorker.Delegate() {
             @Override
-            public void run() {
-                restoreBackupDataSync(file, callback);
-            }
-        });
-    }
+            public void execute(@NonNull final ProgressWorker.ProgressHandler progressHandler) {
 
-    private static void restoreBackupDataSync(@NonNull String file,
-                                              @NonNull final RestoreCallback callback) {
-        Context context = SGSApplication.getInstance();
-        String[] backupPrefData = getBackupPrefData(file);
-        for (int saveIdx = 1; saveIdx < backupPrefData.length; saveIdx++) {
-            String[] backupPrefKey = backupPrefData[saveIdx].split("<KEY>");
-            SharedPreferences pref = context.getSharedPreferences("PREF" + String.valueOf(saveIdx),
-                    Context.MODE_PRIVATE);
-            Editor e = pref.edit();
-            e.putString(SaveDataPref.PREF_DATA_KEY[0], "0");
-            for (int prefKeyIdx = 1; prefKeyIdx < backupPrefKey.length; prefKeyIdx++) {
-                final String data = backupPrefKey[prefKeyIdx];
-                // Remove all CRLF except for user memo.
-                if (prefKeyIdx != 12) {
-                    e.putString(SaveDataPref.PREF_DATA_KEY[prefKeyIdx],
-                            data.replaceAll("\n", ""));
-                } else {
-                    e.putString(SaveDataPref.PREF_DATA_KEY[prefKeyIdx], data);
+                final Context context = SGSApplication.getInstance();
+                String[] backupPrefData = getBackupPrefData(file);
+
+                int total = backupPrefData.length - 1;
+                int progress = 0;
+
+                for (int saveIdx = 1; saveIdx < backupPrefData.length; saveIdx++) {
+                    String[] backupPrefKey = backupPrefData[saveIdx].split("<KEY>");
+                    SharedPreferences pref = context.getSharedPreferences("PREF" + String.valueOf(saveIdx),
+                            Context.MODE_PRIVATE);
+                    Editor e = pref.edit();
+                    e.putString(SaveDataPref.PREF_DATA_KEY[0], "0");
+                    for (int prefKeyIdx = 1; prefKeyIdx < backupPrefKey.length; prefKeyIdx++) {
+                        final String data = backupPrefKey[prefKeyIdx];
+                        // Remove all CRLF except for user memo.
+                        if (prefKeyIdx != 12) {
+                            e.putString(SaveDataPref.PREF_DATA_KEY[prefKeyIdx],
+                                    data.replaceAll("\n", ""));
+                        } else {
+                            e.putString(SaveDataPref.PREF_DATA_KEY[prefKeyIdx], data);
+                        }
+                    }
+                    e.commit();
+                    progressHandler.progress(++progress, total);
                 }
-            }
-            e.commit();
-        }
-        init(context);
-
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                callback.onComplete();
+                initialize();
+                progressHandler.complete();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onComplete();
+                    }
+                });
             }
         });
     }

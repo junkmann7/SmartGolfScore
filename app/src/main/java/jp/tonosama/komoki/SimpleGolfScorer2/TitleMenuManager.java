@@ -191,7 +191,7 @@ class TitleMenuManager {
         restoreDialog.setItems(bkFileList.toArray(new String[]{}), new OnClickListener() {
 
             public void onClick(final DialogInterface dialog, final int item) {
-                ((MainTitle) context).loadBackupData(bkFileList.get(item));
+                ((MainTitle) context).backupData(bkFileList.get(item));
             }
         });
         restoreDialog.show();
@@ -235,7 +235,7 @@ class TitleMenuManager {
             public void onClick(final DialogInterface dialog, final int item) {
                 dialog.dismiss();
                 SaveDataList.saveSortType(item);
-                ((MainTitle) context).reStartActivity();
+                ((MainTitle) context).setupData();
             }
         });
         dialog.create().show();

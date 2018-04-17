@@ -52,31 +52,38 @@
                 android:text="@string/menu_history"
                 android:textColor="#666"
                 android:textSize="@dimen/main_title_btn_textsize"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingBottom="0dp"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"
-        android:paddingTop="0dp" >
+        android:layout_weight="1">
 
-        <LinearLayout
-            android:id="@+id/MainTitle_SaveData_ListArea"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/main_title_loading_icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp" >
-        </LinearLayout>
-    </ScrollView>
+            android:layout_centerInParent="true" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/MainTitle_SaveData_ListArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp" >
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -21,9 +21,9 @@ public class SaveDataList {
     /**  */
     private ArrayList<SaveData> mSaveDataList;
     /**  */
-    public static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
+    private static final String PREF_SORT_TYPE_SETTING = "PREF_SORT_TYPE_SETTING";
     /**  */
-    public static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
+    private static final String PREF_SORT_TYPE_KEY = "PREF_SORT_TYPE_KEY";
 
     /**
      * コンストラクタ

@@ -2,7 +2,6 @@ package jp.tonosama.komoki.SimpleGolfScorer2;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,14 +43,26 @@ public class MainTitle extends Activity {
 
     @Override
     public void onResume() {
-        mSaveDataList = initSaveData(mCreateButtons);
         super.onResume();
+        if (SaveDataPref.isInitialized()) {
+            setupData();
+        }
     }
 
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main_title);
+        DataInitializeSequence.start(this, new DataInitializeSequence.Callback() {
+            @Override
+            public void onComplete() {
+                findViewById(R.id.main_title_loading_icon).setVisibility(View.GONE);
+                setupData();
+            }
+        });
+    }
+
+    void setupData() {
 
         mMenuManager = new TitleMenuManager();
         mSaveDataList = initSaveData(mCreateButtons);
@@ -60,18 +71,10 @@ public class MainTitle extends Activity {
         setNewCreateButtonAction(newCreateButton);
 
         // 個人履歴ボタンクリック時の動作を設定
-        Button myHistoryButton = (Button) findViewById(R.id.my_history_btn);
-        setHistoryButtonAction(myHistoryButton, mSaveDataList);
-        if (mSaveDataList.size() < 1) {
-            myHistoryButton.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * reStartActivity
-     */
-    void reStartActivity() {
-        mSaveDataList = initSaveData(mCreateButtons);
+        Button historyButton = (Button) findViewById(R.id.my_history_btn);
+        setHistoryButtonAction(historyButton, mSaveDataList);
+        int visibility = 0 < mSaveDataList.getFixedDataNum() ? View.VISIBLE : View.GONE;
+        historyButton.setVisibility(visibility);
     }
 
     /**
@@ -257,11 +260,11 @@ public class MainTitle extends Activity {
         });
     }
 
-    void loadBackupData(@NonNull String file) {
-        showLoadDataDialog(file, SaveDataPref.getBackupDataTitleList(file));
+    void backupData(@NonNull String file) {
+        showBackupDataDialog(file, SaveDataPref.getBackupDataTitleList(file));
     }
 
-    private void showLoadDataDialog(@NonNull final String file, @NonNull String message) {
+    private void showBackupDataDialog(@NonNull final String file, @NonNull String message) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainTitle.this);
         dialog.setIcon(android.R.drawable.ic_menu_info_details);
@@ -273,18 +276,14 @@ public class MainTitle extends Activity {
             public void onClick(final DialogInterface dialog, final int whichButton) {
 
                 initializeAllData(mSaveDataList, mCreateButtons);
-                final ProgressDialog progressDialog = new ProgressDialog(MainTitle.this);
-                progressDialog.setMessage(String.format(getResources()
-                        .getString(R.string.dlg_restore_progress_msg), file));
-                progressDialog.show();
-                SaveDataPref.restoreBackupData(file, new SaveDataPref.RestoreCallback() {
+
+                SaveDataPref.restoreBackupData(MainTitle.this, file, new SaveDataPref.RestoreCallback() {
                     @Override
                     public void onComplete() {
-                        progressDialog.dismiss();
                         Toast.makeText(MainTitle.this,
                                 getResources().getString(R.string.toast_backup_complete),
                                 Toast.LENGTH_SHORT).show();
-                        reStartActivity();
+                        setupData();
                     }
                 });
             }

@@ -11,7 +11,6 @@ public class SGSApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = new WeakReference<>(this);
-        SaveDataPref.init(this);
     }
 
     public static Application getInstance() {

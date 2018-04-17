@@ -77,7 +77,8 @@
             android:text="@string/menu_history"
             android:textColor="#666"
             android:textSize="@dimen/main_title_btn_textsize"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View
@@ -87,24 +88,35 @@
         android:layout_marginRight="5dip"
         android:background="#AAA" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="10"
         android:paddingLeft="10dip"
         android:paddingRight="10dip" >
 
-        <LinearLayout
-            android:id="@+id/MainTitle_SaveData_ListArea"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/main_title_loading_icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="10dp" >
-        </LinearLayout>
-    </ScrollView>
+            android:layout_centerInParent="true" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/MainTitle_SaveData_ListArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="10dp" >
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </LinearLayout>
