@@ -24,3 +24,11 @@ allprojects {
         }
     }
 }
+
+subprojects {
+    afterEvaluate { project ->
+        project.apply from: "$rootDir/gradle/android-jacoco.gradle"
+        project.apply from: "$rootDir/gradle/android-findbugs.gradle"
+        project.apply from: "$rootDir/gradle/android-checkstyle.gradle"
+    }
+}

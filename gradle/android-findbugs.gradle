@@ -1,0 +1,22 @@
+// Findbugs Plugin
+apply plugin: 'findbugs'
+
+findbugs {
+    toolVersion = '3.0.+'
+}
+
+task findbugs(type: FindBugs, dependsOn: 'compileDebugJavaWithJavac') {
+    group = 'verification'
+    description = 'Run static analysis - FindBugs'
+    source = 'src'
+    ignoreFailures = true
+    effort = 'default'
+    excludeFilter = file("${project.rootDir}/config/findbugs/findbugs-exclude.xml")
+    classes = fileTree(dir: "${project.buildDir}/intermediates/classes", exclude: 'test/**')
+    classpath = files()
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+check.dependsOn 'findbugs'

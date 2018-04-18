@@ -1,0 +1,28 @@
+// JaCoCo gradle script for android projects.
+apply plugin: 'jacoco'
+
+android.buildTypes.debug.testCoverageEnabled = true
+
+jacoco {
+    toolVersion = '0.7.5+'
+}
+
+task jacoco(type: JacocoReport, dependsOn: 'test') {
+    group = 'other'
+    description = 'Create test coverage reports - JaCoCo'
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories = fileTree(
+            dir: './build/intermediates/classes/debug',
+            excludes: ['**/databinding/*Binding.class',
+                       'android/*',
+                       '**/R.class',
+                       '**/R$*.class',
+                       '**/BuildConfig.class',
+                       '**/BR.class',
+            ])
+    sourceDirectories = files('src/main/java')
+    executionData = files('build/jacoco/testDebugUnitTest.exec')
+}

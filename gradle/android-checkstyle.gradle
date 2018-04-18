@@ -1,0 +1,29 @@
+// Checkstyle Plugin
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = 7.1
+}
+
+task checkstyle(type: Checkstyle) {
+    group = 'verification'
+    description = 'Run Code Style Enforcer - Checkstyle'
+    configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+    configProperties = [config_loc: "${project.rootDir}"]
+    ignoreFailures true
+    showViolations true
+    source 'src'
+    include '**/*.java'
+    exclude([
+            '**/test/**/*', // Unit Test Code
+            '**/androidTest/**/*', // Integrations Code
+            '**/support/v4/view/*' // Google Support Code
+    ])
+
+    classpath = files()
+
+    reports {
+        xml.enabled true
+    }
+}
+check.dependsOn 'checkstyle'
