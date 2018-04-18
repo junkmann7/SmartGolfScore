@@ -57,6 +57,7 @@ public class MainTitle extends Activity {
             @Override
             public void onComplete() {
                 findViewById(R.id.main_title_loading_icon).setVisibility(View.GONE);
+                findViewById(R.id.new_create_btn).setEnabled(true);
                 setupData();
             }
         });

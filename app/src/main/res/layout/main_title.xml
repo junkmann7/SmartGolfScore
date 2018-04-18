@@ -65,7 +65,8 @@
             android:text="@string/new_create"
             android:textColor="#33AAFF"
             android:textSize="@dimen/main_title_btn_textsize"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:enabled="false" />
 
         <Button
             android:id="@+id/my_history_btn"
