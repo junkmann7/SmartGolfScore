@@ -534,6 +534,10 @@ public class ScoreEditor extends Activity implements AnimationListener, DragUiIn
     @Override
     public SaveData getData() {
         int selectedIdx = SaveDataPref.getSelectedSaveIdx();
+        if (SaveDataPref.getSaveDataMap() == null) {
+            finish();
+            return SaveData.createInitialData(selectedIdx);
+        }
         return SaveDataPref.getSaveDataMap().get(selectedIdx);
     }
 }

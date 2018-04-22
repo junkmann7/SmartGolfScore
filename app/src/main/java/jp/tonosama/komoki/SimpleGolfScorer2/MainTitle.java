@@ -44,15 +44,6 @@ public class MainTitle extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        if (SaveDataPref.isInitialized()) {
-            setupData();
-        }
-    }
-
-    @Override
-    public void onCreate(final Bundle icicle) {
-        super.onCreate(icicle);
-        setContentView(R.layout.main_title);
         DataInitializeSequence.start(this, new DataInitializeSequence.Callback() {
             @Override
             public void onComplete() {
@@ -61,6 +52,12 @@ public class MainTitle extends Activity {
                 setupData();
             }
         });
+    }
+
+    @Override
+    public void onCreate(final Bundle icicle) {
+        super.onCreate(icicle);
+        setContentView(R.layout.main_title);
     }
 
     void setupData() {
