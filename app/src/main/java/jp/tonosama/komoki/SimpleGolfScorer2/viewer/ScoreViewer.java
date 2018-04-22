@@ -222,8 +222,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         Map<Integer, String> personNames = scoreData.getPlayerNameList();
         for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
             String holeNumStr;
-            if (!scoreData.getIs18Hround() &&
-                    (SGSConfig.TOTAL_HOLE_COUNT/2 <= holeIdx && holeIdx < SGSConfig.TOTAL_HOLE_COUNT)) {
+            if (!scoreData.getIs18Hround() && (SGSConfig.TOTAL_HOLE_COUNT/2 <= holeIdx)) {
                 holeNumStr = String.valueOf(holeIdx + 1 - 9) + "H";
             } else {
                 holeNumStr = String.valueOf(holeIdx + 1) + "H";
@@ -404,12 +403,8 @@ public class ScoreViewer extends Activity implements OnTouchListener {
      * @param scoreData スコアデータ
      */
     private void updateScoreTable(final SaveData scoreData) {
-        if (scoreData.getCurrentHole() == 0) {
-            finish();
-            return;
-        }
         ViewGroup curHoleArea = (ViewGroup) findViewById(
-                SVRes.EACH_HOLE_AREA[scoreData.getCurrentHole() - 1]);
+                SVRes.EACH_HOLE_AREA[scoreData.getCurrentHole()]);
         curHoleArea.setBackgroundColor(Color.rgb(170, 238, 255));
 
         Map<Integer, TextView> parScoreTV = SVRes.getParNumberTextView(this);
@@ -543,7 +538,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                             break;
                         }
                     }
-                    if (j != scoreData.getCurrentHole() - 1) {
+                    if (j != scoreData.getCurrentHole()) {
                         mScoreAreaList[j].setBackgroundColor(Color.alpha(255));
                     } else {
                         mScoreAreaList[j].setBackgroundColor(Color.rgb(170, 238, 255));
@@ -653,7 +648,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
         // キャプチャするViewの指定と取得
         mOutputBtn.setVisibility(View.GONE);
         mSettingBtn.setVisibility(View.GONE);
-        mScoreAreaList[currHole - 1].setBackgroundColor(Color.alpha(0));
+        mScoreAreaList[currHole].setBackgroundColor(Color.alpha(0));
 
         long dateTaken = System.currentTimeMillis();
         String name = createName(dateTaken) + ".png";
@@ -674,7 +669,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
 
         mOutputBtn.setVisibility(View.VISIBLE);
         mSettingBtn.setVisibility(View.VISIBLE);
-        mScoreAreaList[currHole - 1].setBackgroundColor(Color.alpha(255));
+        mScoreAreaList[currHole].setBackgroundColor(Color.alpha(255));
 
         return imgUri;
     }
@@ -737,20 +732,20 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             int diffY = mOffsetY - (int) event.getY();
             if (Math.abs(diffX) > CANCEL_MOVE_VALUE || Math.abs(diffY) > CANCEL_MOVE_VALUE) {
                 mIsHoleSelected = false;
-                changeBgColor(v, mScoreAreaList[curHole - 1]);
+                changeBgColor(v, mScoreAreaList[curHole]);
             }
         } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-            changeBgColor(v, mScoreAreaList[curHole - 1]);
+            changeBgColor(v, mScoreAreaList[curHole]);
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             int diffX = mOffsetX - (int) event.getX();
             int diffY = mOffsetY - (int) event.getY();
-            int j = getViewHoleNumber(v);
+            int holeIdx = getViewHoleNumber(v);
             if (mIsHoleSelected && Math.abs(diffX) < CANCEL_MOVE_VALUE
                     && Math.abs(diffY) < CANCEL_MOVE_VALUE) {
-                SaveDataPref.updateCurrentHoleIdx(getScoreData(), j + 1);
+                SaveDataPref.updateCurrentHoleIdx(getScoreData(), holeIdx);
                 finish();
             } else {
-                changeBgColor(v, mScoreAreaList[curHole - 1]);
+                changeBgColor(v, mScoreAreaList[curHole]);
             }
         }
         return true;

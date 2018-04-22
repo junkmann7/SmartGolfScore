@@ -252,7 +252,7 @@
                     android:src="@drawable/current_hole_map" />
 
                 <ImageView
-                    android:id="@+id/next_hole_name"
+                    android:id="@+id/curr_hole_fixed_location"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/etc_content_description"
@@ -260,7 +260,7 @@
                     android:src="@drawable/current_hole_03" />
 
                 <ImageView
-                    android:id="@+id/current_player_location"
+                    android:id="@+id/curr_hole_dragging_location"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/etc_content_description"

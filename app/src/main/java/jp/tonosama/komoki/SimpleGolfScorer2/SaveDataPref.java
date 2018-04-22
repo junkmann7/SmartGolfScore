@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
@@ -111,6 +112,14 @@ public final class SaveDataPref {
 
     public static void setSelectedSaveIdx(int selectedSaveIdx) {
         sSelectedSaveIdx = selectedSaveIdx;
+    }
+
+    @Nullable
+    public static SaveData getSelectedSaveData() {
+        if (sSaveDataMap == null) {
+            return null;
+        }
+        return sSaveDataMap.get(sSelectedSaveIdx);
     }
 
     public static int getSelectedSaveIdx() {

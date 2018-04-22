@@ -1,4 +1,3 @@
-<!DOCTYPE Drawable>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@drawable/arrow_leftside_touch" android:state_focused="true" android:state_pressed="false"/>

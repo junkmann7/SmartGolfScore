@@ -23,7 +23,7 @@ public class SaveData implements Serializable {
     /**  */
     private boolean mIs18Hround = true;
     /**  */
-    private int mCurrentHole = 1;
+    private int mCurrentHole = 0;
     /**  */
     private boolean mOutputImageFlg = false;
     /**  */
@@ -117,7 +117,7 @@ public class SaveData implements Serializable {
     }
 
     public void setCurrentHole(final int currentHole) {
-        mCurrentHole = currentHole;
+        mCurrentHole = currentHole % SGSConfig.TOTAL_HOLE_COUNT;
     }
 
     /**  */

@@ -41,12 +41,6 @@ final class SERes {
             R.drawable.mypatter2, R.drawable.mypatter3, //
             R.drawable.mypatter4, R.drawable.mypatter5 };
 
-    private static final int DRUM_PICKER_AREA_RES_ID = R.id.picker_area;
-
-    static ViewGroup getDrumPickerArea(final Activity activity) {
-        return (ViewGroup) activity.findViewById(DRUM_PICKER_AREA_RES_ID);
-    }
-
     private static final int PREV_ARROW_RES_ID = R.id.arrow_upside;
 
     static Button getPrevArrow(final Activity activity) {
@@ -75,12 +69,6 @@ final class SERes {
 
     static TextView getHoleTitleTextView(final Activity activity) {
         return (TextView) activity.findViewById(HOLE_TITLE_RES_ID);
-    }
-
-    private static final int PICKER_AREA_RES_ID = R.id.picker_area;
-
-    static ViewGroup getPickerArea(final Activity activity) {
-        return (ViewGroup) activity.findViewById(PICKER_AREA_RES_ID);
     }
 
     private static final int PLAYER_NAME_AREA = R.id.score_editor_player_name_area;
@@ -143,24 +131,6 @@ final class SERes {
         return (RatingBar) activity.findViewById(MYPAT_RATINGBAR_RES_ID);
     }
 
-    private static final int CURRENT_PLAYER_LOCATION_RES_ID = R.id.current_player_location;
-
-    static ImageView getCurHoleImg(final Activity activity) {
-        return (ImageView) activity.findViewById(CURRENT_PLAYER_LOCATION_RES_ID);
-    }
-
-    private static final int NEXT_HOLE_AREA_RES_ID = R.id.next_hole_area;
-
-    static ViewGroup getFooterArea(final Activity activity) {
-        return (ViewGroup) activity.findViewById(NEXT_HOLE_AREA_RES_ID);
-    }
-
-    private static final int NEXT_HOLE_NAME_RES_ID = R.id.next_hole_name;
-
-    static ImageView getDragImg(final Activity activity) {
-        return (ImageView) activity.findViewById(NEXT_HOLE_NAME_RES_ID);
-    }
-
     static void initParSpinner(final Activity activity) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
@@ -168,8 +138,8 @@ final class SERes {
         adapter.add(String.valueOf(MINIMUM_PAR_COUNT + 1));
         adapter.add(String.valueOf(MINIMUM_PAR_COUNT + 2));
         adapter.add(String.valueOf(MINIMUM_PAR_COUNT + 3));
-        Spinner mParSpinner = getParSpinner(activity);
-        mParSpinner.setPrompt("Select Par");
-        mParSpinner.setAdapter(adapter);
+        Spinner parSpinner = getParSpinner(activity);
+        parSpinner.setPrompt("Select Par");
+        parSpinner.setAdapter(adapter);
     }
 }

@@ -4,14 +4,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * @author Komoki
- */
 public class HistoryPagerAdapter extends PagerAdapter {
 
-    /**
-     * @author Komoki
-     */
     public interface Callback {
 
         View generateView(final int idx);
@@ -19,12 +13,8 @@ public class HistoryPagerAdapter extends PagerAdapter {
         int getCount();
     }
 
-    /**  */
     private Callback mCallback;
 
-    /**
-     * @param callback
-     */
     public void setCallback(final Callback callback) {
         mCallback = callback;
     }
@@ -41,7 +31,6 @@ public class HistoryPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(final ViewGroup container, final int position, final Object object) {
-        // コンテナから View を削除
         container.removeView((View) object);
     }
 
@@ -55,7 +44,6 @@ public class HistoryPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(final View view, final Object object) {
-        // Object 内に View が存在するか判定する
         return view.equals(object);
     }
 }

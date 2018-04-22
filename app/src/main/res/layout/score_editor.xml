@@ -258,7 +258,7 @@
                 android:contentDescription="@string/etc_content_description" />
 
             <ImageView
-                android:id="@+id/next_hole_name"
+                android:id="@+id/curr_hole_fixed_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -267,7 +267,7 @@
                 android:contentDescription="@string/etc_content_description" />
 
             <ImageView
-                android:id="@+id/current_player_location"
+                android:id="@+id/curr_hole_dragging_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

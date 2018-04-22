@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/score_editor_picker_pager"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
-    android:gravity="center|center">
-
-    <LinearLayout
-        android:id="@+id/picker_area"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
-
-        <jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center" />
-
-        <jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center" />
-
-        <jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center" />
-
-        <jp.tonosama.komoki.SimpleGolfScorer2.wheel.WheelView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center" />
-    </LinearLayout>
-</LinearLayout>
+    android:layout_weight="1" />
