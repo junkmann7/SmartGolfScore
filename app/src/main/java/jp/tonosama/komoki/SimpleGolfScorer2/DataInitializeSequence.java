@@ -12,7 +12,7 @@ class DataInitializeSequence {
         void onComplete();
     }
 
-    static void start(@NonNull final Activity activity, @NonNull final Callback callback) {
+    static void start(@NonNull final Callback callback) {
 
         if (SaveDataPref.isInitialized()) {
             notifyComplete(callback);

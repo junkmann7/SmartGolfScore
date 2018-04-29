@@ -107,6 +107,9 @@ public final class SaveDataPref {
 
     @SuppressLint("UseSparseArrays")
     public static Map<Integer, SaveData> getSaveDataMap() {
+        if (sSaveDataMap == null) {
+            initialize();
+        }
         return sSaveDataMap;
     }
 

@@ -44,7 +44,7 @@ public class MainTitle extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        DataInitializeSequence.start(this, new DataInitializeSequence.Callback() {
+        DataInitializeSequence.start(new DataInitializeSequence.Callback() {
             @Override
             public void onComplete() {
                 findViewById(R.id.main_title_loading_icon).setVisibility(View.GONE);
