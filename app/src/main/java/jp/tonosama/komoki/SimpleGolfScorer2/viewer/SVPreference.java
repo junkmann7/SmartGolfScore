@@ -11,14 +11,25 @@ class SVPreference {
 
     private static final String KEY_TEXT_SIZE = "key_text_size";
 
+    private static final String PREF_TABLE_SETTING = "PREF_TABLE_SETTING";
+
+    private static final String PREF_TABLE_VALUE_TYPE_KEY = "PREF_TABLE_VALUE_TYPE_KEY";
+
+    static final int VIEWER_TYPE_RELATIVE = 0;
+
+    static final int VIEWER_TYPE_ABSOLUTE = 1;
+
+    private static final int DEFAULT_VIEWER_TYPE = VIEWER_TYPE_RELATIVE;
+
     private SVPreference() {
         //private constructor
     }
 
     enum SVTextSize {
-        NORMAL(0, R.dimen.adjusted_text_size_16dp),
-        LARGE(1, R.dimen.adjusted_text_size_17dp),
-        XLARGE(2, R.dimen.adjusted_text_size_18dp);
+        SMALL(0, R.dimen.adjusted_size_16dp),
+        NORMAL(1, R.dimen.adjusted_size_18dp),
+        LARGE(2, R.dimen.adjusted_size_20dp),
+        XLARGE(3, R.dimen.adjusted_size_22dp);
 
         private int mIndex;
 
@@ -43,7 +54,7 @@ class SVPreference {
                     return svTextSize;
                 }
             }
-            return SVTextSize.NORMAL;
+            return SVTextSize.SMALL;
         }
     }
 
@@ -60,10 +71,24 @@ class SVPreference {
         return context.getResources().getDimension(resId);
     }
 
-    static void setSVTextSize(int value) {
+    static void setSVTextSizeIndex(int value) {
         Context context = SGSApplication.getInstance();
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
                 .edit().putInt(KEY_TEXT_SIZE, value)
+                .commit();
+    }
+
+    static int getScoreViewType() {
+        Context context = SGSApplication.getInstance();
+        return context.getSharedPreferences(PREF_TABLE_SETTING, Context.MODE_PRIVATE)
+                .getInt(PREF_TABLE_VALUE_TYPE_KEY, DEFAULT_VIEWER_TYPE);
+    }
+
+    static void setScoreViewType(int scoreViewerType) {
+        Context context = SGSApplication.getInstance();
+        context.getSharedPreferences(PREF_TABLE_SETTING, Context.MODE_PRIVATE)
+                .edit()
+                .putInt(PREF_TABLE_VALUE_TYPE_KEY, scoreViewerType)
                 .commit();
     }
 }

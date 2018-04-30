@@ -1,76 +1,73 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/score_viewer_root">
+    android:id="@+id/score_viewer_root" >
 
     <LinearLayout
         android:id="@+id/graph_view_captured_area"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@drawable/back_land"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_above="@+id/footer_area" >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/score_viewer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|left"
             android:paddingTop="@dimen/adjusted_size_8dp"
-            android:paddingBottom="@dimen/adjusted_size_8dp" >
-
-            <TextView
-                android:id="@+id/score_viewer_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center|center"
-                android:singleLine="true"
-                android:textColor="#333"
-                android:textSize="@dimen/adjusted_text_size_20dp"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <include
-            layout="@layout/score_viewer_separator_horizontal" />
-
-        <include
-            layout="@layout/score_viewer_player_name_row" />
-
-        <include
-            layout="@layout/score_viewer_separator_horizontal" />
-
-        <include
-            layout="@layout/score_viewer_table_contents" />
-
-        <include
-            layout="@layout/score_viewer_separator_horizontal" />
+            android:paddingBottom="@dimen/adjusted_size_8dp"
+            android:gravity="center|center"
+            android:singleLine="true"
+            android:textColor="#333"
+            android:textSize="@dimen/adjusted_text_size_20dp"
+            android:visibility="visible" />
 
         <LinearLayout
+            android:id="@+id/score_viewer_player_name_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#333"
-            android:orientation="vertical" >
+            android:orientation="horizontal"
+            android:background="#333" />
 
-            <include
-                layout="@layout/score_viewer_handicap_row" />
+        <ScrollView
+            android:id="@+id/score_table_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-            <include
-                layout="@layout/score_viewer_separator_horizontal" />
+        <LinearLayout
+            android:id="@+id/score_viewer_handicap_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#333" />
 
-            <include
-                layout="@layout/score_viewer_total_row" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCC"/>
 
-        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/score_viewer_total_score_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#333" />
 
-        <include
-            layout="@layout/score_viewer_separator_horizontal" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCC"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/footer_area"
         android:layout_width="match_parent"
         android:layout_height="@dimen/adjusted_size_40dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/footer_back" >
 
         <Button
@@ -94,4 +91,4 @@
             android:textSize="@dimen/adjusted_text_size_16dp" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

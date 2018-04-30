@@ -275,7 +275,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
             SERes.getHoleNameTextView(ScoreEditor.this).setBackgroundResource(
                     SERes.HOLE_NUMBER_IMG_RES_IDS[saveData.getCurrentHole()]);
         } else {
-            if (saveData.getCurrentHole() < 10) {
+            if (saveData.getCurrentHole() < 9) {
                 SERes.getHoleIcon(this)
                         .setImageResource(R.drawable.golf_hole_icon_out);
                 SERes.getHoleNameTextView(ScoreEditor.this).setBackgroundResource(
@@ -284,7 +284,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
                 SERes.getHoleIcon(this)
                         .setImageResource(R.drawable.golf_hole_icon_in);
                 SERes.getHoleNameTextView(ScoreEditor.this).setBackgroundResource(
-                        SERes.HOLE_NUMBER_IMG_RES_IDS[saveData.getCurrentHole()]);
+                        SERes.HOLE_NUMBER_IMG_RES_IDS[saveData.getCurrentHole() % 9]);
             }
         }
     }

@@ -47,8 +47,9 @@
     <string name="dlg_delete_player_msg">Delete [%1$s]. This operation is not cancelable.</string>
     <string name="dlg_output_image_msg_score">Saved the result of score as image. Send this image by E-Mail?</string>
     <string name="dlg_output_image_msg_graph">Saved the result of graph as image. Send this image by E-Mail?</string>
-    <string name="dlg_output_image_by_viewer">No</string>
+    <string name="dlg_output_image_by_viewer">Open viewer</string>
     <string name="dlg_output_image_by_email">Yes</string>
+    <string name="dlg_output_image_nop">No</string>
     <string name="btn_change_table_basis_par">"Basis：PAR"</string>
     <string name="btn_change_table_basis_abs">"Basis：ABS"</string>
     <string name="btn_change_graph_basis">"Basis:%1$s"</string>
@@ -239,6 +240,7 @@
     <string name="send_by_email_contains_img">"Attach images"</string>
     <string name="send_by_email_output_graph">"Preparing attaching graph data with email…\nPlease wait."</string>
     <string name="send_by_email_output_table">"Preparing attaching table data with email…\nPlease wait."</string>
+    <string name="output_table_image">"Preparing table data image…\nPlease wait."</string>
 
     <!--
      ===============================================================

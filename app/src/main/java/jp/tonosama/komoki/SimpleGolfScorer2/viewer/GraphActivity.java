@@ -434,7 +434,19 @@ public class GraphActivity extends Activity {
                             }
                         });
                 dialog.setNegativeButton(
-                        getResources().getString(R.string.dlg_output_image_by_viewer), null);
+                        getResources().getString(R.string.dlg_output_image_by_viewer), new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Output to Viewer
+                                Intent is = new Intent();
+                                is.setAction(Intent.ACTION_VIEW);
+                                is.setType("image/png");
+                                is.setData(imgUri);
+                                startActivity(is);
+                            }
+                        });
+                dialog.setNeutralButton(
+                        getResources().getString(R.string.dlg_output_image_nop), null);
                 dialog.show();
             }
         });

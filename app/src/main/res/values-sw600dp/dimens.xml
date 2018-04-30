@@ -8,7 +8,10 @@
     <dimen name="adjusted_size_8dp">16dp</dimen>
     <dimen name="adjusted_size_10dp">20dp</dimen>
     <dimen name="adjusted_size_15dp">30dp</dimen>
-    <dimen name="adjusted_size_20dp">40sp</dimen>
+    <dimen name="adjusted_size_16dp">32dp</dimen>
+    <dimen name="adjusted_size_18dp">36dp</dimen>
+    <dimen name="adjusted_size_20dp">40dp</dimen>
+    <dimen name="adjusted_size_22dp">44dp</dimen>
     <dimen name="adjusted_size_25dp">50dp</dimen>
     <dimen name="adjusted_size_26dp">52dp</dimen>
     <dimen name="adjusted_size_30dp">60dp</dimen>

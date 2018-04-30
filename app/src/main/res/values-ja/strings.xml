@@ -47,8 +47,9 @@
     <string name="dlg_delete_player_msg">「%1$s」を削除します。この操作は取り消せません。</string>
     <string name="dlg_output_image_msg_score">スコア表を画像として保存しました。このスコア表をメールに添付しますか？</string>
     <string name="dlg_output_image_msg_graph">グラフを画像として保存しました。このグラフをメールに添付しますか？</string>
-    <string name="dlg_output_image_by_viewer">いいえ</string>
+    <string name="dlg_output_image_by_viewer">画像を確認</string>
     <string name="dlg_output_image_by_email">はい</string>
+    <string name="dlg_output_image_nop">いいえ</string>
     <string name="btn_change_table_basis_par">"基準：PAR" </string>
     <string name="btn_change_table_basis_abs">"基準：ABS" </string>
     <string name="btn_change_graph_basis">"基準:%1$s"</string>
@@ -240,6 +241,7 @@
     <string name="send_by_email_contains_img">"画像を添付する"</string>
     <string name="send_by_email_output_graph">"グラフを添付する準備をしています…\nちょっと待ってね。"</string>
     <string name="send_by_email_output_table">"スコア表を添付する準備をしています…\nちょっと待ってね。"</string>
+    <string name="output_table_image">"スコア表を画像として保存しています…\nちょっと待ってね。"</string>
 
     <!--
      ===============================================================

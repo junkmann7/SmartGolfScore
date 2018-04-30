@@ -4,6 +4,7 @@
         <item>Small</item>
         <item>Normal</item>
         <item>Large</item>
+        <item>XLarge</item>
     </string-array>
 
 </resources>
