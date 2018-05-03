@@ -42,6 +42,12 @@ public class MainTitle extends Activity {
     private ArrayList<Button> mCreateButtons = new ArrayList<>();
 
     @Override
+    public void onCreate(final Bundle icicle) {
+        super.onCreate(icicle);
+        setContentView(R.layout.main_title);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         DataInitializeSequence.start(new DataInitializeSequence.Callback() {
@@ -52,12 +58,6 @@ public class MainTitle extends Activity {
                 setupData();
             }
         });
-    }
-
-    @Override
-    public void onCreate(final Bundle icicle) {
-        super.onCreate(icicle);
-        setContentView(R.layout.main_title);
     }
 
     void setupData() {

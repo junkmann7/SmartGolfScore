@@ -88,12 +88,10 @@ public final class SaveDataPref {
         return sSaveDataMap != null;
     }
 
-    /**  */
     private static final String[] PREF_DATA_SLOT = new String[MAX_DATA_SAVE_NUM];
-    /**  */
+
     private static final String BACKUP_DIR_NAME = "SmartGolfScore/backup";
 
-    /**  */
     private static final String[] PREF_DATA_KEY = { "SAVED_DATA_NUM", "HOLE_TITLE", "CUR_HOLE_NUM",
             "HOLE_PAR_SCORE", "PERSON_NAME1", "PERSON_NAME2", "PERSON_NAME3", "PERSON_NAME4",
             "PERSON1_SCORE", "PERSON2_SCORE", "PERSON3_SCORE", "PERSON4_SCORE", "HOLE_MEMO",
@@ -119,10 +117,7 @@ public final class SaveDataPref {
 
     @Nullable
     public static SaveData getSelectedSaveData() {
-        if (sSaveDataMap == null) {
-            return null;
-        }
-        return sSaveDataMap.get(sSelectedSaveIdx);
+        return getSaveDataMap().get(sSelectedSaveIdx);
     }
 
     public static int getSelectedSaveIdx() {
@@ -130,7 +125,7 @@ public final class SaveDataPref {
     }
 
     public static String getMyName() {
-        for (SaveData saveData : sSaveDataMap.values()) {
+        for (SaveData saveData : getSaveDataMap().values()) {
             String name = saveData.getPlayerNameList().get(0);
             if (name != null && !name.equals("")) {
                 return name;
@@ -141,7 +136,7 @@ public final class SaveDataPref {
 
     static int getEmptySaveIdx() {
         for (int i = 0; i < MAX_DATA_SAVE_NUM; i++) {
-            if (sSaveDataMap.get(i) == null) {
+            if (getSaveDataMap().get(i) == null) {
                 return i;
             }
         }
@@ -149,13 +144,13 @@ public final class SaveDataPref {
     }
 
     public static void deleteSaveData(final int saveIndex) {
-        SaveData saveData = sSaveDataMap.get(saveIndex);
+        SaveData saveData = getSaveDataMap().get(saveIndex);
         if (saveData == null) {
             return;
         }
         saveData.setHoleTitle("");
         saveScoreData(saveData);
-        sSaveDataMap.remove(saveIndex);
+        getSaveDataMap().remove(saveIndex);
     }
 
     /**
@@ -164,7 +159,7 @@ public final class SaveDataPref {
     public static void saveScoreData(final SaveData scoreData) {
 
         //update cache
-        sSaveDataMap.put(scoreData.getSaveIdx(), scoreData);
+        getSaveDataMap().put(scoreData.getSaveIdx(), scoreData);
 
         String[] scores = new String[4];
         StringBuilder strHandi = new StringBuilder();
@@ -217,7 +212,7 @@ public final class SaveDataPref {
         String bkDirName = Environment.getExternalStorageDirectory() + "/" + BACKUP_DIR_NAME;
 
         StringBuilder outputStr = new StringBuilder();
-        for (int i = 0; i < sSaveDataMap.values().size(); i++) {
+        for (int i = 0; i < getSaveDataMap().values().size(); i++) {
             SharedPreferences pref = SGSApplication.getInstance()
                     .getSharedPreferences(SaveDataPref.PREF_DATA_SLOT[i], Context.MODE_PRIVATE);
             outputStr.append("<PREFERRENCE>\r\n");
