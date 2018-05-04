@@ -35,7 +35,7 @@
             android:maxLines="1"
             android:text="My History"
             android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_text_size_20dp"
+            android:textSize="@dimen/adjusted_size_20dp"
             android:textStyle="bold" >
         </TextView>
 
@@ -47,7 +47,7 @@
             android:layout_marginRight="@dimen/adjusted_size_10dp"
             android:gravity="center"
             android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_text_size_20dp"
+            android:textSize="@dimen/adjusted_size_20dp"
             android:textStyle="bold" >
         </TextView>
 

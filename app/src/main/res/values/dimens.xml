@@ -1,19 +1,22 @@
 <resources>
     <dimen name="unit_dp">1dp</dimen>
-    <dimen name="history_sub_fontsize">14sp</dimen>
-    <dimen name="history_title_fontsize">20sp</dimen>
+    <dimen name="history_sub_fontsize">14dp</dimen>
+    <dimen name="history_title_fontsize">20dp</dimen>
     <dimen name="adjusted_size_2dp">2dp</dimen>
     <dimen name="adjusted_size_4dp">4dp</dimen>
     <dimen name="adjusted_size_5dp">5dp</dimen>
     <dimen name="adjusted_size_8dp">8dp</dimen>
     <dimen name="adjusted_size_10dp">10dp</dimen>
+    <dimen name="adjusted_size_12dp">12dp</dimen>
     <dimen name="adjusted_size_15dp">15dp</dimen>
     <dimen name="adjusted_size_16dp">16dp</dimen>
     <dimen name="adjusted_size_18dp">18dp</dimen>
     <dimen name="adjusted_size_20dp">20dp</dimen>
     <dimen name="adjusted_size_22dp">22dp</dimen>
+    <dimen name="adjusted_size_24dp">24dp</dimen>
     <dimen name="adjusted_size_25dp">25dp</dimen>
     <dimen name="adjusted_size_26dp">26dp</dimen>
+    <dimen name="adjusted_size_28dp">28dp</dimen>
     <dimen name="adjusted_size_30dp">30dp</dimen>
     <dimen name="adjusted_size_32dp">32dp</dimen>
     <dimen name="adjusted_size_36dp">36dp</dimen>
@@ -25,26 +28,14 @@
     <dimen name="adjusted_size_60dp">60dp</dimen>
     <dimen name="adjusted_size_64dp">64dp</dimen>
     <dimen name="adjusted_size_80dp">80dp</dimen>
-    <dimen name="adjusted_size_81dp">81dp</dimen>
     <dimen name="adjusted_size_106dp">106dp</dimen>
     <dimen name="adjusted_size_107dp">107dp</dimen>
     <dimen name="adjusted_size_110dp">110dp</dimen>
     <dimen name="adjusted_size_120dp">120dp</dimen>
     <dimen name="adjusted_size_127dp">127dp</dimen>
-    <dimen name="main_title_btn_textsize">16sp</dimen>
-    <dimen name="adjusted_text_size_10dp">10sp</dimen>
-    <dimen name="adjusted_text_size_12dp">12sp</dimen>
-    <dimen name="adjusted_text_size_14dp">14sp</dimen>
-    <dimen name="adjusted_text_size_16dp">16sp</dimen>
-    <dimen name="adjusted_text_size_17dp">17sp</dimen>
-    <dimen name="adjusted_text_size_18dp">18sp</dimen>
-    <dimen name="adjusted_text_size_20dp">20sp</dimen>
-    <dimen name="adjusted_text_size_22dp">23sp</dimen>
-    <dimen name="adjusted_text_size_24dp">24sp</dimen>
-    <dimen name="adjusted_text_size_28dp">28sp</dimen>
-    <dimen name="adjusted_text_size_32dp">32sp</dimen>
-    <dimen name="graph_plot_size">3dip</dimen>
-    <dimen name="graph_path_width">1dip</dimen>
-    <dimen name="graph_text_size">12dip</dimen>
+    <dimen name="main_title_btn_textsize">16dp</dimen>
+    <dimen name="graph_plot_size">3dp</dimen>
+    <dimen name="graph_path_width">1dp</dimen>
+    <dimen name="graph_text_size">12dp</dimen>
 
 </resources>

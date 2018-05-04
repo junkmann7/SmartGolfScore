@@ -42,7 +42,7 @@
                 android:shadowRadius="0.7"
                 android:text="@string/myhist_is_short"
                 android:textColor="#F66"
-                android:textSize="@dimen/adjusted_text_size_12dp"
+                android:textSize="@dimen/adjusted_size_12dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -77,7 +77,7 @@
                         android:gravity="center|left"
                         android:text="@string/hist_ret_my_rank"
                         android:textColor="#000"
-                        android:textSize="@dimen/adjusted_text_size_32dp" />
+                        android:textSize="@dimen/adjusted_size_32dp" />
 
                     <ImageView
                         android:id="@+id/history_weather_condition"
@@ -105,7 +105,7 @@
                         android:shadowDy="3.0"
                         android:shadowRadius="8.0"
                         android:textColor="#33AAFF"
-                        android:textSize="@dimen/adjusted_text_size_28dp"
+                        android:textSize="@dimen/adjusted_size_28dp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -218,14 +218,14 @@
                     android:layout_width="@dimen/adjusted_size_80dp"
                     android:layout_height="@dimen/adjusted_size_42dp"
                     android:text="@string/graph_btn"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_size_12dp" />
 
                 <Button
                     android:id="@+id/history_viewButton"
                     android:layout_width="@dimen/adjusted_size_80dp"
                     android:layout_height="@dimen/adjusted_size_42dp"
                     android:text="@string/table_btn"
-                    android:textSize="@dimen/adjusted_text_size_12dp" />
+                    android:textSize="@dimen/adjusted_size_12dp" />
             </LinearLayout>
         </LinearLayout>
 

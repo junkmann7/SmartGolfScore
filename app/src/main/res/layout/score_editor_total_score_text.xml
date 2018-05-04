@@ -7,4 +7,4 @@
     android:background="@drawable/picker_back"
     android:gravity="center"
     android:textColor="#FFFFFF"
-    android:textSize="@dimen/adjusted_text_size_24dp" />
+    android:textSize="@dimen/adjusted_size_24dp" />

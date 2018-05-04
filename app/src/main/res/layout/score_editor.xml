@@ -32,7 +32,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_text_size_20dp" />
+            android:textSize="@dimen/adjusted_size_20dp" />
 
         <ImageButton
             android:id="@+id/infoButton"
@@ -203,7 +203,7 @@
             android:paddingLeft="@dimen/adjusted_size_25dp"
             android:paddingRight="@dimen/adjusted_size_25dp"
             android:text="@string/graph_btn"
-            android:textSize="@dimen/adjusted_text_size_18dp" >
+            android:textSize="@dimen/adjusted_size_18dp" >
         </Button>
 
         <Button
@@ -215,7 +215,7 @@
             android:paddingLeft="@dimen/adjusted_size_25dp"
             android:paddingRight="@dimen/adjusted_size_25dp"
             android:text="@string/table_btn"
-            android:textSize="@dimen/adjusted_text_size_18dp" >
+            android:textSize="@dimen/adjusted_size_18dp" >
         </Button>
     </LinearLayout>
     <!-- Viewボタン E -->

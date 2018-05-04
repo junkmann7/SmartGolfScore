@@ -6,4 +6,4 @@
     android:gravity="center"
     android:singleLine="true"
     android:textColor="#FFF"
-    android:textSize="@dimen/adjusted_text_size_18dp" />
+    android:textSize="@dimen/adjusted_size_18dp" />

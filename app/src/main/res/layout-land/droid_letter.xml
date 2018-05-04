@@ -43,7 +43,7 @@
                     android:paddingRight="@dimen/adjusted_size_10dp"
                     android:paddingTop="@dimen/adjusted_size_15dp"
                     android:textColor="#000"
-                    android:textSize="@dimen/adjusted_text_size_16dp" />
+                    android:textSize="@dimen/adjusted_size_16dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/image_button_mail"
                 android:text="@string/comment_send_button"
-                android:textSize="@dimen/adjusted_text_size_12dp" />
+                android:textSize="@dimen/adjusted_size_12dp" />
 
             <ImageView
                 android:id="@+id/get_result_image_btn"

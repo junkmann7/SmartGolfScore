@@ -106,6 +106,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
     public void onWheelChanged(int holeNumber, int playerIdx, int oldVal, int newVal) {
         final SaveData saveData = getSelectedSaveData();
         saveData.getScoresList().get(playerIdx).put(holeNumber, newVal);
+        refreshEditor(holeNumber);
     }
 
     private void setupWheelViews() {

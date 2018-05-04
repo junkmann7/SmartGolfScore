@@ -232,7 +232,7 @@
                 android:layout_alignParentLeft="true"
                 android:drawableLeft="@drawable/image_button_graph"
                 android:text="@string/graph_btn"
-                android:textSize="@dimen/adjusted_text_size_18dp" >
+                android:textSize="@dimen/adjusted_size_18dp" >
             </Button>
 
             <RelativeLayout
@@ -277,7 +277,7 @@
                 android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/image_button_table"
                 android:text="@string/table_btn"
-                android:textSize="@dimen/adjusted_text_size_18dp" >
+                android:textSize="@dimen/adjusted_size_18dp" >
             </Button>
         </RelativeLayout>
     </LinearLayout>
