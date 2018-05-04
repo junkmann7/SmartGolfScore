@@ -150,7 +150,7 @@
     <!-- マイパット欄 S -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_40dp"
+        android:layout_height="@dimen/adjusted_size_42dp"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"
         android:layout_marginRight="@dimen/adjusted_size_2dp"
         android:layout_marginTop="@dimen/adjusted_size_8dp" >
@@ -170,6 +170,7 @@
             style="@style/MyRating"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="#8066CCFF"
             android:layout_centerVertical="true" />
 
         <ImageButton

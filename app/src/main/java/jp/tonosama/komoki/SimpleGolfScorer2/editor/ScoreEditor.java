@@ -1,11 +1,13 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.editor;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -160,23 +162,34 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setRatingBarChangeAction(final RatingBar ratingBar) {
 
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                updatePatRating(ratingBar.getRating());
+                return ratingBar.onTouchEvent(event);
+            }
+        });
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
             public void onRatingChanged(final RatingBar ratingBar, final float rating,
                                         final boolean fromUser) {
-
-                int pat = (int) rating;
-                ImageView iv = SERes.getPatImage(ScoreEditor.this);
-                iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[pat]);
+                updatePatRating(rating);
                 if (fromUser) {
                     final SaveData saveData = getSelectedSaveData();
                     final int curHoleIdx = getCurrentHoleNumber();
-                    saveData.getPattingScoresList().get(0).put(curHoleIdx, pat);
+                    saveData.getPattingScoresList().get(0).put(curHoleIdx, (int) rating);
                 }
             }
         });
+    }
+
+    private void updatePatRating(float rating) {
+        int pat = (int) rating;
+        ImageView iv = SERes.getPatImage(ScoreEditor.this);
+        iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[pat]);
     }
 
     private ViewPager getViewPager() {

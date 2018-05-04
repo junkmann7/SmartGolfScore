@@ -21,7 +21,7 @@
     <dimen name="adjusted_size_32dp">48dp</dimen>
     <dimen name="adjusted_size_36dp">54dp</dimen>
     <dimen name="adjusted_size_40dp">60dp</dimen>
-    <dimen name="adjusted_size_42dp">53dp</dimen>
+    <dimen name="adjusted_size_42dp">63dp</dimen>
     <dimen name="adjusted_size_45dp">67.5dp</dimen>
     <dimen name="adjusted_size_46dp">69dp</dimen>
     <dimen name="adjusted_size_48dp">72dp</dimen>

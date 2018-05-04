@@ -1,9 +1,8 @@
-<!DOCTYPE Drawable>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+android:id/background"
+    <item android:id="@android:id/background"
         android:drawable="@drawable/mypat_rating_1" />
-    <item android:id="@+android:id/secondaryProgress"
+    <item android:id="@android:id/secondaryProgress"
         android:drawable="@drawable/mypat_rating_2" />
-    <item android:id="@+android:id/progress"
+    <item android:id="@android:id/progress"
         android:drawable="@drawable/mypat_rating_3" />
 </layer-list>

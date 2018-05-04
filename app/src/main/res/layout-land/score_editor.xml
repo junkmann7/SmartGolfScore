@@ -178,10 +178,9 @@
         <!-- マイパット欄 S -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/adjusted_size_36dp"
+            android:layout_height="@dimen/adjusted_size_42dp"
             android:layout_marginLeft="@dimen/adjusted_size_5dp"
-            android:layout_marginRight="@dimen/adjusted_size_2dp"
-            android:layout_marginBottom="@dimen/adjusted_size_4dp" >
+            android:layout_marginRight="@dimen/adjusted_size_2dp" >
 
             <ImageView
                 android:id="@+id/my_pat_img"
