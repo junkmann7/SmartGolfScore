@@ -219,9 +219,16 @@ public class ScoreViewer extends Activity implements OnTouchListener {
                 continue;
             }
             ll.addView(createSeparator(), dpUnit, ViewGroup.LayoutParams.MATCH_PARENT);
-            TextView handicapTv = createTextView(String.valueOf(mScoreData.getTotalScore()[playerIdx]), -1);
-            ll.addView(handicapTv, 0, ViewGroup.LayoutParams.WRAP_CONTENT);
-            ((LinearLayout.LayoutParams) handicapTv.getLayoutParams()).weight = 1;
+            String valueStr;
+            int totalScore = mScoreData.getTotalScore().get(playerIdx);
+            if (playerIdx == 0) {
+                valueStr = totalScore + " (" + mScoreData.getTotalPatScore().get(playerIdx) + ")";
+            } else {
+                valueStr = totalScore + "";
+            }
+            TextView totalTv = createTextView(valueStr, -1);
+            ll.addView(totalTv, 0, ViewGroup.LayoutParams.WRAP_CONTENT);
+            ((LinearLayout.LayoutParams) totalTv.getLayoutParams()).weight = 1;
         }
         ll.addView(createSeparator(), dpUnit, ViewGroup.LayoutParams.MATCH_PARENT);
     }
@@ -430,9 +437,9 @@ public class ScoreViewer extends Activity implements OnTouchListener {
 
     private TextView createScoreTextView(@NonNull SaveData scoreData, int playerIdx, int holeIdx) {
         if (holeIdx == FIRST_HALF_HOLE_IDX) {
-            return createTextView(String.valueOf(scoreData.getHalfScore(true)[playerIdx]), holeIdx);
+            return createTextView(getHalfScore(scoreData, true, playerIdx), holeIdx);
         } else if (holeIdx == SECOND_HALF_HOLE_IDX) {
-            return createTextView(String.valueOf(scoreData.getHalfScore(false)[playerIdx]), holeIdx);
+            return createTextView(getHalfScore(scoreData, false, playerIdx), holeIdx);
         }
         TextView playerScoreTextView = createTextView("", holeIdx);
         playerScoreTextView.setTag(playerIdx);
@@ -507,6 +514,15 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             }
         }
         return tv;
+    }
+
+    private String getHalfScore(@NonNull SaveData scoreData, boolean isFirstHalf, int playerIdx) {
+        int halfScore = scoreData.getHalfScore(isFirstHalf).get(playerIdx);
+        int patScore = scoreData.getHalfPatScore(isFirstHalf).get(playerIdx);
+        if (playerIdx == 0) {
+            return halfScore + " (" + patScore + ")";
+        }
+        return halfScore + "";
     }
 
     private void setupHoleControlUi(@NonNull View view, final int holeIdx) {

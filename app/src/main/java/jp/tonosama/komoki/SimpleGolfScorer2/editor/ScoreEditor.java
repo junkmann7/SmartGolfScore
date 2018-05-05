@@ -323,7 +323,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
     private void refreshPicker() {
         final SaveData saveData = getSelectedSaveData();
         for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
-            getPersonScoreTextView(playerIdx).setText(String.valueOf(saveData.getTotalScore()[playerIdx]));
+            getPersonScoreTextView(playerIdx).setText(String.valueOf(saveData.getTotalScore().get(playerIdx)));
         }
     }
 

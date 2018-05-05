@@ -183,58 +183,74 @@ public class SaveData implements Serializable {
         mAbsoluteScore = scoresList;
     }
 
-    public int[] getTotalScore() {
-        int[] total = { 0, 0, 0, 0 };
+    public Map<Integer, Integer> getTotalScore() {
+        Map<Integer, Integer> totalList = new HashMap<>(SGSConfig.MAX_PLAYER_NUM);
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            totalList.put(i, 0);
+        }
         Map<Integer, Map<Integer, Integer>> scores = getScoresList();
         for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
-            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
-                total[playerIdx] += scores.get(playerIdx).get(holeIdx);
+            for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                int total = totalList.get(playerIdx);
+                totalList.put(playerIdx, total + scores.get(playerIdx).get(holeIdx));
             }
         }
-        return total;
+        return totalList;
     }
 
-    public int[] getHalfScore(final boolean forward) {
-        int[] total = { 0, 0, 0, 0 };
+    public Map<Integer, Integer> getHalfScore(final boolean isFirstHalf) {
+        Map<Integer, Integer> totalList = new HashMap<>(SGSConfig.MAX_PLAYER_NUM);
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            totalList.put(i, 0);
+        }
         Map<Integer, Map<Integer, Integer>> scores = getScoresList();
+        int offset = SGSConfig.TOTAL_HOLE_COUNT / 2;
+        if (isFirstHalf) {
+            offset = 0;
+        }
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT / 2; holeIdx++) {
+            int offsetHoleIdx = offset + holeIdx;
+            for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                int total = totalList.get(playerIdx);
+                totalList.put(playerIdx, total + scores.get(playerIdx).get(offsetHoleIdx));
+            }
+        }
+        return totalList;
+    }
+
+    public Map<Integer, Integer> getHalfPatScore(final boolean forward) {
+        Map<Integer, Integer> totalList = new HashMap<>(SGSConfig.MAX_PLAYER_NUM);
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            totalList.put(i, 0);
+        }
+        Map<Integer, Map<Integer, Integer>> scores = getPattingScoresList();
         int offset = SGSConfig.TOTAL_HOLE_COUNT / 2;
         if (forward) {
             offset = 0;
         }
         for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT / 2; holeIdx++) {
             int offsetHoleIdx = offset + holeIdx;
-            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
-                total[playerIdx] += scores.get(playerIdx).get(offsetHoleIdx);
+            for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                int total = totalList.get(playerIdx);
+                totalList.put(playerIdx, total + scores.get(playerIdx).get(offsetHoleIdx));
             }
         }
-        return total;
+        return totalList;
     }
 
-    public int[] getTotalPatScore() {
-        int[] total = { 0, 0, 0, 0 };
+    public Map<Integer, Integer> getTotalPatScore() {
+        Map<Integer, Integer> totalList = new HashMap<>(SGSConfig.MAX_PLAYER_NUM);
+        for (int i = 0; i < SGSConfig.MAX_PLAYER_NUM; i++) {
+            totalList.put(i, 0);
+        }
         Map<Integer, Map<Integer, Integer>> scores = getPattingScoresList();
         for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
-            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
-                total[playerIdx] += scores.get(playerIdx).get(holeIdx);
+            for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+                int total = totalList.get(playerIdx);
+                totalList.put(playerIdx, total + scores.get(playerIdx).get(holeIdx));
             }
         }
-        return total;
-    }
-
-    public int[] getHalfPatScore(final boolean forward) {
-        int[] total = { 0, 0, 0, 0 };
-        Map<Integer, Map<Integer, Integer>> scores = getPattingScoresList();
-        int offset = SGSConfig.TOTAL_HOLE_COUNT / 2;
-        if (forward) {
-            offset = 0;
-        }
-        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT / 2; holeIdx++) {
-            int offsetHoleIdx = offset + holeIdx;
-            for (int playerIdx = 0; playerIdx < total.length; playerIdx++) {
-                total[playerIdx] += scores.get(playerIdx).get(offsetHoleIdx);
-            }
-        }
-        return total;
+        return totalList;
     }
 
     public int getTotalParScore() {
