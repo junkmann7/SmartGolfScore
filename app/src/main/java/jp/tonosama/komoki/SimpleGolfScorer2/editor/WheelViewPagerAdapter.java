@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,28 +27,39 @@ public class WheelViewPagerAdapter extends PagerAdapter {
     private final Map<Integer, ViewGroup> mViewMap;
 
     @NonNull
-    private final WheelChangeListener mListener;
+    private final OnWheelChangeListener mOnWheelChangeListener;
 
-    interface WheelChangeListener {
+    @NonNull
+    private final OnPattingButtonClickListener mOnPattingButtonClickListener;
+
+    interface OnWheelChangeListener {
 
         void onWheelChanged(final int holeNumber, final int playerIdx, final int oldVal, final int newVal);
     }
 
-    WheelViewPagerAdapter(@NonNull WheelChangeListener listener) {
+    interface OnPattingButtonClickListener {
+
+        void onPattingButtonClick(final int holeNumber, final int playerIdx);
+    }
+
+    WheelViewPagerAdapter(@NonNull OnWheelChangeListener onWheelChangeListener,
+                          @NonNull OnPattingButtonClickListener pattingButtonClickListener) {
         mViewMap = new HashMap<>();
-        mListener = listener;
+        mOnWheelChangeListener = onWheelChangeListener;
+        mOnPattingButtonClickListener = pattingButtonClickListener;
     }
 
     @Override
     public Object instantiateItem(final ViewGroup container, final int holeNumber) {
 
-        Context context = SGSApplication.getInstance();
+        final Context context = SGSApplication.getInstance();
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup child = (ViewGroup) inflater
                 .inflate(R.layout.score_editor_picker_area_contents, container, false);
         for (int i = 0; i < child.getChildCount(); i++) {
-            WheelView wheelView = (WheelView) child.getChildAt(i);
             final int playerIdx = i;
+            WheelView wheelView = (WheelView) ((ViewGroup) child.getChildAt(playerIdx))
+                    .getChildAt(0);
             final SaveData saveData = SaveDataPref.getSelectedSaveData();
             if (saveData == null) {
                 continue;
@@ -59,7 +71,15 @@ public class WheelViewPagerAdapter extends PagerAdapter {
             wheelView.setOnWheelChangedListener(new OnWheelChangedListener() {
                 @Override
                 public void onChanged(int oldValue, int newValue) {
-                    mListener.onWheelChanged(holeNumber, playerIdx, oldValue, newValue);
+                    mOnWheelChangeListener.onWheelChanged(holeNumber, playerIdx, oldValue, newValue);
+                }
+            });
+            View pattingButton = ((ViewGroup) child.getChildAt(playerIdx))
+                    .getChildAt(1).findViewById(R.id.patting_summery_button);
+            pattingButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnPattingButtonClickListener.onPattingButtonClick(holeNumber, playerIdx);
                 }
             });
         }
@@ -112,9 +132,25 @@ public class WheelViewPagerAdapter extends PagerAdapter {
         }
         boolean isHoleLocked = saveData.getEachHoleLocked().get(holeNumber);
         for (int playerIdx = 0; playerIdx < vg.getChildCount(); playerIdx++) {
-            WheelView wheelView = (WheelView) vg.getChildAt(playerIdx);
+            // Wheel views
+            WheelView wheelView = (WheelView) ((ViewGroup) vg.getChildAt(playerIdx)).getChildAt(0);
             wheelView.setCurrentItem(saveData.getScoresList().get(playerIdx).get(holeNumber));
             wheelView.setIsWheelLocked(isHoleLocked);
+            // Patting views
+            ViewGroup pattingImages = (ViewGroup) ((ViewGroup) vg.getChildAt(playerIdx))
+                    .getChildAt(1).findViewById(R.id.patting_summery_images);
+            int pattingScore = saveData.getPattingScoresList().get(playerIdx).get(holeNumber);
+            for (int value = 0; value < pattingImages.getChildCount(); value++ ) {
+                ImageView iv = (ImageView) pattingImages.getChildAt(value);
+                if (value + 1 <= pattingScore) {
+                    iv.setImageResource(R.drawable.mypat_rating_3);
+                } else {
+                    iv.setImageResource(R.drawable.mypat_rating_1);
+                }
+            }
+            View pattingButton = ((ViewGroup) vg.getChildAt(playerIdx))
+                    .getChildAt(1).findViewById(R.id.patting_summery_button);
+            pattingButton.setEnabled(!isHoleLocked);
         }
     }
 }

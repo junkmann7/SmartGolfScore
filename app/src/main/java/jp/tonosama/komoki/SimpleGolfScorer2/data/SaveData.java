@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import jp.tonosama.komoki.SimpleGolfScorer2.ArrayUtil;
 import jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig;
 
 /**
@@ -35,7 +34,7 @@ public class SaveData implements Serializable {
     /**  */
     private Map<Integer, Map<Integer, Integer>> mAbsoluteScore = new HashMap<>();
     /**  */
-    private Map<Integer, Integer> mAbsolutePatting = new HashMap<>();
+    private Map<Integer, Map<Integer, Integer>> mAbsolutePatting = new HashMap<>();
     /**  */
     private Map<Integer, Integer> mEachHolePar = new HashMap<>();
     /**  */
@@ -50,7 +49,6 @@ public class SaveData implements Serializable {
     private SaveData(int saveIdx) {
         mSaveIdx = saveIdx;
         for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
-            mAbsolutePatting.put(holeIdx, 0);
             mEachHolePar.put(holeIdx, 4);
             mEachHoleLocked.put(holeIdx, false);
         }
@@ -62,11 +60,16 @@ public class SaveData implements Serializable {
             for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
                 scoreList.put(holeIdx, 0);
             }
+            Map<Integer, Integer> patScoreList = new HashMap<>();
+            for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT; holeIdx++) {
+                patScoreList.put(holeIdx, 0);
+            }
             Map<Integer, Integer> demoList = new HashMap<>();
             for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT + 1; holeIdx++) {
                 demoList.put(holeIdx, 0);
             }
             mAbsoluteScore.put(playerIdx, scoreList);
+            mAbsolutePatting.put(playerIdx, patScoreList);
             mDemoSeries.put(playerIdx, demoList);
         }
     }
@@ -277,13 +280,7 @@ public class SaveData implements Serializable {
     }
 
     public Map<Integer, Map<Integer, Integer>> getPattingScoresList() {
-        @SuppressLint("UseSparseArrays")
-        Map<Integer, Map<Integer, Integer>> patMap = new HashMap<>();
-        patMap.put(0, mAbsolutePatting);
-        patMap.put(1, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
-        patMap.put(2, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
-        patMap.put(3, ArrayUtil.createMap(SGSConfig.TOTAL_HOLE_COUNT, 0));
-        return patMap;
+        return mAbsolutePatting;
     }
 
     public Map<Integer, Integer> getEachHolePar() {

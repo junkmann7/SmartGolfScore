@@ -57,6 +57,9 @@ import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.TOTAL_HOLE_COUNT;
  *     [15]    String      IS_HOLE_LOCKED        各ホールのロック状態
  *     [16]    String      PAT_SCORE_1           プレイヤー１のパットスコア
  *     [17]    String      CONDITION             ラウンドのコンディション
+ *     [18]    String      PAT_SCORE_2           プレイヤー２のパットスコア
+ *     [19]    String      PAT_SCORE_3           プレイヤー３のパットスコア
+ *     [20]    String      PAT_SCORE_4           プレイヤー４のパットスコア
  * =============================================================
  */
 public final class SaveDataPref {
@@ -95,7 +98,9 @@ public final class SaveDataPref {
     private static final String[] PREF_DATA_KEY = { "SAVED_DATA_NUM", "HOLE_TITLE", "CUR_HOLE_NUM",
             "HOLE_PAR_SCORE", "PERSON_NAME1", "PERSON_NAME2", "PERSON_NAME3", "PERSON_NAME4",
             "PERSON1_SCORE", "PERSON2_SCORE", "PERSON3_SCORE", "PERSON4_SCORE", "HOLE_MEMO",
-            "PERSON_HANDI", "IS_18H_ROUNG", "IS_HOLE_LOCKED", "PAT_SCORE_1", "CONDITION", };
+            "PERSON_HANDI", "IS_18H_ROUNG", "IS_HOLE_LOCKED", "PAT_SCORE_1", "CONDITION",
+            "PAT_SCORE_2", "PAT_SCORE_3", "PAT_SCORE_4"
+    };
 
     static {
         for (int i = 0; i < MAX_DATA_SAVE_NUM; i++) {
@@ -162,16 +167,16 @@ public final class SaveDataPref {
         getSaveDataMap().put(scoreData.getSaveIdx(), scoreData);
 
         String[] scores = new String[4];
+        String[] patScores = new String[4];
         StringBuilder strHandi = new StringBuilder();
         for (int i = 0; i < scores.length; i++) {
             scores[i] = "";
+            patScores[i] = "";
             strHandi.append(String.valueOf(scoreData.getPlayersHandi().get(i))).append(",");
         }
         String isHoleLockedStr = "";
-        String patScore = "";
         String parScores = "";
         StringBuilder strBuilderIsLocked = new StringBuilder();
-        StringBuilder strBuilderMyPat = new StringBuilder();
 
         for (int holeIdx = 0; holeIdx < TOTAL_HOLE_COUNT; holeIdx++) {
             //noinspection StringConcatenationInLoop
@@ -180,8 +185,10 @@ public final class SaveDataPref {
             scores[1] += String.valueOf(scoreData.getScoresList().get(1).get(holeIdx)) + ",";
             scores[2] += String.valueOf(scoreData.getScoresList().get(2).get(holeIdx)) + ",";
             scores[3] += String.valueOf(scoreData.getScoresList().get(3).get(holeIdx)) + ",";
-            strBuilderMyPat.append(String.valueOf(scoreData.getPattingScoresList().get(0).get(holeIdx)));
-            strBuilderMyPat.append(",");
+            patScores[0] += String.valueOf(scoreData.getPattingScoresList().get(0).get(holeIdx)) + ",";
+            patScores[1] += String.valueOf(scoreData.getPattingScoresList().get(1).get(holeIdx)) + ",";
+            patScores[2] += String.valueOf(scoreData.getPattingScoresList().get(2).get(holeIdx)) + ",";
+            patScores[3] += String.valueOf(scoreData.getPattingScoresList().get(3).get(holeIdx)) + ",";
             if (scoreData.getEachHoleLocked().get(holeIdx)) {
                 strBuilderIsLocked.append("1");
                 strBuilderIsLocked.append(",");
@@ -191,9 +198,8 @@ public final class SaveDataPref {
             }
         }
         isHoleLockedStr += strBuilderIsLocked.toString();
-        patScore += strBuilderMyPat.toString();
 
-        saveScoreDataToPreference(scoreData, parScores, scores, isHoleLockedStr, patScore,
+        saveScoreDataToPreference(scoreData, parScores, scores, isHoleLockedStr, patScores,
                 strHandi.toString());
 
     }
@@ -362,15 +368,20 @@ public final class SaveDataPref {
         loadScoreData08to11(pref, saveData);
         // from 12 to 14 prefs
         loadScoreData12to14(pref, saveData);
-        // from 15 to 17 prefs
-        loadScoreData15to17(pref, saveData);
+        // from 15 to 20 prefs
+        loadScoreData15to20(pref, saveData);
 
         return saveData;
     }
 
     /**
-     * @param pref pref
-     * @param data scoreData
+     *     [1]     String      HOLE_TITLE            ホールタイトル
+     *     [2]     String      CUR_HOLE_NUM          現在のホールナンバー
+     *     [3]     String      HOLE_PAR_SCORE        各ホールのパー値
+     *     [4]     String      PERSON_NAME1          プレイヤー１の名前   // player数依存
+     *     [5]     String      PERSON_NAME2          プレイヤー２の名前   // player数依存
+     *     [6]     String      PERSON_NAME3          プレイヤー３の名前   // player数依存
+     *     [7]     String      PERSON_NAME4          プレイヤー４の名前   // player数依存
      */
     private static void loadScoreData01to07(final SharedPreferences pref, final SaveData data) {
         String[] str;
@@ -408,8 +419,10 @@ public final class SaveDataPref {
     }
 
     /**
-     * @param pref pref
-     * @param data scoreData
+     *     [8]     String      PERSON1_SCORE         プレイヤー１のスコア // player数依存
+     *     [9]     String      PERSON2_SCORE         プレイヤー２のスコア // player数依存
+     *     [10]    String      PERSON3_SCORE         プレイヤー３のスコア // player数依存
+     *     [11]    String      PERSON4_SCORE         プレイヤー４のスコア // player数依存
      */
     private static void loadScoreData08to11(final SharedPreferences pref, final SaveData data) {
         String defaultScoreListStr = ArrayUtil.convertToString(SaveData.createInitialData(-1)
@@ -436,8 +449,9 @@ public final class SaveDataPref {
     }
 
     /**
-     * @param pref pref
-     * @param data scoreData
+     *     [12]    String      HOLE_MEMO             ホールメモ
+     *     [13]    String      PERSON_HANDI          ハンディキャップ    // player数依存
+     *     [14]    String      IS_18H_ROUNG          18H or Out/In
      */
     private static void loadScoreData12to14(final SharedPreferences pref, final SaveData data) {
         String[] str;
@@ -463,10 +477,14 @@ public final class SaveDataPref {
     }
 
     /**
-     * @param pref pref
-     * @param data scoreData
+     *     [15]    String      IS_HOLE_LOCKED        各ホールのロック状態
+     *     [16]    String      PAT_SCORE_1           プレイヤー１のパットスコア
+     *     [17]    String      CONDITION             ラウンドのコンディション
+     *     [18]    String      PAT_SCORE_2           プレイヤー２のパットスコア
+     *     [19]    String      PAT_SCORE_3           プレイヤー３のパットスコア
+     *     [20]    String      PAT_SCORE_4           プレイヤー４のパットスコア
      */
-    private static void loadScoreData15to17(final SharedPreferences pref, final SaveData data) {
+    private static void loadScoreData15to20(final SharedPreferences pref, final SaveData data) {
         String[] str;
         // 各ホールの確定済み判定
         str = pref.getString(PREF_DATA_KEY[15], "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,").split(",");
@@ -477,13 +495,17 @@ public final class SaveDataPref {
                 data.getEachHoleLocked().put(holeIdx, false);
             }
         }
-        // プレイヤー１のパットスコア
-        str = pref.getString(PREF_DATA_KEY[16], "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,").split(",");
-        for (int holeIdx = 0; holeIdx < TOTAL_HOLE_COUNT; holeIdx++) {
-            try {
-                data.getPattingScoresList().get(0).put(holeIdx, Integer.parseInt(str[holeIdx]));
-            } catch (Exception e) {
-                data.getPattingScoresList().get(0).put(holeIdx, 0);
+        int[] playerKeys = new int[]{16, 18, 19, 20};
+        // 各プレイヤーのパットスコア
+        for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
+            str = pref.getString(PREF_DATA_KEY[playerKeys[playerIdx]],
+                    "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,").split(",");
+            for (int holeIdx = 0; holeIdx < TOTAL_HOLE_COUNT; holeIdx++) {
+                try {
+                    data.getPattingScoresList().get(playerIdx).put(holeIdx, Integer.parseInt(str[holeIdx]));
+                } catch (Exception e) {
+                    data.getPattingScoresList().get(playerIdx).put(holeIdx, 0);
+                }
             }
         }
         // 天気情報
@@ -500,12 +522,12 @@ public final class SaveDataPref {
      * @param parScores Par Scores
      * @param scores Scores
      * @param isHoleLockedStr Is Hole Locked
-     * @param patScore Pat Score
+     * @param patScores Pat Scores
      * @param perHandiStr perHandiStr
      */
     private static void saveScoreDataToPreference(final SaveData scoreData,
             final String parScores, final String[] scores, final String isHoleLockedStr,
-            final String patScore, final String perHandiStr) {
+            final String[] patScores, final String perHandiStr) {
 
         // ステップ３ - プリファレンスデータを保存
         SharedPreferences pref = SGSApplication.getInstance().getSharedPreferences(
@@ -527,8 +549,11 @@ public final class SaveDataPref {
         e.putString(PREF_DATA_KEY[13], perHandiStr); // ハンディキャップ
         e.putString(PREF_DATA_KEY[14], scoreData.getIs18HroundStr()); // 18H or Out/In
         e.putString(PREF_DATA_KEY[15], isHoleLockedStr); // 各ホールのロック状態
-        e.putString(PREF_DATA_KEY[16], patScore); // プレイヤー１のパットスコア
+        e.putString(PREF_DATA_KEY[16], patScores[0]); // プレイヤー１のパットスコア
         e.putString(PREF_DATA_KEY[17], String.valueOf(scoreData.getCondition())); // ラウンドのコンディション
+        e.putString(PREF_DATA_KEY[18], patScores[1]); // プレイヤー２のパットスコア
+        e.putString(PREF_DATA_KEY[19], patScores[2]); // プレイヤー３のパットスコア
+        e.putString(PREF_DATA_KEY[20], patScores[3]); // プレイヤー４のパットスコア
         e.commit();
     }
 

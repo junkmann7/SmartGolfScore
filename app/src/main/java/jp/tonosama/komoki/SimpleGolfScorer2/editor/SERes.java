@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -36,11 +35,6 @@ final class SERes {
             R.drawable.hole_number_13, R.drawable.hole_number_14, R.drawable.hole_number_15,
             R.drawable.hole_number_16, R.drawable.hole_number_17, R.drawable.hole_number_18, };
 
-    static final int[] MY_PAT_IMG_RES_IDS = { //
-    R.drawable.mypatter0, R.drawable.mypatter1, //
-            R.drawable.mypatter2, R.drawable.mypatter3, //
-            R.drawable.mypatter4, R.drawable.mypatter5 };
-
     private static final int PREV_ARROW_RES_ID = R.id.arrow_prev_side;
 
     static Button getPrevArrow(final Activity activity) {
@@ -63,12 +57,6 @@ final class SERes {
 
     static ViewGroup getTotalScoreArea(final Activity activity) {
         return (ViewGroup) activity.findViewById(TOTAL_SCORE_AREA);
-    }
-
-    private static final int MY_PAT_IMG_RES_ID = R.id.my_pat_img;
-
-    static ImageView getPatImage(final Activity activity) {
-        return (ImageView) activity.findViewById(MY_PAT_IMG_RES_ID);
     }
 
     private static final int HOLE_ICON_RES_ID = R.id.golf_hole_icon;
@@ -105,12 +93,6 @@ final class SERes {
 
     static Spinner getParSpinner(final Activity activity) {
         return (Spinner) activity.findViewById(SERes.PAR_SPINNER_RES_ID);
-    }
-
-    private static final int MYPAT_RATINGBAR_RES_ID = R.id.mypat_ratingbar;
-
-    static RatingBar getRatingBar(final Activity activity) {
-        return (RatingBar) activity.findViewById(MYPAT_RATINGBAR_RES_ID);
     }
 
     static void initParSpinner(final Activity activity) {

@@ -221,8 +221,9 @@ public class ScoreViewer extends Activity implements OnTouchListener {
             ll.addView(createSeparator(), dpUnit, ViewGroup.LayoutParams.MATCH_PARENT);
             String valueStr;
             int totalScore = mScoreData.getTotalScore().get(playerIdx);
-            if (playerIdx == 0) {
-                valueStr = totalScore + " (" + mScoreData.getTotalPatScore().get(playerIdx) + ")";
+            int totalPatScore = mScoreData.getTotalPatScore().get(playerIdx);
+            if (0 < totalPatScore) {
+                valueStr = totalScore + " (" + totalPatScore + ")";
             } else {
                 valueStr = totalScore + "";
             }
@@ -519,7 +520,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     private String getHalfScore(@NonNull SaveData scoreData, boolean isFirstHalf, int playerIdx) {
         int halfScore = scoreData.getHalfScore(isFirstHalf).get(playerIdx);
         int patScore = scoreData.getHalfPatScore(isFirstHalf).get(playerIdx);
-        if (playerIdx == 0) {
+        if (0 < patScore) {
             return halfScore + " (" + patScore + ")";
         }
         return halfScore + "";

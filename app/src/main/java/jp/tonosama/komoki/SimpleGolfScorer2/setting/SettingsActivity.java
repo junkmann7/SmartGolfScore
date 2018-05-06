@@ -41,7 +41,7 @@ public class SettingsActivity extends Activity {
 
     private SaveData mSaveData = null;
 
-    private int mPlayerNum = 2;
+    private int mPlayerNum;
 
     /** タイムスタンプのフォーマット */
     private static final String TIME_STAMP_NAME = "yyyy/MM/dd";
@@ -58,11 +58,12 @@ public class SettingsActivity extends Activity {
         if (isNewCreate()) {
             String myName = SaveDataPref.getMyName();
             mSaveData = setupInitialValue(saveIdx, myName);
+            mPlayerNum = SGSConfig.MAX_PLAYER_NUM;
         } else {
             mSaveData = SaveDataPref.getSaveDataMap().get(saveIdx);
+            mPlayerNum = mSaveData.getPlayerNum();
         }
         setupSavedValue(mSaveData);
-        mPlayerNum = Math.max(2, mSaveData.getPlayerNum());
         ViewGroup[] playerEditArea = SettingsRes.getPlayerEditArea(this);
         for (int i = 0; i < playerEditArea.length; i++) {
             if (i < mPlayerNum) {

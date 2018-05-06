@@ -70,7 +70,6 @@
         android:layout_weight="1"
         android:background="@drawable/picker_back"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/adjusted_size_15dp"
         android:paddingLeft="@dimen/adjusted_size_5dp"
         android:paddingRight="@dimen/adjusted_size_5dp"
         android:paddingTop="@dimen/adjusted_size_2dp" >
@@ -92,11 +91,11 @@
         android:id="@+id/score_editor_total_score_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/adjusted_size_4dp"
+        android:layout_marginBottom="@dimen/adjusted_size_2dp"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"
         android:layout_marginRight="@dimen/adjusted_size_5dp"
-        android:paddingLeft="@dimen/adjusted_size_2dp"
-        android:layout_marginTop="@dimen/adjusted_size_4dp"
-        android:layout_marginBottom="@dimen/adjusted_size_6dp" >
+        android:paddingLeft="@dimen/adjusted_size_2dp" >
 
         <include
             layout="@layout/score_editor_total_score_text" />
@@ -112,43 +111,6 @@
     </LinearLayout>
     <!-- スコア結果記入欄 E -->
 
-    <!-- マイパット欄 S -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
-        android:layout_marginLeft="@dimen/adjusted_size_5dp"
-        android:layout_marginRight="@dimen/adjusted_size_2dp"
-        android:layout_marginBottom="@dimen/adjusted_size_4dp" >
-
-        <ImageView
-            android:id="@+id/my_pat_img"
-            android:layout_width="@dimen/adjusted_size_36dp"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/etc_content_description"
-            android:scaleType="fitXY"
-            android:src="@drawable/mypatter0"
-            android:layout_centerVertical="true"/>
-
-        <RatingBar
-            android:id="@+id/mypat_ratingbar"
-            android:layout_toRightOf="@id/my_pat_img"
-            style="@style/MyRating"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#8066CCFF"
-            android:layout_centerVertical="true" />
-
-        <ImageButton
-            android:id="@+id/unlock_btn"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_width="@dimen/adjusted_size_80dp"
-            android:layout_height="@dimen/adjusted_size_40dp"
-            android:contentDescription="@string/etc_content_description"
-            android:src="@drawable/ic_menu_unlock"/>
-    </RelativeLayout>
-    <!-- マイパット欄 E -->
-
     <!-- Viewボタン S -->
     <LinearLayout
         android:id="@+id/view_btn_area"
@@ -160,27 +122,32 @@
 
         <Button
             android:id="@+id/graphviewButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableLeft="@drawable/image_button_graph"
             android:paddingLeft="@dimen/adjusted_size_25dp"
             android:paddingRight="@dimen/adjusted_size_25dp"
             android:text="@string/graph_btn"
-            android:textSize="@dimen/adjusted_size_18dp">
-        </Button>
+            android:textSize="@dimen/adjusted_size_18dp" />
 
         <Button
             android:id="@+id/viewButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableLeft="@drawable/image_button_table"
             android:paddingLeft="@dimen/adjusted_size_25dp"
             android:paddingRight="@dimen/adjusted_size_25dp"
             android:text="@string/table_btn"
-            android:textSize="@dimen/adjusted_size_18dp" >
-        </Button>
+            android:textSize="@dimen/adjusted_size_18dp" />
+
+        <ImageButton
+            android:id="@+id/unlock_btn"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/etc_content_description"
+            android:src="@drawable/ic_menu_unlock"/>
     </LinearLayout>
     <!-- Viewボタン E -->
     <!-- ホール結果入力画面 ここまで -->

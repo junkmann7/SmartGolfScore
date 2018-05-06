@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/adjusted_size_20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/my_pat_img"
+            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_height="@dimen/adjusted_size_60dp"
+            android:layout_marginBottom="@dimen/adjusted_size_20dp"
+            android:contentDescription="@string/etc_content_description"
+            android:scaleType="fitXY"
+            android:src="@drawable/mypatter0"
+            android:layout_centerHorizontal="true"/>
+
+        <RatingBar
+            android:id="@+id/mypat_ratingbar"
+            android:layout_below="@id/my_pat_img"
+            style="@style/MyRating"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/adjusted_size_42dp"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/adjusted_size_20dp" />
+</LinearLayout>

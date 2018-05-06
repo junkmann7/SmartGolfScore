@@ -1,21 +1,16 @@
 package jp.tonosama.komoki.SimpleGolfScorer2.editor;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +24,9 @@ import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 import jp.tonosama.komoki.SimpleGolfScorer2.viewer.GraphActivity;
 import jp.tonosama.komoki.SimpleGolfScorer2.viewer.ScoreViewer;
 
-public class ScoreEditor extends Activity implements WheelViewPagerAdapter.WheelChangeListener,
-        ViewPager.OnPageChangeListener, View.OnClickListener, DragUi.DragListener {
+public class ScoreEditor extends Activity implements WheelViewPagerAdapter.OnWheelChangeListener,
+        ViewPager.OnPageChangeListener, View.OnClickListener, DragUi.DragListener,
+        WheelViewPagerAdapter.OnPattingButtonClickListener {
 
     private DragUi mDragUi;
 
@@ -56,7 +52,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         if (getViewPager().getCurrentItem() != getCurrentHoleNumber()) {
             getViewPager().setCurrentItem(getCurrentHoleNumber());
         } else {
-            refreshEditor(getCurrentHoleNumber());
+            refreshEditor(getCurrentHoleNumber(), false);
         }
     }
 
@@ -91,7 +87,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
 
     @Override
     public void onPageSelected(int position) {
-        refreshEditor(position);
+        refreshEditor(position, false);
     }
 
     @Override
@@ -108,12 +104,27 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
     public void onWheelChanged(int holeNumber, int playerIdx, int oldVal, int newVal) {
         final SaveData saveData = getSelectedSaveData();
         saveData.getScoresList().get(playerIdx).put(holeNumber, newVal);
-        refreshEditor(holeNumber);
+        refreshEditor(holeNumber, true);
+    }
+
+    @Override
+    public void onPattingButtonClick(int holeNumber, int playerIdx) {
+        final SaveData saveData = getSelectedSaveData();
+        PattingEditorDialog.show(this, holeNumber, playerIdx,
+                saveData.getPattingScoresList().get(playerIdx).get(holeNumber),
+                new PattingEditorDialog.PattingEditorCallback() {
+                    @Override
+                    public void onPattingChanged(int holeNumber, int playerIdx, int newVal) {
+                        final SaveData saveData = getSelectedSaveData();
+                        saveData.getPattingScoresList().get(playerIdx).put(holeNumber, newVal);
+                        refreshEditor(holeNumber, false);
+                    }
+                });
     }
 
     private void setupWheelViews() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.score_editor_picker_pager);
-        viewPager.setAdapter(new WheelViewPagerAdapter(this));
+        viewPager.setAdapter(new WheelViewPagerAdapter(this, this));
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -121,9 +132,6 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
 
         // Spinner changed listener
         setSpinnerSelectAction(SERes.getParSpinner(this));
-
-        // RatingBar changed listener
-        setRatingBarChangeAction(SERes.getRatingBar(this));
 
         // UnlockButton クリック動作
         SERes.getLockButton(this).setOnClickListener(this);
@@ -164,36 +172,6 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         });
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void setRatingBarChangeAction(final RatingBar ratingBar) {
-
-        ratingBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                updatePatRating(ratingBar.getRating());
-                return ratingBar.onTouchEvent(event);
-            }
-        });
-        ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
-
-            public void onRatingChanged(final RatingBar ratingBar, final float rating,
-                                        final boolean fromUser) {
-                updatePatRating(rating);
-                if (fromUser) {
-                    final SaveData saveData = getSelectedSaveData();
-                    final int curHoleIdx = getCurrentHoleNumber();
-                    saveData.getPattingScoresList().get(0).put(curHoleIdx, (int) rating);
-                }
-            }
-        });
-    }
-
-    private void updatePatRating(float rating) {
-        int pat = (int) rating;
-        ImageView iv = SERes.getPatImage(ScoreEditor.this);
-        iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[pat]);
-    }
-
     private ViewPager getViewPager() {
         return (ViewPager) findViewById(R.id.score_editor_picker_pager);
     }
@@ -203,7 +181,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
                 .setCurrentItem(holeNumber % SGSConfig.TOTAL_HOLE_COUNT, true);
     }
 
-    private void refreshEditor(final int holeNumber) {
+    private void refreshEditor(final int holeNumber, boolean ignoreWheel) {
         final SaveData saveData = getSelectedSaveData();
         ((TextView) findViewById(R.id.toolbar_title)).setText(getSelectedSaveData().getHoleTitle());
         final int oldCurHole = getCurrentHoleNumber();
@@ -231,11 +209,13 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
             saveData.getEachHoleLocked().put(oldCurHole, true);
         }
         // Updating wheel views
-        if (getViewPager() != null && getViewPager().getAdapter() != null) {
-            ((WheelViewPagerAdapter) getViewPager().getAdapter()).updateWheelViews(oldCurHole);
+        if (!ignoreWheel) {
+            if (getViewPager() != null && getViewPager().getAdapter() != null) {
+                ((WheelViewPagerAdapter) getViewPager().getAdapter()).updateWheelViews(oldCurHole);
+            }
         }
-        // Rating の更新
-        refreshEditorRating();
+        //
+        refreshUnLockButton();
         // 
         refreshDragAndDrum();
         //
@@ -258,27 +238,13 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         return (TextView) ((ViewGroup) vg.getChildAt(playerIdx)).getChildAt(1);
     }
 
-    ////////
-
-    private void refreshEditorRating() {
+    private void refreshUnLockButton() {
         final SaveData saveData = getSelectedSaveData();
-        RatingBar ratingBar = SERes.getRatingBar(this);
-        // RatingBar のカレント数値エリアに値をセット
-        ratingBar.setIsIndicator(false);
-        ratingBar.setRating(saveData.getPattingScoresList().get(0).get(saveData.getCurrentHole()));
-        ImageView iv = SERes.getPatImage(this);
-        iv.setImageResource(SERes.MY_PAT_IMG_RES_IDS[saveData.getPattingScoresList().get(0).get(saveData
-                .getCurrentHole())]);
-        // RatingBarをロックする対応
-        ratingBar.setIsIndicator(saveData.getEachHoleLocked().get(saveData.getCurrentHole()));
-        // ロック/アンロックボタンを表示する対応
         ImageButton lockButton = SERes.getLockButton(this);
         if (saveData.getEachHoleLocked().get(saveData.getCurrentHole())) {
             lockButton.setImageResource(R.drawable.ic_menu_lock);
-            ratingBar.setBackgroundColor(0x66000000);
         } else {
             lockButton.setImageResource(R.drawable.ic_menu_unlock);
-            ratingBar.setBackgroundColor(0x00000000);
         }
     }
 
@@ -336,10 +302,6 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         // パー値を保存
         int par = SERes.getParSpinner(this).getSelectedItemPosition() + SERes.MINIMUM_PAR_COUNT;
         saveData.getEachHolePar().put(saveData.getCurrentHole(), par);
-        // パットのスコア値を保存
-        RatingBar ratingBar = SERes.getRatingBar(this);
-        int pat = (int) ratingBar.getRating();
-        saveData.getPattingScoresList().get(0).put(saveData.getCurrentHole(), pat);
         // プリファレンスに保存
         SaveDataPref.saveScoreData(saveData);
     }
@@ -380,7 +342,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
             final int curHoleIdx = scoreData.getCurrentHole();
             final boolean isLocked = scoreData.getEachHoleLocked().get(curHoleIdx);
             scoreData.getEachHoleLocked().put(curHoleIdx, !isLocked);
-            refreshEditor(getCurrentHoleNumber());
+            refreshEditor(getCurrentHoleNumber(), false);
         }
     }
 }
