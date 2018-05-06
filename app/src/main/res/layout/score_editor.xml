@@ -12,13 +12,6 @@
         layout="@layout/toolbar_layout" />
     <!-- ホールタイトル E -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="-20dp"
-        android:background="@drawable/shadow_top_20" />
-    <!-- ホールタイトル -->
-
     <!-- ホール結果入力画面 ここから -->
 
     <!-- ホール番号とパー値 S -->

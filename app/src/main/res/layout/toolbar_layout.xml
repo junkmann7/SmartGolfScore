@@ -8,6 +8,7 @@
     tools:ignore="SpUsage" >
 
     <RelativeLayout
+        android:id="@+id/toolbar_top_area"
         android:layout_width="match_parent"
         android:layout_height="@dimen/adjusted_size_60dp"
         android:background="@drawable/title_back" >
@@ -49,6 +50,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_below="@id/toolbar_top_area"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@drawable/shadow_top_20"
