@@ -41,34 +41,16 @@ final class SERes {
             R.drawable.mypatter2, R.drawable.mypatter3, //
             R.drawable.mypatter4, R.drawable.mypatter5 };
 
-    private static final int PREV_ARROW_RES_ID = R.id.arrow_upside;
+    private static final int PREV_ARROW_RES_ID = R.id.arrow_prev_side;
 
     static Button getPrevArrow(final Activity activity) {
         return (Button) activity.findViewById(PREV_ARROW_RES_ID);
     }
 
-    private static final int NEXT_ARROW_RES_ID = R.id.arrow_downside;
+    private static final int NEXT_ARROW_RES_ID = R.id.arrow_next_side;
 
     static Button getNextArrow(final Activity activity) {
         return (Button) activity.findViewById(NEXT_ARROW_RES_ID);
-    }
-
-    private static final int EXIT_BUTTON_RES_ID = R.id.main_exit_button;
-
-    static ImageButton getExitButton(final Activity activity) {
-        return (ImageButton) activity.findViewById(EXIT_BUTTON_RES_ID);
-    }
-
-    private static final int SETTING_BUTTON_RES_ID = R.id.infoButton;
-
-    static ImageButton getSettingButton(final Activity activity) {
-        return (ImageButton) activity.findViewById(SETTING_BUTTON_RES_ID);
-    }
-
-    private static final int HOLE_TITLE_RES_ID = R.id.hole_title;
-
-    static TextView getHoleTitleTextView(final Activity activity) {
-        return (TextView) activity.findViewById(HOLE_TITLE_RES_ID);
     }
 
     private static final int PLAYER_NAME_AREA = R.id.score_editor_player_name_area;

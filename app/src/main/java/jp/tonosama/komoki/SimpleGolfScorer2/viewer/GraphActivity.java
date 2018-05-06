@@ -48,9 +48,6 @@ import jp.tonosama.komoki.SimpleGolfScorer2.SaveDataPref;
 import jp.tonosama.komoki.SimpleGolfScorer2.chart.ChartConfig;
 import jp.tonosama.komoki.SimpleGolfScorer2.data.SaveData;
 
-/**
- * @author Komoki
- */
 public class GraphActivity extends Activity {
 
     private static final String TAG = GraphActivity.class.getSimpleName();
@@ -145,8 +142,8 @@ public class GraphActivity extends Activity {
         // チャート外側余白の背景色
         renderer.setMarginsColor(Color.argb(0x00, 0xFF, 0xFF, 0xFF));
 
-        renderer.setXLabels(SGSConfig.TOTAL_GRAPH_X_LABEL_COUNT);
-        renderer.setYLabels(SGSConfig.TOTAL_GRAPH_X_LABEL_COUNT + 1);
+        renderer.setXLabels(SGSConfig.TOTAL_HOLE_COUNT + 2);
+        renderer.setYLabels(SGSConfig.TOTAL_HOLE_COUNT + 2);
 
         // グリッド表示
         renderer.setShowGrid(true);
@@ -162,9 +159,9 @@ public class GraphActivity extends Activity {
                 "", // X-axis title
                 "",     // y-axis title
                 0,      // x Min
-                SGSConfig.TOTAL_GRAPH_X_LABEL_COUNT, // x Max
-                mMinValueY - margin,    // y Min
-                mMaxValueY + margin,    // y Max
+                SGSConfig.TOTAL_HOLE_COUNT + 1, // x Max
+                mMinValueY - margin, // y Min
+                mMaxValueY + margin, // y Max
                 Color.GRAY,
                 Color.GRAY);
 
@@ -206,9 +203,9 @@ public class GraphActivity extends Activity {
     private void addXYSeries(XYMultipleSeriesDataset dataSet, String playerName, int scale, int playerIdx) {
         XYSeries series = new XYSeries(playerName, scale);
 
-        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_GRAPH_DATA_COUNT; holeIdx++) {
+        for (int holeIdx = 0; holeIdx < SGSConfig.TOTAL_HOLE_COUNT + 1; holeIdx++) {
             int value =  mScoreData.getDemoSeries(playerIdx).get(holeIdx);
-            series.add(holeIdx, holeIdx + 1, value);
+            series.add(holeIdx, holeIdx, value);
             if (playerName.trim().length() != 0) {
                 mMinValueY = Math.min(mMinValueY, value);
                 mMaxValueY = Math.max(mMaxValueY, value);
@@ -518,7 +515,7 @@ public class GraphActivity extends Activity {
             }
             saveData.getDemoSeries(playerIdx).put(0, initialScore);
         }
-        for (int holeIdx = 1; holeIdx < SGSConfig.TOTAL_GRAPH_DATA_COUNT; holeIdx++) {
+        for (int holeIdx = 1; holeIdx < SGSConfig.TOTAL_HOLE_COUNT + 1; holeIdx++) {
 
             // Par score of previous hole
             int baseNum;

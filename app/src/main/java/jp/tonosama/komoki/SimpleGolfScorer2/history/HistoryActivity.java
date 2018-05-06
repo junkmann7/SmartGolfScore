@@ -58,8 +58,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
         mViewPager.setCurrentItem(mSaveDataList.getFixedDataNum());
         mViewPager.setCurrentItem(0, true);
 
-        final Button historyDetailBtn = (Button) findViewById(R.id.historyDetailButton);
-        setupHistoryDetailButtonAction(historyDetailBtn);
+        setupHistoryDetailButtonAction(findViewById(R.id.historyDetailButton));
         setupArrowButtonAction();
     }
 
@@ -178,7 +177,7 @@ public class HistoryActivity extends FragmentActivity implements HistoryPagerAda
     /**
      * @param button 詳細ボタン
      */
-    private void setupHistoryDetailButtonAction(final Button button) {
+    private void setupHistoryDetailButtonAction(final View button) {
 
         button.setOnClickListener(new View.OnClickListener() {
 

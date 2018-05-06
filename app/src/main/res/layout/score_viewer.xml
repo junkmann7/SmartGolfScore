@@ -86,7 +86,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="2dp"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/imane_button_setting"
+            android:drawableLeft="@drawable/image_button_setting"
             android:drawableRight="@drawable/image_button_null"
             android:textSize="@dimen/adjusted_size_16dp" />
     </LinearLayout>

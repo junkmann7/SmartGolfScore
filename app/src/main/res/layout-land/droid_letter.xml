@@ -64,7 +64,7 @@
             android:background="@drawable/shadow_bottom_20" />
 
         <LinearLayout
-            android:id="@+id/next_hole_area"
+            android:id="@+id/score_editor_draggable_area"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:background="@drawable/footer_back" >

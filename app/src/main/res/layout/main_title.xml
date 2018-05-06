@@ -6,19 +6,8 @@
     android:orientation="vertical" >
 
     <!-- ホールタイトル S -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
-        android:background="@drawable/title_back"
-        android:gravity="center|left"
-        android:paddingTop="@dimen/adjusted_size_2dp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="-20dp"
-        android:background="@drawable/shadow_top_20" />
+    <include
+        layout="@layout/toolbar_layout" />
     <!-- ホールタイトル E -->
 
     <LinearLayout

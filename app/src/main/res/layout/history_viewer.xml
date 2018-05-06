@@ -1,21 +1,22 @@
-<!DOCTYPE Layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/back"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:ignore="SpUsage" >
 
     <!-- ホールタイトル -->
 
-    <LinearLayout
-        android:id="@+id/prev_hole_area"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
+        android:layout_height="@dimen/adjusted_size_60dp"
         android:background="@drawable/title_back"
         android:gravity="center|left"
         android:paddingTop="@dimen/adjusted_size_2dp" >
 
         <ImageView
+            android:id="@+id/history_icon"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:layout_marginBottom="@dimen/adjusted_size_10dp"
@@ -23,33 +24,37 @@
             android:layout_marginRight="@dimen/adjusted_size_5dp"
             android:layout_marginTop="@dimen/adjusted_size_10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_history" />
-
-        <TextView
-            android:id="@+id/history_title"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/adjusted_size_5dp"
-            android:layout_weight="1"
-            android:gravity="center|left"
-            android:maxLines="1"
-            android:text="My History"
-            android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_size_20dp"
-            android:textStyle="bold" >
-        </TextView>
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_menu_history"
+            android:contentDescription="@string/etc_content_description" />
 
         <TextView
             android:id="@+id/current_history"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/adjusted_size_10dp"
             android:layout_marginRight="@dimen/adjusted_size_10dp"
             android:gravity="center"
             android:textColor="#FFF"
             android:textSize="@dimen/adjusted_size_20dp"
-            android:textStyle="bold" >
-        </TextView>
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/history_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/adjusted_size_5dp"
+            android:layout_toRightOf="@id/history_icon"
+            android:layout_toLeftOf="@id/current_history"
+            android:gravity="center_vertical|left"
+            android:maxLines="1"
+            android:text="My History"
+            android:textColor="#FFF"
+            android:textSize="@dimen/adjusted_size_20dp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/historySendButton"
@@ -58,10 +63,10 @@
             android:layout_marginTop="@dimen/adjusted_size_2dp"
             android:drawableLeft="@drawable/memo_icon"
             android:visibility="gone" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginBottom="-20dp"
         android:background="@drawable/shadow_top_20" />
@@ -77,41 +82,48 @@
     <!-- 次のホールへ ここから -->
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="-20dp"
         android:background="@drawable/shadow_bottom_20" />
 
-    <LinearLayout
-        android:id="@+id/next_hole_area"
+    <RelativeLayout
+        android:id="@+id/score_editor_draggable_area"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
+        android:layout_height="@dimen/adjusted_size_60dp"
         android:background="@drawable/footer_back" >
 
         <Button
             android:id="@+id/prev_history"
-            android:layout_width="@dimen/adjusted_size_42dp"
-            android:layout_height="@dimen/adjusted_size_42dp"
-            android:focusable="true"
+            android:layout_width="@dimen/adjusted_size_40dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/arrow_button_prev"
-            android:padding="@dimen/adjusted_size_5dp" />
-
-        <Button
-            android:id="@+id/historyDetailButton"
-            android:layout_width="0dip"
-            android:layout_height="@dimen/adjusted_size_60dp"
-            android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:layout_weight="1"
-            android:drawableBottom="@drawable/droid" />
+            android:padding="@dimen/adjusted_size_5dp"
+            android:layout_alignParentLeft="true" />
 
         <Button
             android:id="@+id/next_history"
-            android:layout_width="@dimen/adjusted_size_42dp"
-            android:layout_height="@dimen/adjusted_size_42dp"
-            android:focusable="true"
-            android:padding="@dimen/adjusted_size_5dp"
-            android:background="@drawable/arrow_button_next" />
-    </LinearLayout>
+            android:layout_width="@dimen/adjusted_size_40dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/arrow_button_next"
+            android:layout_alignParentRight="true" />
+
+        <ImageButton
+            android:id="@+id/historyDetailButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/adjusted_size_4dp"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
+            android:src="@drawable/droid"
+            android:layout_toRightOf="@id/prev_history"
+            android:layout_toLeftOf="@id/next_history"
+            android:contentDescription="@string/etc_content_description" />
+    </RelativeLayout>
     <!-- 次のホールへ ここまで -->
 
 </LinearLayout>

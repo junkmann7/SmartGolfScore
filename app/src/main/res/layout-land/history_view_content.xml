@@ -1,8 +1,9 @@
-<!DOCTYPE Layout>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/history_wrap_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:ignore="SpUsage" >
 
     <LinearLayout
         android:id="@+id/history_result_wrapper"
@@ -211,7 +212,8 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center|center"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
 
                 <Button
                     android:id="@+id/history_graphviewButton"
@@ -248,7 +250,8 @@
             android:layout_marginTop="@dimen/adjusted_size_5dp"
             android:layout_weight="10"
             android:background="@drawable/score_judge_back"
-            android:gravity="top|left" >
+            android:gravity="top|left"
+            tools:ignore="NestedScrolling">
 
             <LinearLayout
                 android:layout_width="fill_parent"

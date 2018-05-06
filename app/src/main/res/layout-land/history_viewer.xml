@@ -1,14 +1,14 @@
-<!DOCTYPE Layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/back"
     android:orientation="vertical" >
 
     <!-- ホールタイトル -->
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/adjusted_size_40dp"
         android:background="@drawable/title_back"
         android:gravity="center|left"
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/current_history"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/adjusted_size_10dp"
             android:layout_marginRight="@dimen/adjusted_size_10dp"
             android:gravity="center"
@@ -60,7 +60,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginBottom="-20dp"
         android:background="@drawable/shadow_top_20" />
@@ -76,45 +76,47 @@
     <!-- 次のホールへ ここから -->
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="-20dp"
         android:background="@drawable/shadow_bottom_20" />
 
     <LinearLayout
-        android:id="@+id/next_hole_area"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/adjusted_size_40dp"
         android:background="@drawable/footer_back" >
 
         <Button
             android:id="@+id/prev_history"
-            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_width="@dimen/adjusted_size_40dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:background="@drawable/arrow_button_prev"
             android:focusable="true"
-            android:padding="@dimen/adjusted_size_10dp" />
+            android:layout_marginLeft="@dimen/adjusted_size_10dp" />
 
         <Button
             android:id="@+id/historyDetailButton"
             android:layout_width="0dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:layout_marginTop="@dimen/adjusted_size_2dp"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
             android:layout_weight="1"
             android:drawableLeft="@drawable/droid_mini"
             android:paddingLeft="@dimen/adjusted_size_80dp"
             android:paddingRight="@dimen/adjusted_size_80dp"
             android:text="@string/comment_by_droid"
             android:textColor="#666"
-            android:textSize="@dimen/adjusted_size_12dp" />
+            android:textSize="@dimen/adjusted_size_12dp"
+            tools:ignore="SpUsage" />
 
         <Button
             android:id="@+id/next_history"
-            android:layout_width="@dimen/adjusted_size_60dp"
+            android:layout_width="@dimen/adjusted_size_40dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:background="@drawable/arrow_button_next"
             android:focusable="true"
-            android:padding="@dimen/adjusted_size_10dp" />
+            android:layout_marginRight="@dimen/adjusted_size_10dp"/>
     </LinearLayout>
     <!-- 次のホールへ ここまで -->
 

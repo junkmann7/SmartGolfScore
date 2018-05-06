@@ -11,7 +11,7 @@ enum SVMenu {
     ChangeTextSize(
             Menu.FIRST,
             R.string.menu_score_viewer_text_size_setting,
-            R.drawable.imane_button_setting);
+            R.drawable.image_button_setting);
 
     private int mMenuId;
     private int mTitleResId;

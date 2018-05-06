@@ -1,19 +1,20 @@
-<!DOCTYPE Layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/history_result_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="left|top"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:ignore="SpUsage" >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/adjusted_size_45dp" >
 
         <TextView
             android:id="@+id/history_hole_title"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center|center"
             android:shadowColor="#33ffAA"
             android:shadowDx="3.0"
@@ -26,8 +27,8 @@
 
         <TextView
             android:id="@+id/history_is_short_text"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginRight="@dimen/adjusted_size_5dp"
             android:gravity="bottom|right"
             android:shadowColor="#33ffAA"
@@ -41,7 +42,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center|left"
@@ -53,22 +54,24 @@
             android:layout_height="@dimen/adjusted_size_106dp"
             android:layout_marginLeft="@dimen/adjusted_size_15dp"
             android:layout_marginRight="@dimen/adjusted_size_15dp"
-            android:src="@drawable/mypatter5" />
+            android:src="@drawable/mypatter5"
+            android:contentDescription="@string/etc_content_description" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/adjusted_size_40dp" >
 
                 <TextView
                     android:id="@+id/history_my_rank"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center|left"
                     android:text="@string/hist_ret_my_rank"
                     android:textColor="#000"
@@ -76,7 +79,7 @@
 
                 <ImageView
                     android:id="@+id/history_weather_condition"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/adjusted_size_32dp"
                     android:layout_marginRight="@dimen/adjusted_size_10dp"
                     android:layout_marginTop="@dimen/adjusted_size_5dp"
@@ -86,13 +89,13 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/adjusted_size_36dp" >
 
                 <TextView
                     android:id="@+id/history_my_total_sum_score"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center|left"
                     android:paddingLeft="@dimen/adjusted_size_20dp"
                     android:shadowColor="#FFF"
@@ -102,18 +105,19 @@
                     android:text="82"
                     android:textColor="#33AAFF"
                     android:textSize="@dimen/adjusted_size_28dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/adjusted_size_30dp"
                 android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/history_my_total_score"
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/adjusted_size_5dp"
                     android:gravity="center|left"
                     android:text="@string/hist_ret_my_total_score"
@@ -124,7 +128,7 @@
                 <TextView
                     android:id="@+id/history_my_handi"
                     android:layout_width="0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|left"
                     android:text="@string/hist_ret_my_handi"
@@ -136,7 +140,7 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginBottom="@dimen/adjusted_size_5dp"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"
@@ -145,11 +149,12 @@
         android:background="#AAA" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center|left"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -159,7 +164,7 @@
 
             <TextView
                 android:id="@+id/history_my_average_score"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:gravity="center|left"
@@ -170,7 +175,7 @@
 
             <TextView
                 android:id="@+id/history_my_average_pat"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:gravity="center|left"
@@ -181,7 +186,7 @@
 
             <TextView
                 android:id="@+id/history_my_par_on_rate"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:gravity="center|left"
@@ -192,7 +197,7 @@
 
             <TextView
                 android:id="@+id/history_my_not_good_hole"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:gravity="center|left"
@@ -204,10 +209,11 @@
 
         <LinearLayout
             android:layout_width="0dip"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center|center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <Button
                 android:id="@+id/history_graphviewButton"
@@ -226,7 +232,7 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginBottom="@dimen/adjusted_size_5dp"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"
@@ -236,7 +242,7 @@
 
     <ScrollView
         android:id="@+id/history_scorecheck_scroll"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/adjusted_size_10dp"
         android:layout_marginLeft="@dimen/adjusted_size_10dp"
@@ -247,12 +253,12 @@
         android:gravity="top|left" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|center"
                 android:text="@string/myhist_score_check_title"
@@ -261,7 +267,7 @@
 
             <TextView
                 android:id="@+id/history_my_attitude"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:text="@string/hist_ret_my_attitude"
@@ -270,7 +276,7 @@
 
             <TextView
                 android:id="@+id/history_my_physical"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:text="@string/hist_ret_my_vital"
@@ -279,7 +285,7 @@
 
             <TextView
                 android:id="@+id/history_my_pressure"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:text="@string/hist_ret_my_pressure"
@@ -288,7 +294,7 @@
 
             <TextView
                 android:id="@+id/history_my_pottential"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:text="@string/hist_ret_my_pottential"

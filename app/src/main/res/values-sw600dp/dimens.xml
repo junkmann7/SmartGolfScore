@@ -5,6 +5,7 @@
     <dimen name="adjusted_size_2dp">3dp</dimen>
     <dimen name="adjusted_size_4dp">6dp</dimen>
     <dimen name="adjusted_size_5dp">7.5dp</dimen>
+    <dimen name="adjusted_size_6dp">9dp</dimen>
     <dimen name="adjusted_size_8dp">12dp</dimen>
     <dimen name="adjusted_size_10dp">15dp</dimen>
     <dimen name="adjusted_size_12dp">18dp</dimen>

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Date;
@@ -34,9 +35,6 @@ import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.DEFAULT_HOLEPAR_SCO
 import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.DEFAULT_HOLEPAR_SHORT_SCORE;
 import static jp.tonosama.komoki.SimpleGolfScorer2.SGSConfig.MAX_PLAYER_NUM;
 
-/**
- * @author Komoki
- */
 public class SettingsActivity extends Activity {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -341,8 +339,11 @@ public class SettingsActivity extends Activity {
                 }
             }
         });
+        // Title string
+        ((TextView) findViewById(R.id.toolbar_title)).setText(R.string.round_setting);
         // 戻るボタン押下時の動作
-        findViewById(R.id.main_exit_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_back_btn).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_back_btn).setOnClickListener(new View.OnClickListener() {
 
             public void onClick(final View v) {
                 finish();

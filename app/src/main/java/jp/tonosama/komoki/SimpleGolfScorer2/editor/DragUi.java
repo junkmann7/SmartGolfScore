@@ -26,8 +26,6 @@ class DragUi {
     private final DragListener mListener;
 
     @NonNull
-    private View mPrevArrowButton;
-    @NonNull
     private View mCurrLocFixedImage;
     @NonNull
     private View mCurrLocDraggingImage;
@@ -36,18 +34,16 @@ class DragUi {
 
         mListener = listener;
 
-        mPrevArrowButton = activity.findViewById(R.id.arrow_upside);
         mCurrLocFixedImage = activity.findViewById(R.id.curr_hole_fixed_location);
         mCurrLocDraggingImage = activity.findViewById(R.id.curr_hole_dragging_location);
 
-        View footerArea = activity.findViewById(R.id.next_hole_area);
+        View footerArea = activity.findViewById(R.id.score_editor_draggable_area);
         footerArea.setOnTouchListener(new View.OnTouchListener() {
 
             @SuppressLint("ClickableViewAccessibility")
             public boolean onTouch(final View v, final MotionEvent event) {
 
-                int x = (int) event.getX() - mPrevArrowButton.getWidth()
-                        - (mCurrLocDraggingImage.getWidth() / 14);
+                int x = (int) event.getX() - (mCurrLocDraggingImage.getWidth() / 14);
                 int holeLength = mCurrLocFixedImage.getMeasuredWidth() / 20;
                 int holeNumber = getDraggingHoleNumber(holeLength);
 

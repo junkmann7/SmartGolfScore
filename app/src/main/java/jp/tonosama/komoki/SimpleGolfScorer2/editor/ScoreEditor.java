@@ -75,7 +75,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         menu2.setIcon(R.drawable.ic_menu_delete);
         MenuItem menu3 = menu.add(0, Menu.FIRST + 2, Menu.NONE,
                 getResources().getString(R.string.menu_setting));
-        menu3.setIcon(R.drawable.imane_button_setting);
+        menu3.setIcon(R.drawable.image_button_setting);
         return res;
     }
 
@@ -137,10 +137,12 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         SERes.getNextArrow(this).setOnClickListener(this);
 
         // 戻るボタンクリック時の動作
-        SERes.getExitButton(this).setOnClickListener(this);
+        findViewById(R.id.toolbar_back_btn).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_back_btn).setOnClickListener(this);
 
         // 設定ボタンクリック時の動作
-        SERes.getSettingButton(this).setOnClickListener(this);
+        findViewById(R.id.toolbar_menu_btn).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_menu_btn).setOnClickListener(this);
     }
 
     private void setSpinnerSelectAction(final Spinner spinner) {
@@ -203,7 +205,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
 
     private void refreshEditor(final int holeNumber) {
         final SaveData saveData = getSelectedSaveData();
-        SERes.getHoleTitleTextView(this).setText(getSelectedSaveData().getHoleTitle());
+        ((TextView) findViewById(R.id.toolbar_title)).setText(getSelectedSaveData().getHoleTitle());
         final int oldCurHole = getCurrentHoleNumber();
         int newCurHole = holeNumber % SGSConfig.TOTAL_HOLE_COUNT;
         saveData.setCurrentHole(newCurHole);
@@ -253,7 +255,7 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
 
     private TextView getPersonScoreTextView(int playerIdx) {
         ViewGroup vg = SERes.getTotalScoreArea(this);
-        return (TextView) vg.getChildAt(playerIdx);
+        return (TextView) ((ViewGroup) vg.getChildAt(playerIdx)).getChildAt(1);
     }
 
     ////////
@@ -315,7 +317,8 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
         for (int playerIdx = 0; playerIdx < SGSConfig.MAX_PLAYER_NUM; playerIdx++) {
             if (!sData.isPlayerExist(playerIdx)) {
                 getPersonNameText(playerIdx).setVisibility(View.GONE);
-                getPersonScoreTextView(playerIdx).setVisibility(View.GONE);
+                SERes.getTotalScoreArea(this).getChildAt(playerIdx)
+                        .setVisibility(View.GONE);
             }
         }
     }
@@ -358,9 +361,9 @@ public class ScoreEditor extends Activity implements WheelViewPagerAdapter.Wheel
     @Override
     public void onClick(View v) {
 
-        if (v.equals(SERes.getExitButton(this))) {
+        if (v.equals(findViewById(R.id.toolbar_back_btn))) {
             finish();
-        } else if (v.equals(SERes.getSettingButton(this))) {
+        } else if (v.equals(findViewById(R.id.toolbar_menu_btn))) {
             SEMenuManager.menuRoundSetting(ScoreEditor.this, getSelectedSaveData());
         } else if (v.equals(SERes.getPrevArrow(this))) {
             requestMoveHole(getCurrentHoleNumber() - 1);

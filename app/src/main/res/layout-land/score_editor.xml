@@ -4,30 +4,11 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF" >
 
-    <!-- ホールタイトル -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" >
-
-        <ImageButton
-            android:id="@+id/main_exit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/etc_content_description" />
-
-        <TextView
-            android:id="@+id/hole_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            android:id="@+id/infoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/etc_content_description" />
-    </LinearLayout>
-    <!-- ホールタイトル -->
+    <!-- ホールタイトル S -->
+    <include
+        layout="@layout/toolbar_layout"
+        android:visibility="gone" />
+    <!-- ホールタイトル E -->
 
     <!-- 前のホールへ -->
     <RelativeLayout
@@ -39,7 +20,7 @@
         android:padding="@dimen/adjusted_size_5dp" >
 
         <Button
-            android:id="@+id/arrow_upside"
+            android:id="@+id/arrow_prev_side"
             android:layout_width="@dimen/adjusted_size_40dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:layout_centerVertical="true"
@@ -60,7 +41,7 @@
         android:padding="@dimen/adjusted_size_5dp" >
 
         <Button
-            android:id="@+id/arrow_downside"
+            android:id="@+id/arrow_next_side"
             android:layout_width="@dimen/adjusted_size_40dp"
             android:layout_height="@dimen/adjusted_size_40dp"
             android:layout_centerVertical="true"
@@ -235,7 +216,7 @@
             </Button>
 
             <RelativeLayout
-                android:id="@+id/next_hole_area"
+                android:id="@+id/score_editor_draggable_area"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/adjusted_size_2dp"

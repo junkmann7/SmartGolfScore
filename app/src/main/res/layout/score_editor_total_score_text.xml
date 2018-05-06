@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/adjusted_size_120dp"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/adjusted_size_36dp"
     android:layout_marginRight="@dimen/adjusted_size_2dp"
-    android:layout_weight="1"
-    android:background="@drawable/picker_back"
-    android:gravity="center"
-    android:textColor="#FFFFFF"
-    android:textSize="@dimen/adjusted_size_24dp" />
+    android:layout_weight="1" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/picker_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/adjusted_size_24dp"
+        tools:ignore="SpUsage" />
+
+</FrameLayout>

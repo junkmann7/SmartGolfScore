@@ -1,58 +1,13 @@
-<!DOCTYPE Layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/back"
     android:orientation="vertical" >
 
-    <!-- タイトル -->
-
-    <LinearLayout
-        android:id="@+id/prev_hole_area"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
-        android:background="@drawable/title_back"
-        android:gravity="center|left"
-        android:paddingTop="@dimen/adjusted_size_2dp" >
-
-        <ImageButton
-            android:id="@+id/main_exit_button"
-            android:layout_width="@dimen/adjusted_size_60dp"
-            android:layout_height="@dimen/adjusted_size_40dp"
-            android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:src="@drawable/image_button_goback" />
-
-        <TextView
-            android:id="@+id/hole_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/adjusted_size_5dp"
-            android:layout_marginRight="@dimen/adjusted_size_5dp"
-            android:layout_weight="1"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/round_setting"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_size_20dp" />
-
-        <Button
-            android:id="@+id/infoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/adjusted_size_40dp"
-            android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:drawableLeft="@drawable/imane_button_setting"
-            android:visibility="invisible" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="-20dp"
-        android:background="@drawable/shadow_top_20" />
-    <!-- タイトル -->
+    <!-- ホールタイトル S -->
+    <include
+        layout="@layout/toolbar_layout" />
+    <!-- ホールタイトル E -->
 
     <ScrollView
         android:layout_width="fill_parent"

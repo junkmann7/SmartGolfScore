@@ -1,47 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/golf_score_book"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:ignore="SpUsage" >
 
-    <!-- ホールタイトル -->
-    <LinearLayout
-        android:id="@+id/prev_hole_area"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
-        android:background="@drawable/title_back"
-        android:gravity="center|left"
-        android:paddingTop="@dimen/adjusted_size_2dp" >
-
-        <ImageButton
-            android:id="@+id/main_exit_button"
-            android:layout_width="@dimen/adjusted_size_60dp"
-            android:layout_height="@dimen/adjusted_size_40dp"
-            android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:src="@drawable/image_button_goback"
-            android:contentDescription="@string/etc_content_description" />
-
-        <TextView
-            android:id="@+id/hole_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/adjusted_size_5dp"
-            android:layout_marginRight="@dimen/adjusted_size_5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_size_20dp" />
-
-        <ImageButton
-            android:id="@+id/infoButton"
-            android:layout_width="@dimen/adjusted_size_60dp"
-            android:layout_height="@dimen/adjusted_size_40dp"
-            android:layout_marginTop="@dimen/adjusted_size_2dp"
-            android:src="@drawable/imane_button_setting"
-            android:contentDescription="@string/etc_content_description" />
-    </LinearLayout>
+    <!-- ホールタイトル S -->
+    <include
+        layout="@layout/toolbar_layout" />
+    <!-- ホールタイトル E -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -125,24 +94,20 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"
         android:layout_marginRight="@dimen/adjusted_size_5dp"
-        android:paddingBottom="@dimen/adjusted_size_5dp"
-        android:paddingTop="@dimen/adjusted_size_5dp"
-        android:paddingLeft="@dimen/adjusted_size_2dp" >
+        android:paddingLeft="@dimen/adjusted_size_2dp"
+        android:layout_marginTop="@dimen/adjusted_size_4dp"
+        android:layout_marginBottom="@dimen/adjusted_size_6dp" >
 
         <include
-            android:id="@+id/per1_total_score"
             layout="@layout/score_editor_total_score_text" />
 
         <include
-            android:id="@+id/per2_total_score"
             layout="@layout/score_editor_total_score_text" />
 
         <include
-            android:id="@+id/per3_total_score"
             layout="@layout/score_editor_total_score_text" />
 
         <include
-            android:id="@+id/per4_total_score"
             layout="@layout/score_editor_total_score_text" />
     </LinearLayout>
     <!-- スコア結果記入欄 E -->
@@ -153,7 +118,7 @@
         android:layout_height="@dimen/adjusted_size_42dp"
         android:layout_marginLeft="@dimen/adjusted_size_5dp"
         android:layout_marginRight="@dimen/adjusted_size_2dp"
-        android:layout_marginTop="@dimen/adjusted_size_8dp" >
+        android:layout_marginBottom="@dimen/adjusted_size_4dp" >
 
         <ImageView
             android:id="@+id/my_pat_img"
@@ -176,11 +141,11 @@
         <ImageButton
             android:id="@+id/unlock_btn"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_width="@dimen/adjusted_size_80dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/adjusted_size_40dp"
             android:contentDescription="@string/etc_content_description"
-            android:src="@drawable/ic_menu_unlock"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/ic_menu_unlock"/>
     </RelativeLayout>
     <!-- マイパット欄 E -->
 
@@ -191,8 +156,6 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/adjusted_size_2dp"
         android:paddingRight="@dimen/adjusted_size_2dp"
-        android:layout_marginTop="@dimen/adjusted_size_8dp"
-        android:layout_marginBottom="@dimen/adjusted_size_8dp"
         android:gravity="center_vertical" >
 
         <Button
@@ -204,7 +167,7 @@
             android:paddingLeft="@dimen/adjusted_size_25dp"
             android:paddingRight="@dimen/adjusted_size_25dp"
             android:text="@string/graph_btn"
-            android:textSize="@dimen/adjusted_size_18dp" >
+            android:textSize="@dimen/adjusted_size_18dp">
         </Button>
 
         <Button
@@ -229,26 +192,41 @@
         android:layout_marginTop="-20dp"
         android:background="@drawable/shadow_bottom_20" />
 
-    <LinearLayout
-        android:id="@+id/next_hole_area"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/adjusted_size_42dp"
+        android:layout_height="@dimen/adjusted_size_60dp"
         android:background="@drawable/footer_back" >
 
         <Button
-            android:id="@+id/arrow_upside"
-            android:layout_width="@dimen/adjusted_size_42dp"
-            android:layout_height="@dimen/adjusted_size_42dp"
+            android:id="@+id/arrow_prev_side"
+            android:layout_width="@dimen/adjusted_size_40dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginLeft="@dimen/adjusted_size_10dp"
             android:focusable="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:padding="@dimen/adjusted_size_5dp"
             android:background="@drawable/arrow_button_prev" />
 
+        <Button
+            android:id="@+id/arrow_next_side"
+            android:layout_width="@dimen/adjusted_size_40dp"
+            android:layout_height="@dimen/adjusted_size_40dp"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
+            android:focusable="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/adjusted_size_5dp"
+            android:background="@drawable/arrow_button_next" />
+
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/score_editor_draggable_area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/adjusted_size_10dp"
             android:layout_marginRight="@dimen/adjusted_size_10dp"
-            android:layout_weight="1" >
+            android:layout_toRightOf="@id/arrow_prev_side"
+            android:layout_toLeftOf="@id/arrow_next_side" >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -277,15 +255,7 @@
                 android:contentDescription="@string/etc_content_description"
                 android:visibility="gone" />
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/arrow_downside"
-            android:layout_width="@dimen/adjusted_size_42dp"
-            android:layout_height="@dimen/adjusted_size_42dp"
-            android:focusable="true"
-            android:padding="@dimen/adjusted_size_5dp"
-            android:background="@drawable/arrow_button_next" />
-    </LinearLayout>
+    </RelativeLayout>
     <!-- 次のホールへ ここまで -->
 
 </LinearLayout>
