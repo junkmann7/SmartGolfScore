@@ -7,48 +7,52 @@
 
     <!-- ホールタイトル -->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/adjusted_size_40dp"
         android:background="@drawable/title_back"
         android:gravity="center|left"
-        android:paddingTop="@dimen/adjusted_size_5dp" >
+        android:paddingTop="@dimen/adjusted_size_2dp" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/adjusted_size_40dp"
-            android:layout_marginBottom="@dimen/adjusted_size_10dp"
+            android:id="@+id/history_icon"
+            android:layout_width="@dimen/adjusted_size_28dp"
+            android:layout_height="@dimen/adjusted_size_28dp"
             android:layout_marginLeft="@dimen/adjusted_size_10dp"
-            android:layout_marginRight="@dimen/adjusted_size_5dp"
-            android:layout_marginTop="@dimen/adjusted_size_10dp"
-            android:contentDescription="@string/etc_content_description"
+            android:layout_marginRight="@dimen/adjusted_size_10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_history" />
-
-        <TextView
-            android:id="@+id/history_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/adjusted_size_5dp"
-            android:layout_weight="1"
-            android:gravity="center|left"
-            android:maxLines="1"
-            android:textColor="#FFF"
-            android:textSize="@dimen/adjusted_size_20dp"
-            android:textStyle="bold" >
-        </TextView>
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_menu_history"
+            android:contentDescription="@string/etc_content_description" />
 
         <TextView
             android:id="@+id/current_history"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/adjusted_size_10dp"
             android:layout_marginRight="@dimen/adjusted_size_10dp"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:textColor="#FFF"
             android:textSize="@dimen/adjusted_size_20dp"
-            android:textStyle="bold" >
-        </TextView>
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/history_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/history_icon"
+            android:layout_toLeftOf="@id/current_history"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|left"
+            android:maxLines="1"
+            android:text="My History"
+            android:textColor="#FFF"
+            android:textSize="@dimen/adjusted_size_20dp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/historySendButton"
@@ -57,7 +61,7 @@
             android:layout_marginTop="@dimen/adjusted_size_2dp"
             android:drawableLeft="@drawable/memo_icon"
             android:visibility="gone" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

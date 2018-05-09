@@ -25,11 +25,6 @@ import jp.tonosama.komoki.SimpleGolfScorer2.editor.ScoreEditor;
 import jp.tonosama.komoki.SimpleGolfScorer2.history.HistoryActivity;
 import jp.tonosama.komoki.SimpleGolfScorer2.setting.SettingsActivity;
 
-/**
- * アプリトップ画面
- * 
- * @author Komoki
- */
 public class MainTitle extends Activity {
 
     /** メニュー管理 */

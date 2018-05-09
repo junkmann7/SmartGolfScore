@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE LinearLayout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_land"
@@ -41,7 +42,8 @@
                 android:textColor="#33AAFF"
                 android:textSize="@dimen/main_title_btn_textsize"
                 android:textStyle="bold"
-                android:enabled="false" />
+                android:enabled="false"
+                tools:ignore="SpUsage" />
 
             <Button
                 android:id="@+id/my_history_btn"
@@ -54,7 +56,8 @@
                 android:textColor="#666"
                 android:textSize="@dimen/main_title_btn_textsize"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="SpUsage" />
         </LinearLayout>
     </RelativeLayout>
 

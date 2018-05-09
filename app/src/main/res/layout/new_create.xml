@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/back"
     android:orientation="vertical" >
 
@@ -10,23 +11,23 @@
     <!-- ホールタイトル E -->
 
     <ScrollView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/adjusted_size_10dp" >
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -53,12 +54,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <EditText
                         android:id="@+id/hole_title_editor"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Title"
                         android:inputType="text"
@@ -70,7 +71,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="@dimen/adjusted_size_5dp"
                 android:layout_marginTop="@dimen/adjusted_size_5dp"
@@ -79,12 +80,12 @@
             <!-- ※※プレイヤー※※ -->
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -112,7 +113,7 @@
 
                 <LinearLayout
                     android:id="@+id/per1_name_edit_area"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -147,7 +148,7 @@
 
                 <LinearLayout
                     android:id="@+id/per2_name_edit_area"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -182,7 +183,7 @@
 
                 <LinearLayout
                     android:id="@+id/per3_name_edit_area"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -217,7 +218,7 @@
 
                 <LinearLayout
                     android:id="@+id/per4_name_edit_area"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -252,7 +253,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="@dimen/adjusted_size_5dp"
                 android:layout_marginTop="@dimen/adjusted_size_5dp"
@@ -264,39 +265,42 @@
 
             <LinearLayout
                 android:id="@+id/round_set"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" >
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/adjusted_size_42dp" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/adjusted_size_40dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/adjusted_size_10dp"
-                        android:src="@drawable/golf_hole_icon" />
+                        android:src="@drawable/golf_hole_icon"
+                        android:contentDescription="@string/etc_content_description" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/adjusted_size_5dp"
+                        android:layout_marginTop="@dimen/adjusted_size_4dp"
                         android:layout_weight="1"
+                        android:gravity="center_vertical|left"
                         android:text="@string/round_name"
                         android:textColor="#000000"
-                        android:textSize="@dimen/adjusted_size_18dp" />
+                        android:textSize="@dimen/adjusted_size_18dp"
+                        tools:ignore="SpUsage" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
                     <RadioGroup
                         android:id="@+id/rg_group"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" >
 
@@ -332,7 +336,7 @@
                         android:textSize="@dimen/adjusted_size_18dp" />
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|left" >
 
@@ -354,7 +358,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="@dimen/adjusted_size_5dp"
                 android:layout_marginTop="@dimen/adjusted_size_5dp"
@@ -366,12 +370,12 @@
             <!-- ※※メモ※※ -->
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
 
@@ -398,12 +402,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <EditText
                         android:id="@+id/memo_editor_area"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|left"
                         android:hint="@string/memo_hint"
@@ -419,20 +423,20 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:background="#999" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|right" >
 
         <Button
             android:id="@+id/exit_setting"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save_setting"
             android:textSize="@dimen/adjusted_size_20dp" />

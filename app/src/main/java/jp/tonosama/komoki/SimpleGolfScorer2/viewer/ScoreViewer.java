@@ -696,7 +696,7 @@ public class ScoreViewer extends Activity implements OnTouchListener {
     private void setBackgroundColor(final View view) {
         int holeIdx = getViewHoleNumber(view);
         if (holeIdx != mScoreData.getCurrentHole() || mScoreData.isOutputImageFlg()) {
-            view.setBackgroundResource(R.drawable.transparent);
+            view.setBackgroundColor(Color.argb(0, 0, 0, 0));
         } else {
             view.setBackgroundColor(Color.argb(255, 170, 238, 255));
         }
